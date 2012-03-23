@@ -39,23 +39,23 @@
 		E70AE731151C437A00FB7BAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E70AE733151C437A00FB7BAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E70AE735151C437A00FB7BAE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		E70AE739151C437A00FB7BAE /* project2-Info.plist */ = {isa = PBXFileReference; path = "project2-Info.plist"; sourceTree = "<group>"; };
+		E70AE739151C437A00FB7BAE /* project2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "project2-Info.plist"; sourceTree = "<group>"; };
 		E70AE73B151C437B00FB7BAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E70AE73D151C437B00FB7BAE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E70AE73F151C437B00FB7BAE /* project2-Prefix.pch */ = {isa = PBXFileReference; path = "project2-Prefix.pch"; sourceTree = "<group>"; };
-		E70AE740151C437B00FB7BAE /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		E70AE73F151C437B00FB7BAE /* project2-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project2-Prefix.pch"; sourceTree = "<group>"; };
+		E70AE740151C437B00FB7BAE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E70AE741151C437B00FB7BAE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E70AE743151C437B00FB7BAE /* MainViewController.h */ = {isa = PBXFileReference; path = MainViewController.h; sourceTree = "<group>"; };
+		E70AE743151C437B00FB7BAE /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		E70AE744151C437B00FB7BAE /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		E70AE746151C437B00FB7BAE /* FlipsideViewController.h */ = {isa = PBXFileReference; path = FlipsideViewController.h; sourceTree = "<group>"; };
+		E70AE746151C437B00FB7BAE /* FlipsideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
 		E70AE747151C437B00FB7BAE /* FlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
 		E70AE74A151C437B00FB7BAE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainViewController.xib; sourceTree = "<group>"; };
 		E70AE74D151C437B00FB7BAE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FlipsideViewController.xib; sourceTree = "<group>"; };
 		E70AE754151C437B00FB7BAE /* project2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = project2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70AE755151C437B00FB7BAE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		E70AE75D151C437B00FB7BAE /* project2Tests-Info.plist */ = {isa = PBXFileReference; path = "project2Tests-Info.plist"; sourceTree = "<group>"; };
+		E70AE75D151C437B00FB7BAE /* project2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "project2Tests-Info.plist"; sourceTree = "<group>"; };
 		E70AE75F151C437B00FB7BAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E70AE761151C437B00FB7BAE /* project2Tests.h */ = {isa = PBXFileReference; path = project2Tests.h; sourceTree = "<group>"; };
+		E70AE761151C437B00FB7BAE /* project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = project2Tests.h; sourceTree = "<group>"; };
 		E70AE762151C437B00FB7BAE /* project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = project2Tests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
