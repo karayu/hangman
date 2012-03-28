@@ -24,6 +24,15 @@
     //if yes, init new game with current settings
 }
 
+- (IBAction)updatePartialWord:(id)sender
+{
+    //show user keyboard when they touch the label
+    //user submits letter
+    //call algorithm
+    //return letter or not letter
+    //update # of guesses, # of incorrect guesses, and used letters
+}
+
 - (IBAction)viewHighScores:(id)sender
 {
     //show user high score table-list in popup dialog (I think an alert would be fine)
