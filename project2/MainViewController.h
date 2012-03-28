@@ -10,6 +10,14 @@
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate>
 
-- (IBAction)showInfo:(id)sender;
+//not sure about types, pointers, and properties for all of these
+@property (assign, nonatomic) char *partialWord;
+@property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
+@property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
+
+- (IBAction)startGame:(id)sender;
+- (IBAction)editSettings:(id)sender;
+- (IBAction)viewHighScores:(id)sender;
+- (void)show; //not sure what this does...
 
 @end
