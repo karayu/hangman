@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013EA96B15229301008BF76B /* hangman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 013EA96A15229301008BF76B /* hangman.jpg */; };
 		E70AE732151C437A00FB7BAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE731151C437A00FB7BAE /* UIKit.framework */; };
 		E70AE734151C437A00FB7BAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE733151C437A00FB7BAE /* Foundation.framework */; };
 		E70AE736151C437A00FB7BAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE735151C437A00FB7BAE /* CoreGraphics.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		013EA96A15229301008BF76B /* hangman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hangman.jpg; sourceTree = "<group>"; };
 		E70AE72D151C437A00FB7BAE /* project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70AE731151C437A00FB7BAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E70AE733151C437A00FB7BAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +125,7 @@
 				E70AE746151C437B00FB7BAE /* FlipsideViewController.h */,
 				E70AE747151C437B00FB7BAE /* FlipsideViewController.m */,
 				E70AE749151C437B00FB7BAE /* MainViewController.xib */,
+				013EA96A15229301008BF76B /* hangman.jpg */,
 				E70AE74C151C437B00FB7BAE /* FlipsideViewController.xib */,
 				E70AE738151C437A00FB7BAE /* Supporting Files */,
 			);
@@ -232,6 +235,7 @@
 				E70AE73C151C437B00FB7BAE /* InfoPlist.strings in Resources */,
 				E70AE74B151C437B00FB7BAE /* MainViewController.xib in Resources */,
 				E70AE74E151C437B00FB7BAE /* FlipsideViewController.xib in Resources */,
+				013EA96B15229301008BF76B /* hangman.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +451,7 @@
 				E70AE768151C437B00FB7BAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E70AE769151C437B00FB7BAE /* Build configuration list for PBXNativeTarget "project2Tests" */ = {
 			isa = XCConfigurationList;
@@ -455,6 +460,7 @@
 				E70AE76B151C437B00FB7BAE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
