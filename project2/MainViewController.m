@@ -14,6 +14,20 @@
 
 @implementation MainViewController
 
+@synthesize partialWord=_partialWord;
+@synthesize remainingLettersLabel=_remainingLettersLabel;
+@synthesize numberOfRemainingGuessesLabel=_numberOfRemainingGuessesLabel;
+
+- (IBAction)startGame:(id)sender
+{
+    //alert user with "Are you sure you want to start a new game?"
+    //if yes, init new game with current settings
+}
+
+- (IBAction)viewHighScores:(id)sender
+{
+    //show user high score table-list in popup dialog (I think an alert would be fine)
+}
 
 - (void)viewDidLoad
 {

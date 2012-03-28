@@ -16,8 +16,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
 
 - (IBAction)startGame:(id)sender;
-- (IBAction)editSettings:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
-- (void)show; //not sure what this does...
+//- (void)show or something to update partialWord and remainingLetters ?
 
 @end
