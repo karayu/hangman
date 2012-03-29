@@ -16,8 +16,15 @@
 
 @interface FlipsideViewController : UIViewController
 
-@property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;
+@property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;  
+@property (nonatomic, retain) IBOutlet UILabel *numberOfGuessesLabel;
+@property (nonatomic, retain) IBOutlet UILabel *numberOfLettersLabel;
+@property (assign, nonatomic) unsigned int numberOfGuesses;
+@property (assign, nonatomic) unsigned int numberOfLetters;
 
+- (IBAction)numberOfGuessesSliderChanged:(id)sender; 
+- (IBAction)numberOfLettersSliderChanged:(id)sender; 
 - (IBAction)done:(id)sender;
+- (void)show;
 
 @end
