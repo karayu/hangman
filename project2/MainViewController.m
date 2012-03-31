@@ -17,7 +17,9 @@
 @synthesize remainingLettersLabel=_remainingLettersLabel;
 @synthesize numberOfRemainingGuessesLabel=_numberOfRemainingGuessesLabel;
 @synthesize words=_words;
+@synthesize word=_word;
 @synthesize submitLetter = _submitLetter;
+@synthesize dummyResponse = _dummyResponse;
 
 - (IBAction)startGame:(id)sender
 {
@@ -32,10 +34,22 @@
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
-    [self.submitLetter resignFirstResponder];
-    return YES;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
+    NSArray *words = [[NSArray alloc] initWithContentsOfFile:path];
+    NSUInteger randomIndex = arc4random() % [words count];
+    self.word = [words objectAtIndex:randomIndex];
+    
+    _dummyResponse.text = self.word;
+	[self.submitLetter resignFirstResponder];
+    return TRUE;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.location >= 1)
+        return NO; // return NO to not change text
+    return YES;
+}
 
 - (void)viewDidLoad
 {
@@ -62,19 +76,5 @@
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:controller animated:YES];
 }
-
-/*- (BOOL) textFieldShouldReturn:(UITextField *)textField
-{
-// Tell the keyboard where to go on next / go button.
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"];
-    NSArray *words = [[NSArray alloc] initWithContentsOfFile:path];
-    NSUInteger randomIndex = arc4random() % [words count];
-    self.words = [words objectAtIndex:randomIndex];
-
-    _partialWord.text = [NSString stringWithFormat:@" %s", self.words];
-	[textField resignFirstResponder];
-
-return YES;
-}*/
 
 @end
