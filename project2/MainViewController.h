@@ -13,20 +13,13 @@
 //not sure about types, pointers, and properties for all of these
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
+@property (nonatomic, readwrite, strong) NSArray *words;
+@property IBOutlet UITextField *submitLetter;
 
 - (IBAction)startGame:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
 //- (IBAction)updatePartialWord:(id)sender;
-
-
 //- (void)show or something to update partialWord and remainingLetters
-
-@end
-
-@interface TextField : UIViewController <UITextFieldDelegate>
-
-@property IBOutlet UITextField *partialWord;
-@property (nonatomic, readwrite, strong) NSArray *words;
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 @end

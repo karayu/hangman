@@ -16,6 +16,8 @@
 
 @synthesize remainingLettersLabel=_remainingLettersLabel;
 @synthesize numberOfRemainingGuessesLabel=_numberOfRemainingGuessesLabel;
+@synthesize words=_words;
+@synthesize submitLetter = _submitLetter;
 
 - (IBAction)startGame:(id)sender
 {
@@ -27,6 +29,13 @@
 {
     //show user high score table-list in popup dialog (I think an alert would be fine)
 }
+
+-(BOOL) textFieldShouldReturn:(UITextField *)textField{
+    
+    [self.submitLetter resignFirstResponder];
+    return YES;
+}
+
 
 - (void)viewDidLoad
 {
@@ -54,23 +63,7 @@
     [self presentModalViewController:controller animated:YES];
 }
 
-@end
-
-@interface TextField ()
-
-@end
-
-@implementation TextField
-
-@synthesize words=_words;
-@synthesize partialWord=_partialWord;
-
-- (void)viewDidLoad 
-{
-    [super viewDidLoad];
-}
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField
+/*- (BOOL) textFieldShouldReturn:(UITextField *)textField
 {
 // Tell the keyboard where to go on next / go button.
     NSString *path = [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"];
@@ -82,6 +75,6 @@
 	[textField resignFirstResponder];
 
 return YES;
-}
+}*/
 
 @end
