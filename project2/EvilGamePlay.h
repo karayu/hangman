@@ -8,16 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface WordList : NSObject
+@interface EvilGamePlay : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *words;
-@property (strong, nonatomic) NSMutableDictionary *potential_words;
+@property (strong, nonatomic) NSMutableArray *potentialWords;
 
 @property (nonatomic) BOOL *evil;
-@property (nonatomic) int *remaining_guesses;
-@property (nonatomic) int word_length;
-@property (nonatomic) int *total_guesses;
-@property (nonatomic) NSArray *used_letters;
+@property (nonatomic) int *remainingGuesses;
+@property (nonatomic) int wordLength;
+@property (nonatomic) int *totalGuesses;
+@property (nonatomic) NSArray *usedLetters;
 
 
 @end
