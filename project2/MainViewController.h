@@ -18,6 +18,6 @@
 - (IBAction)startGame:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
 - (IBAction)updatePartialWord:(id)sender;
-//- (void)show or something to update partialWord and remainingLetters ?
+//- (void)show or something to update partialWord and remainingLetters
 
 @end

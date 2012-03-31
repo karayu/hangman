@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		013EA96B15229301008BF76B /* hangman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 013EA96A15229301008BF76B /* hangman.jpg */; };
+		018467AD15250A65001D0234 /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AC15250A65001D0234 /* small.plist */; };
+		018467AF15250A84001D0234 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AE15250A84001D0234 /* words.plist */; };
 		E70AE732151C437A00FB7BAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE731151C437A00FB7BAE /* UIKit.framework */; };
 		E70AE734151C437A00FB7BAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE733151C437A00FB7BAE /* Foundation.framework */; };
 		E70AE736151C437A00FB7BAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE735151C437A00FB7BAE /* CoreGraphics.framework */; };
@@ -37,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		013EA96A15229301008BF76B /* hangman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hangman.jpg; sourceTree = "<group>"; };
+		018467AC15250A65001D0234 /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
+		018467AE15250A84001D0234 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 		E70AE72D151C437A00FB7BAE /* project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70AE731151C437A00FB7BAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E70AE733151C437A00FB7BAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,6 +122,8 @@
 		E70AE737151C437A00FB7BAE /* project2 */ = {
 			isa = PBXGroup;
 			children = (
+				018467AE15250A84001D0234 /* words.plist */,
+				018467AC15250A65001D0234 /* small.plist */,
 				E70AE740151C437B00FB7BAE /* AppDelegate.h */,
 				E70AE741151C437B00FB7BAE /* AppDelegate.m */,
 				E70AE743151C437B00FB7BAE /* MainViewController.h */,
@@ -236,6 +242,8 @@
 				E70AE74B151C437B00FB7BAE /* MainViewController.xib in Resources */,
 				E70AE74E151C437B00FB7BAE /* FlipsideViewController.xib in Resources */,
 				013EA96B15229301008BF76B /* hangman.jpg in Resources */,
+				018467AD15250A65001D0234 /* small.plist in Resources */,
+				018467AF15250A84001D0234 /* words.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
