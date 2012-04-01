@@ -26,7 +26,7 @@
 		E70AE758151C437B00FB7BAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE733151C437A00FB7BAE /* Foundation.framework */; };
 		E70AE760151C437B00FB7BAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E70AE75E151C437B00FB7BAE /* InfoPlist.strings */; };
 		E70AE763151C437B00FB7BAE /* project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E70AE762151C437B00FB7BAE /* project2Tests.m */; };
-		E7B01A5E15279B3100D861AF /* WordList.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* WordList.m */; };
+		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +66,8 @@
 		E70AE75F151C437B00FB7BAE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E70AE761151C437B00FB7BAE /* project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = project2Tests.h; sourceTree = "<group>"; };
 		E70AE762151C437B00FB7BAE /* project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = project2Tests.m; sourceTree = "<group>"; };
-		E7B01A5C15279B3100D861AF /* WordList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordList.h; sourceTree = "<group>"; };
-		E7B01A5D15279B3100D861AF /* WordList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordList.m; sourceTree = "<group>"; };
+		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
+		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				018467AE15250A84001D0234 /* words.plist */,
-				E7B01A5C15279B3100D861AF /* WordList.h */,
-				E7B01A5D15279B3100D861AF /* WordList.m */,
+				E7B01A5C15279B3100D861AF /* EvilGamePlay.h */,
+				E7B01A5D15279B3100D861AF /* EvilGamePlay.m */,
 				018467AC15250A65001D0234 /* small.plist */,
 				E70AE740151C437B00FB7BAE /* AppDelegate.h */,
 				E70AE741151C437B00FB7BAE /* AppDelegate.m */,
@@ -291,7 +291,7 @@
 				E70AE742151C437B00FB7BAE /* AppDelegate.m in Sources */,
 				E70AE745151C437B00FB7BAE /* MainViewController.m in Sources */,
 				E70AE748151C437B00FB7BAE /* FlipsideViewController.m in Sources */,
-				E7B01A5E15279B3100D861AF /* WordList.m in Sources */,
+				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
