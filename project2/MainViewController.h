@@ -12,16 +12,15 @@
 
 //not sure about types, pointers, and properties for all of these
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
-@property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
+@property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
+@property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
-
-@property (nonatomic, readwrite, strong) NSArray *words;
-@property (nonatomic, readwrite, strong) NSString *word;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
+@property unsigned char letter;
+@property NSMutableString *alphabetArray;
 
-- (IBAction)startGame:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
+
 
 //- (IBAction)updatePartialWord:(id)sender;
 //- (void)show or something to update partialWord and remainingLetters
