@@ -14,13 +14,8 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate = _delegate;
-@synthesize numberOfGuesses = _numberOfGuesses;
-@synthesize numberOfLetters = _numberOfLetters;
-@synthesize numberOfGuessesLabel = _numberOfGuessesLabel;
-@synthesize numberOfLettersLabel = _numberOfLettersLabel;
-@synthesize numberOfGuessesSlider = _numberOfGuessesSlider;
-@synthesize numberOfLettersSlider = _numberOfLettersSlider;
+@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, 
+numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider,evilSwitch;
 
 - (void)viewDidLoad
 {
@@ -42,11 +37,14 @@
     //show number of letters in numeric form & in slider
     self.numberOfLettersLabel.text = [NSString stringWithFormat:@" %d", self.numberOfLetters];
     self.numberOfLettersSlider.value = self.numberOfLetters;
+
+    //toggle switch based on whether evil or not
+    self.evilSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"evil"];;
 }
 
 #pragma mark - Actions
 
-- (IBAction) slidersChanged:(id)sender 
+- (IBAction)slidersChanged:(id)sender 
 {  
     //reset default variables based on current slider values
     self.numberOfGuesses = self.numberOfGuessesSlider.value;
@@ -59,9 +57,14 @@
 - (IBAction)done:(id)sender
 {
     //save the default variables as user's defaults
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
-    [defaults setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
+    
+    //set evil as "YES" or "NO" based on if switch is on or off
+    if ([self.evilSwitch isOn]) 
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
+    else 
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
     
     //return to default controller with saved defaults
     [self.delegate flipsideViewControllerDidFinish:self];
