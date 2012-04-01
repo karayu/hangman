@@ -8,6 +8,10 @@
 
 #import "EvilGamePlay.h"
 
+@interface EvilGamePlay ()
+
+@end
+
 @implementation EvilGamePlay
 
 //current word list
@@ -110,7 +114,7 @@
         _remainingGuesses--;
         //adds letter to used letters list
         [_usedLetters addObject:letter]; 
-        return null;
+        return 0;
     }
     else {
         //we have determined that it's better to tell the user that the letter is in the word than not
@@ -125,21 +129,22 @@
         NSInteger mostWords = 0; 
         
         
-        for (id key in positionPopularity) {
-            
+        for (id key in positionPopularity) 
+        {
             id value = [positionPopularity objectForKey:key];
+         
             //if the number of words at position "num" is greater than our current max
-            if ([value integerValue] > mostWords ) {
+            if ([value integerValue] > mostWords ) 
+            {
                 
                 //update bestposition to be our current position 
                 bestPosition = [key integerValue];
                 
                 //update the most # of words to the # of words at that position
                 mostWords = [value integerValue];
+            }
                 
         }
-        
-        
         
         //adds the letter to used letters list
         [_usedLetters addObject:letter]; 
@@ -159,7 +164,10 @@
 /*checks to see if the game has been won by 
     1) seeing if the number of words left is 1
     2) seeing if all the letters in the word have been guessed
+ 
+ NEEDS TO BE DOUBLE CHECKED
  */
+
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
         NSString *word = [_words objectAtIndex:0];
@@ -176,6 +184,7 @@
         return true;
         
     }
+    
     return false;
 }
 
@@ -185,10 +194,8 @@
 {
     NSMutableArray *newWords = [[NSMutableArray alloc] init];
     
-    //iterates through all the potential words
-    NSEnumerator *enumerator = [potentialWords keyEnumerator];
-    id word;
-    while (word = [enumerator nextObject]) {        
+    //iterates through all the potential words 
+    for (NSString *word in potentialWords) {    
         //for each word in potentialWords, if the word has letter in position, add it to the new words
         if ([word rangeOfString:letter].location == position ) {
             [newWords addObject:word];  
@@ -239,10 +246,8 @@
 
     
     //iterates through all the potential words
-    NSEnumerator *enumerator = [words keyEnumerator];
-    id word;
-    
-    while (word = [enumerator nextObject]) {        
+    for (NSString *word in _words ) {
+
         //for each word in potentialWords, if the word has the letter, add it to the new words
         if ([word rangeOfString:letter].location != NSNotFound ) {
             [potentialWords addObject:word];  
@@ -252,9 +257,6 @@
     return potentialWords;
         
 }
-
-
-
 
 
 
