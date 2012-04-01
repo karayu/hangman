@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		013EA96B15229301008BF76B /* hangman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 013EA96A15229301008BF76B /* hangman.jpg */; };
-		018467AD15250A65001D0234 /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AC15250A65001D0234 /* small.plist */; };
+		018467AD15250A65001D0234 /* smallest.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AC15250A65001D0234 /* smallest.plist */; };
 		018467AF15250A84001D0234 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AE15250A84001D0234 /* words.plist */; };
 		018467EF1527E78E001D0234 /* jong.png in Resources */ = {isa = PBXBuildFile; fileRef = 018467EE1527E78E001D0234 /* jong.png */; };
 		E70AE732151C437A00FB7BAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE731151C437A00FB7BAE /* UIKit.framework */; };
@@ -27,6 +27,7 @@
 		E70AE760151C437B00FB7BAE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E70AE75E151C437B00FB7BAE /* InfoPlist.strings */; };
 		E70AE763151C437B00FB7BAE /* project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E70AE762151C437B00FB7BAE /* project2Tests.m */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
+		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +42,7 @@
 
 /* Begin PBXFileReference section */
 		013EA96A15229301008BF76B /* hangman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hangman.jpg; sourceTree = "<group>"; };
-		018467AC15250A65001D0234 /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
+		018467AC15250A65001D0234 /* smallest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = smallest.plist; sourceTree = "<group>"; };
 		018467AE15250A84001D0234 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 		018467EE1527E78E001D0234 /* jong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jong.png; sourceTree = "<group>"; };
 		E70AE72D151C437A00FB7BAE /* project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +69,7 @@
 		E70AE762151C437B00FB7BAE /* project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = project2Tests.m; sourceTree = "<group>"; };
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
 		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
+		E7B01AC51528F6DF00D861AF /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +130,8 @@
 		E70AE737151C437A00FB7BAE /* project2 */ = {
 			isa = PBXGroup;
 			children = (
-				018467AE15250A84001D0234 /* words.plist */,
 				E7B01A5C15279B3100D861AF /* EvilGamePlay.h */,
 				E7B01A5D15279B3100D861AF /* EvilGamePlay.m */,
-				018467AC15250A65001D0234 /* small.plist */,
 				E70AE740151C437B00FB7BAE /* AppDelegate.h */,
 				E70AE741151C437B00FB7BAE /* AppDelegate.m */,
 				E70AE743151C437B00FB7BAE /* MainViewController.h */,
@@ -149,6 +149,9 @@
 		E70AE738151C437A00FB7BAE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E7B01AC51528F6DF00D861AF /* small.plist */,
+				018467AE15250A84001D0234 /* words.plist */,
+				018467AC15250A65001D0234 /* smallest.plist */,
 				E70AE739151C437A00FB7BAE /* project2-Info.plist */,
 				E70AE73A151C437B00FB7BAE /* InfoPlist.strings */,
 				E70AE73D151C437B00FB7BAE /* main.m */,
@@ -250,9 +253,10 @@
 				E70AE74B151C437B00FB7BAE /* MainViewController.xib in Resources */,
 				E70AE74E151C437B00FB7BAE /* FlipsideViewController.xib in Resources */,
 				013EA96B15229301008BF76B /* hangman.jpg in Resources */,
-				018467AD15250A65001D0234 /* small.plist in Resources */,
+				018467AD15250A65001D0234 /* smallest.plist in Resources */,
 				018467AF15250A84001D0234 /* words.plist in Resources */,
 				018467EF1527E78E001D0234 /* jong.png in Resources */,
+				E7B01AC61528F6DF00D861AF /* small.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
