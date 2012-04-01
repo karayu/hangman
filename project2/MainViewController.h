@@ -16,9 +16,11 @@
 @property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
+@property unsigned char letter;
+@property NSMutableString *alphabetArray;
 
-- (IBAction)startGame:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
+
 
 //- (IBAction)updatePartialWord:(id)sender;
 //- (void)show or something to update partialWord and remainingLetters

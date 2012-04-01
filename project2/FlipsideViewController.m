@@ -14,8 +14,7 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, 
-numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider,evilSwitch;
+@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider,evilSwitch;
 
 - (void)viewDidLoad
 {

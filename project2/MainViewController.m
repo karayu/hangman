@@ -14,13 +14,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfGuesses, numberOfGuessesLabel, submitLetter, dummyResponse;
-
-- (IBAction)startGame:(id)sender
-{
-    //alert user with "Are you sure you want to start a new game?"
-    //if yes, init new game with current settings
-}
+@synthesize remainingLettersLabel, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, alphabetArray;
 
 - (IBAction)viewHighScores:(id)sender
 {
@@ -29,13 +23,49 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
+    //get letter
+    self.letter = [self.submitLetter.text characterAtIndex:0];
+    
+    //retrieve word list and print dummy response to simulate some sort of gameplay
     NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
     NSArray *words = [[NSArray alloc] initWithContentsOfFile:path];
     NSUInteger randomIndex = arc4random() % [words count];
-    
     self.dummyResponse.text = [words objectAtIndex:randomIndex];
-	[self.submitLetter resignFirstResponder];
-    return TRUE;
+	
+    //update alphabet    
+    int length = [self.remainingLettersLabel.text length];
+    alphabetArray = [NSMutableString stringWithCapacity: 26];
+    
+    //replace used chars
+    for(int index = 0; index < length; index++) 
+    {
+        unichar character = [self.remainingLettersLabel.text characterAtIndex:index];
+        if (character == self.letter)
+            [alphabetArray appendString:@" "];
+        else
+            [alphabetArray appendFormat: @"%c", character];
+    }
+    self.remainingLettersLabel.text = alphabetArray;    
+    
+    //hide keyboard
+    [self.submitLetter resignFirstResponder];
+    
+    //decrement # of guesses every time user enters a letter AND it is incorrect
+    self.numberOfGuesses--;
+    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+    
+    //end game if user loses
+    if (self.numberOfGuesses == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"OH NO!" 
+                                                            message:@"You lose!  Joseph is dead!" 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"New Game" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        [self viewDidLoad];
+    }
+            
+    return YES;
 }
 
 //allows only one character in the submitLetter textField
@@ -51,8 +81,18 @@
 
 - (void)viewDidLoad
 {
+    //display number of guesses from user's settings
     self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];
-    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses]; 
+    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+    
+    //create alphabet
+    alphabetArray = [NSMutableString stringWithCapacity: 26];
+    for(char c = 'A'; c <= 'Z'; c++)
+    {
+        [alphabetArray appendFormat: @"%c", c];
+    }
+    //print alphabet to remainingLettersLabel
+    self.remainingLettersLabel.text = alphabetArray;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
