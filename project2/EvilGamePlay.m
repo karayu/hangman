@@ -110,43 +110,44 @@
         _remainingGuesses--;
         //adds letter to used letters list
         [_usedLetters addObject:letter]; 
-        return 0;
+        return null;
     }
     else {
         //we have determined that it's better to tell the user that the letter is in the word than not
         
-        //NSMutableDictionary *positionPopularity = [[NSMutableDictionary alloc] init];
-
         //hashtable of # of words with letter in each position
         NSMutableDictionary *positionPopularity = [self words: _potentialWords ByPositionForLetter: letter];
         
         //the position with the most words
-        int bestPosition = 0; 
+        NSInteger bestPosition = 0;     
         
         //the number of words in the position with the most words
-        NSNumber *mostWords = 0; 
+        NSInteger mostWords = 0; 
         
-        for (int i = 0; i < ([positionPopularity count]); i++) {
-                        
-           NSNumber *num = [NSNumber numberWithInt:i]; 
+        
+        for (id key in positionPopularity) {
             
+            id value = [positionPopularity objectForKey:key];
             //if the number of words at position "num" is greater than our current max
-            if ([[positionPopularity valueForKey: [num description]] compare: mostWords] == NSOrderedDescending ) {
+            if ([value integerValue] > mostWords ) {
                 
                 //update bestposition to be our current position 
-                bestPosition = i;
+                bestPosition = [key integerValue];
                 
                 //update the most # of words to the # of words at that position
-                mostWords = [positionPopularity valueForKey: [num description]];
+                mostWords = [value integerValue];
                 
-            }
         }
+        
+        
         
         //adds the letter to used letters list
         [_usedLetters addObject:letter]; 
 
+            
+        //bestPosition starts at 1 for the first letter
         //updates the dictionary to be only words with the guessed letter in the right position
-        _potentialWords = [self words: _potentialWords WithLetter:letter InPosition:bestPosition];
+        _potentialWords = [self words: _potentialWords WithLetter:letter InPosition:(bestPosition-1)];
         _words = _potentialWords;
         
         //returns the position where the letter should be
@@ -155,6 +156,10 @@
     }
 }
 
+/*checks to see if the game has been won by 
+    1) seeing if the number of words left is 1
+    2) seeing if all the letters in the word have been guessed
+ */
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
         NSString *word = [_words objectAtIndex:0];
@@ -196,6 +201,7 @@
 
 
 //given a list of words that have the letter, returns a hash table of position-> (number of words with letter in that position) pairs
+//starts at 1 for position location
 - (NSMutableDictionary *) words: (NSMutableArray *) words ByPositionForLetter: letter
 {
     //start result dictionary
