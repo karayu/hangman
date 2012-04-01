@@ -159,9 +159,9 @@
         for (NSInteger charIdx=0; charIdx<word.length; charIdx++) {
             // if any characters in string have not been guessed, return false
             // TEST THIS!  indexOfObject:char work with an array of strings??
-            if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
-                return false;
-            }
+            //if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
+            //    return false;
+            //}
         }
         
         //if all characters in string have been guessed, return true
