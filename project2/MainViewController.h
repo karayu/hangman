@@ -12,10 +12,9 @@
 
 //not sure about types, pointers, and properties for all of these
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
-@property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
+@property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
+@property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
-
-@property (nonatomic, readwrite, strong) NSString *word;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 
 - (IBAction)startGame:(id)sender;

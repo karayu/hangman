@@ -14,7 +14,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfRemainingGuessesLabel, submitLetter, dummyResponse;
+@synthesize remainingLettersLabel, numberOfGuesses, numberOfGuessesLabel, submitLetter, dummyResponse;
 
 - (IBAction)startGame:(id)sender
 {
@@ -38,16 +38,21 @@
     return TRUE;
 }
 
+//allows only one character in the submitLetter textField
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    //if there is already a character in the textField, don't allow anymore to be typed
     if (range.location >= 1)
-        return NO; // return NO to not change text
+        return NO;
+    
+    //if got to this point, there are 0 characters in textField so we allow one to be typed
     return YES;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];
+    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses]; 
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
