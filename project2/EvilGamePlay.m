@@ -97,6 +97,9 @@
 - (int) guessLetter: (NSString *) letter 
 {
     
+    //converts the input to uppercase because our dictionary is uppercase
+    letter = [letter uppercaseString];
+    
     //figure out the words that have the letter in it
     _potentialWords = [self qualifiedLetters:letter withWords: _words];
 
@@ -204,9 +207,8 @@
         //if the word has the letter at position p, increment the value of potential_words at position p
         if ([word rangeOfString:letter].location != NSNotFound) {
             
-            //get the location where the letter matches
-            //NEED TO CHECK WHETHER THIS STARTS AT 0 OR 1 FOR THE FIRST LETTER!!
-            NSNumber *position = [NSNumber numberWithInt: ([word rangeOfString:letter].location)];
+            //get the location where the letter matches.  We are starting at 1 for the first letter
+            NSNumber *position = [NSNumber numberWithInt: ([word rangeOfString:letter].location)+1];
             
             //creates new_value which is (value at position)+1  
             NSNumber *new_value = [NSNumber numberWithInt: [[wordsCount objectForKey: position] intValue] + 1];
