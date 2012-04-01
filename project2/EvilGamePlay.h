@@ -11,13 +11,14 @@
 @interface EvilGamePlay : NSObject
 
 @property (strong, nonatomic) NSMutableDictionary *words;
-@property (strong, nonatomic) NSMutableArray *potentialWords;
+@property (strong, nonatomic) NSMutableDictionary *potentialWords;
 
-@property (nonatomic) BOOL *evil;
+@property (nonatomic) BOOL *evil; //probably don't need this since this is evil
 @property (nonatomic) int *remainingGuesses;
 @property (nonatomic) int wordLength;
-@property (nonatomic) int *totalGuesses;
-@property (nonatomic) NSArray *usedLetters;
+@property (nonatomic) int maxWordLength;
+
+@property (nonatomic) NSMutableArray *usedLetters;
 
 
 @end
