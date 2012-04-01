@@ -20,7 +20,7 @@
 @synthesize evil = _evil;
 @synthesize remainingGuesses = _remainingGuesses;
 @synthesize wordLength = _wordLength;
-@synthesize maxWordLength = _maxWordLength;
+@synthesize maxWordLength =_maxWordLength;
 
 @synthesize usedLetters = _usedLetters;
 
@@ -31,7 +31,7 @@
     int maxLength = 0;
     
     //iterates through all words and if the length is greater than maxLength, we update maxLength to match
-    for (NSString *word in [_words valueForKey:@"Key"]) {
+    for (NSString *word in _words) {
         if ( [word length] > maxLength) {
             maxLength = [word length];
         }
@@ -46,21 +46,19 @@
 - (void) setWordLength:(int)wordLength {
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
-    if (wordLength > 0 ) {
+    if (wordLength > 0 && wordLength <= _maxWordLength ) {
         
         //set the private variation equal to the word length
         _wordLength = wordLength;
         
         //results array
-        NSMutableDictionary *new_words;
+        NSMutableArray *new_words = [[NSMutableArray alloc] init];
         
         //for each word, if its length matches, then add it to the result array
-        for (NSString *word in [_words valueForKey:@"Key"]) {
+        for (NSString *word in _words) {
             if ([word length] == wordLength) {
-                //[new_words setValue:word forKey:@"Key"];
-                [new_words setObject:word forKey: @"Key"];
+                [new_words addObject:word];
             }
-            
         }
         
         _words = new_words;
@@ -75,12 +73,12 @@
 - (void)loadDictionary
 {    
     // load plist file into dictionary
-    _words = [[NSMutableDictionary alloc] initWithContentsOfFile:
+    _words = [[NSMutableArray alloc] initWithContentsOfFile:
                                   [[NSBundle mainBundle] pathForResource:@"Small" ofType:@"plist"]];
 }
 
 
-//NEED TO TEST if this words
+//NEED TO TEST if this works
 //figures out whether this letter has already been guessed before
 - (BOOL) letterValid: (NSString *) letter 
 {
@@ -114,6 +112,9 @@
     else {
         //we have determined that it's better to tell the user that the letter is in the word than not
         
+        //NSMutableDictionary *positionPopularity = [[NSMutableDictionary alloc] init];
+
+        //hashtable of # of words with letter in each position
         NSMutableDictionary *positionPopularity = [self words: _potentialWords ByPositionForLetter: letter];
         
         //the position with the most words
@@ -122,7 +123,7 @@
         //the number of words in the position with the most words
         NSNumber *mostWords = 0; 
         
-        for (int i = 0; i < ([[positionPopularity allKeys] count]); i++) {
+        for (int i = 0; i < ([positionPopularity count]); i++) {
                         
            NSNumber *num = [NSNumber numberWithInt:i]; 
             
@@ -153,13 +154,12 @@
 
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
-        NSArray *words = [_words allValues];
-        NSString *word = [words objectAtIndex:0];
+        NSString *word = [_words objectAtIndex:0];
         
-        for (NSInteger charIdx=0; charIdx<word.length; charIdx++) {
+        for (NSInteger i=0; i<word.length; i++) {
             // if any characters in string have not been guessed, return false
-            // TEST THIS!  indexOfObject:char work with an array of strings??
-            if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
+            // for each 1 letter substring at each part of the word, if usedletters doesn't contain it, return false
+            if ([_usedLetters containsObject: [word substringWithRange:NSMakeRange(i, 1)]] == NSNotFound) {
                 return false;
             }
         }
@@ -173,19 +173,17 @@
 
 
 //returns a set of words out of potentialWords which have letter in the right position
-- (NSMutableDictionary *) words: potentialWords WithLetter: (NSString *) letter InPosition: (int) position
+- (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (int) position
 {
-    NSMutableDictionary *newWords;
+    NSMutableArray *newWords = [[NSMutableArray alloc] init];
     
     //iterates through all the potential words
     NSEnumerator *enumerator = [potentialWords keyEnumerator];
-    id key;
-    while ((key = [enumerator nextObject])) {
-        NSString *word = [potentialWords objectForKey:key];
-        
+    id word;
+    while (word = [enumerator nextObject]) {        
         //for each word in potentialWords, if the word has letter in position, add it to the new words
         if ([word rangeOfString:letter].location == position ) {
-            [newWords setObject:word forKey: key];  
+            [newWords addObject:word];  
         }
     }
     
@@ -195,13 +193,13 @@
 
 
 //given a list of words that have the letter, returns a hash table of position-> (number of words with letter in that position) pairs
-- (NSMutableDictionary *) words: (NSMutableDictionary *) words ByPositionForLetter: letter
+- (NSMutableDictionary *) words: (NSMutableArray *) words ByPositionForLetter: letter
 {
     //start result dictionary
-    NSMutableDictionary *words_count; 
+    NSMutableDictionary *wordsCount = [[NSMutableDictionary alloc] init];
     
     //for each word in the dictionary
-    for (NSString *word in [words valueForKey:@"Key"]) {
+    for (NSString *word in words) {
         
         //if the word has the letter at position p, increment the value of potential_words at position p
         if ([word rangeOfString:letter].location != NSNotFound) {
@@ -211,35 +209,35 @@
             NSNumber *position = [NSNumber numberWithInt: ([word rangeOfString:letter].location)];
             
             //creates new_value which is (value at position)+1  
-            NSNumber *new_value = [NSNumber numberWithInt: [[words_count objectForKey: position] intValue] + 1];
+            NSNumber *new_value = [NSNumber numberWithInt: [[wordsCount objectForKey: position] intValue] + 1];
             
             //increment value in hashtable at key: letter position 
-            [words_count setObject:new_value forKey: position];
+            [wordsCount setObject:new_value forKey: position];
             
         } else {
             NSLog(@"no match between letter and word!!");
         }
     }
     
-    return words_count;
+    return wordsCount;
 
     
 }
 
 //returns array of words that work with the letter (given the starting word list)
-- (NSMutableDictionary *) qualifiedLetters: (NSString *) letter withWords: words
+- (NSMutableArray *) qualifiedLetters: (NSString *) letter withWords: words
 {
-    NSMutableDictionary *potentialWords;
+    NSMutableArray *potentialWords = [[NSMutableArray alloc] init];
+
     
     //iterates through all the potential words
     NSEnumerator *enumerator = [words keyEnumerator];
-    id key;
-    while ((key = [enumerator nextObject])) {
-        NSString *word = [words objectForKey:key];
-        
+    id word;
+    
+    while (word = [enumerator nextObject]) {        
         //for each word in potentialWords, if the word has the letter, add it to the new words
         if ([word rangeOfString:letter].location != NSNotFound ) {
-            [potentialWords setObject:word forKey: key];  
+            [potentialWords addObject:word];  
         }
     }
     
