@@ -14,12 +14,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel=_remainingLettersLabel;
-@synthesize numberOfRemainingGuessesLabel=_numberOfRemainingGuessesLabel;
-@synthesize words=_words;
-@synthesize word=_word;
-@synthesize submitLetter = _submitLetter;
-@synthesize dummyResponse = _dummyResponse;
+@synthesize remainingLettersLabel, numberOfRemainingGuessesLabel, submitLetter, dummyResponse;
 
 - (IBAction)startGame:(id)sender
 {
@@ -32,14 +27,13 @@
     //show user high score table-list in popup dialog (I think an alert would be fine)
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField{
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"];
     NSArray *words = [[NSArray alloc] initWithContentsOfFile:path];
     NSUInteger randomIndex = arc4random() % [words count];
-    self.word = [words objectAtIndex:randomIndex];
     
-    _dummyResponse.text = self.word;
+    self.dummyResponse.text = [words objectAtIndex:randomIndex];
 	[self.submitLetter resignFirstResponder];
     return TRUE;
 }
@@ -54,7 +48,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

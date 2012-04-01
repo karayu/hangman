@@ -10,6 +10,7 @@
 		013EA96B15229301008BF76B /* hangman.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 013EA96A15229301008BF76B /* hangman.jpg */; };
 		018467AD15250A65001D0234 /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AC15250A65001D0234 /* small.plist */; };
 		018467AF15250A84001D0234 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = 018467AE15250A84001D0234 /* words.plist */; };
+		018467EF1527E78E001D0234 /* jong.png in Resources */ = {isa = PBXBuildFile; fileRef = 018467EE1527E78E001D0234 /* jong.png */; };
 		E70AE732151C437A00FB7BAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE731151C437A00FB7BAE /* UIKit.framework */; };
 		E70AE734151C437A00FB7BAE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE733151C437A00FB7BAE /* Foundation.framework */; };
 		E70AE736151C437A00FB7BAE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE735151C437A00FB7BAE /* CoreGraphics.framework */; };
@@ -42,6 +43,7 @@
 		013EA96A15229301008BF76B /* hangman.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = hangman.jpg; sourceTree = "<group>"; };
 		018467AC15250A65001D0234 /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
 		018467AE15250A84001D0234 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
+		018467EE1527E78E001D0234 /* jong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jong.png; sourceTree = "<group>"; };
 		E70AE72D151C437A00FB7BAE /* project2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70AE731151C437A00FB7BAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E70AE733151C437A00FB7BAE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +97,7 @@
 		E70AE722151C437A00FB7BAE = {
 			isa = PBXGroup;
 			children = (
+				018467EE1527E78E001D0234 /* jong.png */,
 				E70AE737151C437A00FB7BAE /* project2 */,
 				E70AE75B151C437B00FB7BAE /* project2Tests */,
 				E70AE730151C437A00FB7BAE /* Frameworks */,
@@ -249,6 +252,7 @@
 				013EA96B15229301008BF76B /* hangman.jpg in Resources */,
 				018467AD15250A65001D0234 /* small.plist in Resources */,
 				018467AF15250A84001D0234 /* words.plist in Resources */,
+				018467EF1527E78E001D0234 /* jong.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

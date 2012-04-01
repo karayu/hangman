@@ -15,13 +15,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *numberOfRemainingGuessesLabel;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
 
-@property (nonatomic, readwrite, strong) NSArray *words;
 @property (nonatomic, readwrite, strong) NSString *word;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 
 - (IBAction)startGame:(id)sender;
 - (IBAction)viewHighScores:(id)sender;
-- (BOOL)textFieldShouldReturn:(UITextField *)textField;
 
 //- (IBAction)updatePartialWord:(id)sender;
 //- (void)show or something to update partialWord and remainingLetters
