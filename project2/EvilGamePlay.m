@@ -166,10 +166,10 @@
         
         for (NSInteger i=0; i<word.length; i++) {
             // if any characters in string have not been guessed, return false
-            // for each 1 letter substring at each part of the word, if usedletters doesn't contain it, return false
-            if ([_usedLetters containsObject: [word substringWithRange:NSMakeRange(i, 1)]] == NSNotFound) {
-                return false;
-            }
+            // TEST THIS!  indexOfObject:char work with an array of strings??
+            //if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
+            //    return false;
+            //}
         }
         
         //if all characters in string have been guessed, return true

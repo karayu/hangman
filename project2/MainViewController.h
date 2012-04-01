@@ -14,13 +14,15 @@
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
 @property (assign, nonatomic) unsigned int numberOfGuesses;
+@property (assign, nonatomic) unsigned int numberOfLetters;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 @property unsigned char letter;
 @property NSMutableString *alphabetArray;
+@property NSMutableArray *partialWord;
 
 - (IBAction)viewHighScores:(id)sender;
-
+- (IBAction)startNewGame:(id)sender;
 
 //- (IBAction)updatePartialWord:(id)sender;
 //- (void)show or something to update partialWord and remainingLetters
