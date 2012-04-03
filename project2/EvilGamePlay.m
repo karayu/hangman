@@ -138,7 +138,7 @@
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
 }
 
 
@@ -154,6 +154,46 @@
     }
 
 }
+
+
+/*checks to see if the game has been won by 
+ 1) seeing if the number of words left is 1
+ 2) seeing if all the letters in the word have been guessed
+ */
+- (BOOL) checkGameWon 
+{
+    if ([_words count] == 1) {
+        
+        //gets the last word left in the "words" array
+        NSString *word = [_words objectAtIndex:0];
+        
+        //for each letter in the word   
+        for (int i=0; i< [word length]; i++) 
+        {
+            
+            //get the letter
+            NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
+            
+            if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
+            {
+                //if the letter isn't in our used letters, return false            
+                return NO;
+            }
+        }
+        //if all characters in string have been guessed, return true
+        return YES;
+    }
+    //if there is more than one word left, return false
+    return NO;
+}
+
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL! 
+- (int64_t) calculateScore
+{
+    float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
+    return percentAccuracy*_wordLength*[_words count];
+}
+
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
 //returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nonexistent as the first element
@@ -198,54 +238,18 @@
     if ([positions objectAtIndex: 0] == @"nonexistent") {
         //it is better to say the letter isn't in the word
         _words = [self words: _words WithoutLetter:letter ];    
-        NSLog(@"current words: %@", _words);
+        
+        //NSLog(@"current words: %@", _words);
     
     }
     else {
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _words WithLetter:letter InPosition: bestPosition];
-        NSLog(@"current words: %@", _words);
+        
+        //NSLog(@"current words: %@", _words);
 
     }
     return positions;
-}
-
-/*checks to see if the game has been won by 
-    1) seeing if the number of words left is 1
-    2) seeing if all the letters in the word have been guessed
- */
-- (BOOL) checkGameWon 
-{
-    if ([_words count] == 1) {
-        
-        //gets the last word left in the "words" array
-        NSString *word = [_words objectAtIndex:0];
-        
-        //for each letter in the word   
-        for (int i=0; i< [word length]; i++) 
-        {
-            
-            //get the letter
-            NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
-            
-            if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
-            {
-                //if the letter isn't in our used letters, return false            
-                return NO;
-            }
-        }
-        //if all characters in string have been guessed, return true
-        return YES;
-    }
-    //if there is more than one word left, return false
-    return NO;
-}
-
-//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL! 
-- (int64_t) calculateScore
-{
-    float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
-    return percentAccuracy*_wordLength*[_words count];
 }
 
 //returns a set of words which have the letter in the right positions

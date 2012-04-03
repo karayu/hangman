@@ -1,35 +1,14 @@
 For this alpha, we implemented Hangman in both evil and good forms. 
+We decided that in evil mode the hangman will evaluate each equivalence class and pick the one with the most words. 
 
 Here are some things we plan to do for the release:
-- Improve the algorithm for speed
+- Improve the algorithm for speed.  Right now, evil hangs a bit.  We can probably do more to free up memory
 - keep track of high scores
 - tell user that what the word was 
 - alert error if user has guessed a given letter already (and don't decrease number of guesses left)
 - multiple images to visually show hangman gameplay
-- Alert user of what word actually was if they lost
-- Alert for invalid word length - self.Good = [[GoodGamePlay alloc] init];
-- Make sure settings values = model values
 
 
 # clone repo into ~/vhosts/karay
 cd ~/vhosts
-git clone git@bitbucket.org:karay/project1.git karay
-
-# chmod all directories 711
-find ~/vhosts/karay -type d -exec chmod 711 {} \;
-
-# chmod all PHP files 600
-find ~/vhosts/karay -type f -name *.php -exec chmod 600 {} \;
-
-# chmod most everything else 644
-find ~/vhosts/karay -type f \( -name *.css -o -name *.gif -o -name *.html -o -name *.js -o -name *.jpg -o -name *.png -o -name .htaccess \) -exec chmod 644 {} \;
-
-# create a MySQL database for project
-mysql -u jharvard -p -e 'CREATE DATABASE jharvard_project1'
-
-# import SQL dump into database
-mysql -u jharvard -p < ~/vhosts/karay/mysql/jharvard_project1.sql
-
-# ensure http://karay/ will work
-set -o noclobber
-echo '127.0.0.1 karay'
+git clone git@bitbucket.org:karay/project2.git karay
