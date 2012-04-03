@@ -24,6 +24,8 @@
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
 {
+    //FIX THIS
+    numberOfGuesses = 7;
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You sure you want a new game?" 
                                                         message:@"(You will lose your current game)" 
                                                        delegate:self 
@@ -76,7 +78,7 @@
         index = index - 1;
         
         NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
-        [self.partialWord replaceObjectAtIndex:index withObject:newLetter];
+        //[self.partialWord replaceObjectAtIndex:index withObject:newLetter];
     }
     
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
