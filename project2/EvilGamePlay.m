@@ -17,7 +17,6 @@
 //current word list
 @synthesize words = _words;
 
-@synthesize remainingGuesses = _remainingGuesses;//CHECK WHEN THIS BECOMES NEGATIVE
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
 @synthesize minWordLength =_minWordLength;
@@ -302,9 +301,12 @@
     return wordsByPosition;
 }
 
+
 //returns a string with locations of occurence(s)
+//source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first
 - (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
 {
+    //empty array for occurrences of letter
     NSMutableArray *occ = [[NSMutableArray alloc] init];
     
     NSRange searchRange = NSMakeRange(0,string.length);

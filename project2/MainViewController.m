@@ -150,28 +150,7 @@
             [self.partialWord replaceObjectAtIndex:position withObject:letter];
         }
     }
-    
-    /*submit guessLetter to gameplay model (Evil or Good)
-    if (isEvil)
-        index = [self.Evil guessLetter:letter];
-    else
-        index = [self.Good guessLetter:letter];
-    
-    //if guessLetter returns zero, the letter is NOT in the word
-    if (index == 0)
-    {
-        //decrement # of guesses if letter is incorrect
-        self.numberOfGuesses--;
-        [self updateGuesses];
-    }
-    else 
-    {
-        //insert letter at index's proper place (exactly 1 spot over)
-        index = index - 1;
-        
-        [self.partialWord replaceObjectAtIndex:index withObject:letter];
-    }*/
-    
+
     self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
 }
 
@@ -270,20 +249,32 @@
 //actions performed when user submits a letter as a guess
 - (void)textFieldShouldReturn:(UITextField *)textField
 {    
-    //get letter
-    self.guessedLetter = [self.submitLetter.text characterAtIndex:0];
+    @try {
+        //get letter
+        self.guessedLetter = [self.submitLetter.text characterAtIndex:0];
+
+        //retrieve word list and print dummy response to simulate some sort of gameplay
+        [self guessLetter];
     
-    //retrieve word list and print dummy response to simulate some sort of gameplay
-    [self guessLetter];
+        //update the alphabet
+        [self updateAlphabet];
+        
+        //hide keyboard
+        [self.submitLetter resignFirstResponder];
     
-    //update the alphabet
-    [self updateAlphabet];
-    
-    //hide keyboard
-    [self.submitLetter resignFirstResponder];
-    
-    //check to see if user has lost game
-    [self checkEndGame];
+        //check to see if user has lost game
+        [self checkEndGame];
+    }
+    @catch (NSException * e) 
+    {
+        //complains to user to give input
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You need to give us input" 
+                                                            message:nil
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"Okay!" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 //allows only one character in the submitLetter textField
