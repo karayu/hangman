@@ -124,11 +124,26 @@
 //handles guessing of each letter
 - (void)guessLetter
 {
-
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
-    int index;
+    NSArray *letterPositions;
+    letterPositions = [self.Evil guessLetter:letter];
     
-    //submit guessLetter to gameplay model (Evil or Good)
+    if ([letterPositions objectAtIndex:0]==nil)
+    {
+        self.numberOfGuesses--;
+        [self updateGuesses];
+    }
+    else 
+    {
+        for (int index=0; index < [letterPositions count]; index++)
+        {
+            NSLog(@"position: %@", [letterPositions objectAtIndex:index]);
+            if ([letterPositions objectAtIndex:index]!=nil)
+                [self.partialWord replaceObjectAtIndex:index withObject:letter];
+        }
+    }
+    
+    /*submit guessLetter to gameplay model (Evil or Good)
     if (isEvil)
         index = [self.Evil guessLetter:letter];
     else
@@ -147,7 +162,7 @@
         index = index - 1;
         
         [self.partialWord replaceObjectAtIndex:index withObject:letter];
-    }
+    }*/
     
     self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
 }

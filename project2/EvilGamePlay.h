@@ -18,7 +18,7 @@
 @property (nonatomic) int maxWordLength;
 
 @property (nonatomic) NSMutableArray *usedLetters;
-- (int) guessLetter: (NSString *) letter;
+- (NSArray *) guessLetter: (NSString *) letter;
 - (int64_t) calculateScore;
 - (BOOL) checkGameWon;
 

@@ -183,9 +183,7 @@
         
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _potentialWords WithLetter:letter InPosition: bestPosition];
-
     }
-   
     return positions;
 }
 
@@ -208,15 +206,13 @@
             
             if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
             {
-                //if the letter isn't in our usedletters, return false            
+                //if the letter isn't in our used letters, return false            
                 return NO;
             }
         }
-        
         //if all characters in string have been guessed, return true
         return YES;
     }
-    
     //if there is more than one word left, return false
     return NO;
 }
