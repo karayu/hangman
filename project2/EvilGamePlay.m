@@ -162,7 +162,7 @@
 }
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
-//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with "nonexistent
+//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nil as the first element
 //updates _words to include only words with letter in the best position or words without the letter
 - (NSArray *) guessLetter: (NSString *) letter 
 {
@@ -176,6 +176,8 @@
     
     //the positions where the letter should appear
     NSString *bestPosition;
+    
+    NSMutableArray *potentialKeys =  [[NSMutableDictionary alloc] init];
     
     //number of words in equivalence class for that position
     int mostWords = 0;
@@ -336,7 +338,7 @@
         result = [occ componentsJoinedByString: @"-"];
     }
     else {
-        result = @"nonexistent";
+        result = nil;
     }
     
     return result;

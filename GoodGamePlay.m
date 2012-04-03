@@ -200,7 +200,7 @@
         result = [occ componentsJoinedByString: @"-"];
     }
     else {
-        result = @"nonexistent";
+        result = nil;
     }
     
     return result;
