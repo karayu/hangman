@@ -78,7 +78,7 @@
 //figures out the length of the longest word in the current dictionary and sets the _maxWordLength equal to that
 - (BOOL) setMinWordLength
 {
-    int minLength = 0;
+    int minLength = 200;
     
     if ([_words count]>0) 
     {
@@ -202,7 +202,6 @@
         _words = [self words: _words WithoutLetter:letter ];    
     }
     else {
-        
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _words WithLetter:letter InPosition: bestPosition];
     }
@@ -297,9 +296,12 @@
     return wordsByPosition;
 }
 
+
 //returns a string with locations of occurence(s)
+//source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first
 - (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
 {
+    //empty array for occurrences of letter
     NSMutableArray *occ = [[NSMutableArray alloc] init];
     
     NSRange searchRange = NSMakeRange(0,string.length);
