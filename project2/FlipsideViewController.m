@@ -14,14 +14,15 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch;
+@synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch;
 
 - (void)viewDidLoad
 {
-    //get number of guesses/letters from user's saved defaults
+    //store guesses/letters from user's saved defaults in temporary instance variables
     //???have some alternate value in case there are not yet any user defaults?
     self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];
     self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
+    self.isEvil = [[NSUserDefaults standardUserDefaults] boolForKey:@"evil"];
     
     //display the default number of guesses/letters in numeric form and in the sliders
     [self show];
@@ -38,16 +39,19 @@
     self.numberOfLettersSlider.value = self.numberOfLetters;
 
     //toggle switch based on whether evil or not
-    self.evilSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"evil"];;
+    self.evilSwitch.on = self.isEvil;
 }
 
 #pragma mark - Actions
 
 - (IBAction)slidersChanged:(id)sender 
 {  
-    //reset default variables based on current slider values
+    //update instance variables for numbers based on current slider values
     self.numberOfGuesses = self.numberOfGuessesSlider.value;
     self.numberOfLetters = self.numberOfLettersSlider.value;
+    
+    //update instance variable for evil
+    self.isEvil = self.evilSwitch.isOn;
     
     //call show to display the slider values in numeric form
     [self show];

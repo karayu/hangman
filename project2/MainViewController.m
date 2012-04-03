@@ -16,7 +16,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
@@ -30,18 +30,26 @@
         animation.type = kCATransitionMoveIn;
         [highScoresTable.layer addAnimation:animation forKey:nil];
         
-        //unhide high scores table and "Back" button
+        //show high scores table
         highScoresTable.hidden = NO;
+        
+        //show back button with SICK animation
+        animation.type = kCATransitionFade;
+        [backButton.layer addAnimation:animation forKey:nil];
         backButton.hidden = NO;
     }
-    //if it's not hidden, hide table & button when "Back" button is clicked
+    //hide table & button when "Back" button is clicked
     else 
     {
         animation.type = kCATransitionPush;
         [highScoresTable.layer addAnimation:animation forKey:nil];
         
-        //hide high scores table and back button
+        //hide high scores table since user is done viewing
         highScoresTable.hidden = YES;
+        
+        //hide back button with sick animation
+        animation.type = kCATransitionFade;
+        [backButton.layer addAnimation:animation forKey:nil];
         backButton.hidden = YES;
     }
 }
@@ -71,7 +79,8 @@
 - (void)checkEndGame
 {
     //send user an alert if she is out of guesses
-    if (self.numberOfGuesses == 0) {
+    if (self.numberOfGuesses == 0) 
+    {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"OH NO!" 
                                                             message:@"You lose!  Joseph is dead!" 
                                                            delegate:self 
@@ -82,48 +91,93 @@
         //refresh the view, initializing new settings and thus starting new game
         [self viewDidLoad];
     }
+    else if (isEvil && [self.Evil checkGameWon]) 
+    {
+        NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Evil calculateScore]];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You wing! Joseph Lives"
+                                                            message:text
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"New Game" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        //refresh the view, initializing new settings and thus starting new game
+        [self viewDidLoad];        
+    }
+    else if (!isEvil && [self.Good checkGameWon])
+    {
+        NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Good calculateScore]];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
+                                                            message:text
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"New Game" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        //refresh the view, initializing new settings and thus starting new game
+        [self viewDidLoad];        
+    }
 }
 
 //handles guessing of each letter
 - (void)guessLetter
 {
-    //decrement # of guesses if letter is incorrect, i.e. this would not usually be here
 
     NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
+    int index;
     
-    int index = [self.Evil guessLetter:newLetter];
+    //submit guessLetter to gameplay model (Evil or Good)
+    if (isEvil)
+    {
+        index = [self.Evil guessLetter:newLetter];
+    }
+    else
+    {
+        index = [self.Good guessLetter:newLetter];
+    }
     
-    
+    //if guessLetter returns zero, the letter is NOT in the word
     if (index == 0)
     {
-        //decrement guesses here
+        //decrement # of guesses if letter is incorrect
         self.numberOfGuesses--;
         [self updateGuesses];
     }
     else 
     {
-        //insert letter at index
+        //insert letter at index's proper place (exactly 1 spot over)
         index = index - 1;
         
         [self.partialWord replaceObjectAtIndex:index withObject:newLetter];
     }
     
-    NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
-    self.dummyResponse.text = joinedString;
+    self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
 }
 
-//initializes the alphabet with the start of each new game
-- (void)createAlphabet
+//renders the full alphabet with the start of each new game
+- (void)createNewGameView
 {
     alphabetString = [NSMutableString stringWithCapacity: 26];
     
-    //create alphabet
+    //render alphabet to represent unguessed letters
     for(char c = 'A'; c <= 'Z'; c++)
     {
         [alphabetString appendFormat: @"%c", c];
     }
     //print alphabet to remainingLettersLabel
     self.remainingLettersLabel.text = alphabetString;  
+
+    //load underscores to visually represent un-guessed letters in a word
+    self.partialWord = [NSMutableArray arrayWithCapacity:self.numberOfLetters];
+    for (int index = 1; index <= self.numberOfLetters; index++)
+    {
+        [self.partialWord addObject: @"_"];
+    }
+    
+    NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
+    self.dummyResponse.text = joinedString;
 }
 
 - (void)updateAlphabet
@@ -144,7 +198,7 @@
     }
     
     //print out new alphabet
-    self.remainingLettersLabel.text = alphabetString;  
+    self.remainingLettersLabel.text = alphabetString;
 }
 
 //updates the number of guesses label with the current # of guesses remaining
@@ -156,32 +210,44 @@
 //actions to perform with each reloading of the view (i.e. for every new game)
 - (void)viewDidLoad
 {
-    self.Evil = [[EvilGamePlay alloc] init];
-    [self.Evil setWordLength:[[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]];
+    //initialize model based on Evil or not
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"evil"] == NO) 
+    {
+        self.Good = [[GoodGamePlay alloc] init];
+        self.isEvil = NO;
+    }
+    else 
+    {
+        self.Evil = [[EvilGamePlay alloc] init];
+        self.isEvil = YES;
+    }
     
+    //clear any input in textbox
+    submitLetter.text = @"";
     
     //display number of guesses from user's settings
-    self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];        
+    if (!(self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"]))
+    {
+        //set a default number of guesses for first time playing
+        self.numberOfGuesses = 7;
+        [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
+    }
     [self updateGuesses];
     
-    //set number of guesses to default user's settings
-    self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];        
-    
-    //create a new alphabet with each new game
-    [self createAlphabet];
-    
-    //load underscores to represent un-guessed word
-    self.partialWord = [NSMutableArray arrayWithCapacity:self.numberOfLetters];
-    for (int index = 1; index <= self.numberOfLetters; index++)
+    //set number of letters to default user's settings
+    if (!(self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]))
     {
-        [self.partialWord addObject: @"_"];
-    }
-    NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
-    self.dummyResponse.text = joinedString;
+        //set a default number of letters for first time playing
+        self.numberOfLetters = 6;
+        [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
+    }        
+    
+    //render a new alphabet with each new game for user to see what letters they've used
+    [self createNewGameView];
 }
 
 //actions performed when user submits a letter as a guess
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (void)textFieldShouldReturn:(UITextField *)textField
 {    
     //get letter
     self.letter = [self.submitLetter.text characterAtIndex:0];
@@ -197,8 +263,6 @@
     
     //check to see if user has lost game
     [self checkEndGame];
-    
-    return YES;
 }
 
 //allows only one character in the submitLetter textField

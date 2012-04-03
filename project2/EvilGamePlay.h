@@ -13,13 +13,14 @@
 @property (strong, nonatomic) NSMutableArray *words;
 @property (strong, nonatomic) NSMutableArray *potentialWords;
 
-@property (nonatomic) BOOL *evil; //probably don't need this since this is evil
 @property (nonatomic) int *remainingGuesses;
 @property (nonatomic) int wordLength;
 @property (nonatomic) int maxWordLength;
 
 @property (nonatomic) NSMutableArray *usedLetters;
 - (int) guessLetter: (NSString *) letter;
+- (int64_t) calculateScore;
+- (BOOL) checkGameWon;
 
 
 @end

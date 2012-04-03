@@ -22,6 +22,7 @@
 @property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (assign, nonatomic) unsigned int numberOfLetters;
 @property unsigned char letter;
+@property BOOL isEvil;
 
 @property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
@@ -29,12 +30,11 @@
 
 - (IBAction)viewHighScores:(id)sender;
 - (IBAction)startNewGame:(id)sender;
+- (void)checkEndGame;
+- (void)createNewGameView;
+- (void)guessLetter;
 
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
-
-
-//- (IBAction)updatePartialWord:(id)sender;
-//- (void)show or something to update partialWord and remainingLetters
 
 @end

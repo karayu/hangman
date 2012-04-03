@@ -20,16 +20,21 @@
 
 -(id)init
 {
+    // Initialization
     if (self = [super init])
-    {
-        // Initialization
-        
+    {        
         //loads dictionary
         [self loadDictionary];
         
         //determines max word length that user can specify
         [self setMaxWordLength];
-                
+        
+        //sets word length 
+        [self setWordLength];
+        
+        //automatically picks a word since "Good" gameplay chooses a word from the beginning
+        [self pickWord];
+        
         //initializes the _usedLetters
         _usedLetters = [[NSMutableArray alloc] init];
     }
@@ -54,17 +59,18 @@
     
         //sets _maxWordLength equal to length of longest word in this dictionary 
         _maxWordLength = maxLength;
-        return true;
+        return YES;
     }
     else {
-        return false;
+        return NO;
     }
     
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (void) setWordLength: (int)wordLength 
+- (void) setWordLength
 {
+    int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
@@ -86,12 +92,12 @@
         }
         
         _words = newWords;
-//        return true;
+//        return YES;
     }
     else {
         
         NSLog(@"invalid number!");        
-//        return false;
+//        return NO;
     }
 }
 
@@ -101,7 +107,7 @@
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
-              [[NSBundle mainBundle] pathForResource:@"Small" ofType:@"plist"]];
+              [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
 }
 
 - (BOOL) pickWord
@@ -111,11 +117,12 @@
         //r is a random number ranging from 0 to number of words in dictionary
         int r = arc4random() % [_words count]; 
         _word = [_words objectAtIndex:r];
-        return true;
+        NSLog(@"your word is: %@", _word);
+        return YES;
         
     }
     else {
-        return false;
+        return NO;
     }
 }
 
@@ -125,7 +132,7 @@
 - (int) guessLetter: (NSString *) letter 
 {
     //add the letter to the list of used letters
-    [_usedLetters addObject:letter];  
+    [_usedLetters addObject:letter];
     
     if ([_word rangeOfString:letter].location == NSNotFound ) 
     {
@@ -138,25 +145,31 @@
     
 }
 
-//checks to see if game has been won by seeing if all chars in the word have been guessed
-- (BOOL) checkGameWon: (NSString *) word
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct
+- (int64_t) calculateScore
 {
+    float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
+    return percentAccuracy*_wordLength*[_words count];
+}
+
+//checks to see if game has been won by seeing if all chars in the word have been guessed
+- (BOOL) checkGameWon
+{        
     //for each letter in the word   
-    for (int i=0; i< [word length]; i++) 
+    for (int i=0; i< [_word length]; i++) 
     {
-        
         //get the letter
-        NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
+        NSString* letter = [_word substringWithRange:NSMakeRange(i,1)];
         
         if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
         {
             //if the letter isn't in our usedletters, return false            
-            return false;
+            return NO;
         }
     }
     
     //if all characters in string have been guessed, return true
-    return true;
+    return YES;
     
 }
 

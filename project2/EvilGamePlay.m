@@ -20,13 +20,12 @@
 
 //word list given new letter from user
 @synthesize potentialWords = _potentialWords;
-        
-@synthesize evil = _evil;
+
 @synthesize remainingGuesses = _remainingGuesses;
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
-
 @synthesize usedLetters = _usedLetters;
+
 
 //initialize
 -(id)init
@@ -40,6 +39,9 @@
         
         //determines max word length that user can specify
         [self setMaxWordLength];
+        
+        //sets word length for this round of play
+        [self setWordLength];
         
         //initializes the _usedLetters
         _usedLetters = [[NSMutableArray alloc] init];
@@ -66,17 +68,19 @@
         
         //sets _maxWordLength equal to length of longest word in this dictionary 
         _maxWordLength = maxLength;
-        return true;
+        return YES;
     }
     else {
-        return false;
+        return NO;
     }
     
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (void)setWordLength: (int)wordLength 
+- (void)setWordLength
 {
+    int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
+    
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
     {
@@ -96,12 +100,12 @@
         }
         
         _words = newWords;
-//        return true;
+//        return YES;
     }
     else {
         NSLog(@"invalid number!");        
     }
-//    return FALSE;
+//    return NO;
 }
 
 
@@ -110,7 +114,7 @@
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"Small" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 
@@ -120,10 +124,10 @@
 {
     //if _usedLetters doesn't contain letter
     if ([_usedLetters indexOfObject: letter] == NSNotFound) {
-        return true;
+        return YES;
     }
     else {
-        return false;
+        return NO;
     }
 
 }
@@ -134,6 +138,7 @@
 - (int) guessLetter: (NSString *) letter 
 {
     
+    //NSLog(@"the list of words before your guess is: %@", _words);
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
@@ -182,12 +187,17 @@
         _words = [self words: _potentialWords WithLetter:letter InPosition:(bestPosition-1)];
         
         //returns the best position for the letter involved
+        
+        NSLog(@"the list of words after your guess is: %@", _words);
+
         return bestPosition;
     }
     else {
         //it is better to say the letter isn't in the word
         
         _words = [self words: _potentialWords WithoutLetter:letter ];
+        NSLog(@"the list of words after your guess is: %@", _words);
+
         return 0;
     }
     
@@ -201,6 +211,7 @@
     if ([_words count] == 1) {
         
         NSString *word = [_words objectAtIndex:0];
+        NSLog(@"Used Letters: %@", _usedLetters);
         
         //for each letter in the word   
         for (int i=0; i< [word length]; i++) 
@@ -212,18 +223,24 @@
             if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
             {
                 //if the letter isn't in our usedletters, return false            
-                return false;
+                return NO;
             }
         }
         
         //if all characters in string have been guessed, return true
-        return true;
+        return YES;
     }
     
     //if there is more than one word left, return false
-    return false;
+    return NO;
 }
 
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL! 
+- (int64_t) calculateScore
+{
+    float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
+    return percentAccuracy*_wordLength*[_words count]*2;
+}
 
 //returns a set of words out of potentialWords which have letter in the right position
 - (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (int) position

@@ -22,11 +22,14 @@
 @property IBOutlet UISlider *numberOfGuessesSlider;
 @property IBOutlet UISlider *numberOfLettersSlider;
 @property IBOutlet UISwitch *evilSwitch;
+
 @property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (assign, nonatomic) unsigned int numberOfLetters;
+@property BOOL isEvil;
 
 - (IBAction)slidersChanged:(id)sender;
 - (IBAction)done:(id)sender;
 - (void)show;
+- (void)viewDidLoad;
 
 @end
