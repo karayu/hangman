@@ -64,11 +64,10 @@
     else {
         return NO;
     }
-    
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (void) setWordLength
+- (BOOL) setWordLength
 {
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     
@@ -91,14 +90,18 @@
             }
         }
         
-        _words = newWords;
-//        return YES;
+        //make sure newWords actually contains something, and if so assign this to "words" and return true
+        if(newWords)
+        {
+            _words = newWords;
+            return YES;
+        }
     }
     else {
-        
         NSLog(@"invalid number!");        
-//        return NO;
     }
+    //if newWords is empty, user has chosen a word length that does has no words in this dictionary
+    return NO;
 }
 
 

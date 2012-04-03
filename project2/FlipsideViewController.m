@@ -14,7 +14,7 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch;
+@synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch, Evil, Good;
 
 - (void)viewDidLoad
 {
@@ -63,11 +63,16 @@
     [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
     [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
     
+    
     //set evil as "YES" or "NO" based on if switch is on or off
     if ([self.evilSwitch isOn]) 
+    {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
+    }
     else 
+    {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
+    }
     
     //return to default controller with saved defaults
     [self.delegate flipsideViewControllerDidFinish:self];

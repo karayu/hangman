@@ -80,6 +80,8 @@
 - (void)setWordLength
 {
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
+    NSLog(@"word length: %d",wordLength);
+    NSLog(@"max word length: %d",_maxWordLength);
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
@@ -239,7 +241,7 @@
 - (int64_t) calculateScore
 {
     float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
-    return percentAccuracy*_wordLength*[_words count]*2;
+    return percentAccuracy*_wordLength*[_words count];
 }
 
 //returns a set of words out of potentialWords which have letter in the right position

@@ -16,7 +16,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
@@ -125,18 +125,14 @@
 - (void)guessLetter
 {
 
-    NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
+    NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     int index;
     
     //submit guessLetter to gameplay model (Evil or Good)
     if (isEvil)
-    {
-        index = [self.Evil guessLetter:newLetter];
-    }
+        index = [self.Evil guessLetter:letter];
     else
-    {
-        index = [self.Good guessLetter:newLetter];
-    }
+        index = [self.Good guessLetter:letter];
     
     //if guessLetter returns zero, the letter is NOT in the word
     if (index == 0)
@@ -150,7 +146,7 @@
         //insert letter at index's proper place (exactly 1 spot over)
         index = index - 1;
         
-        [self.partialWord replaceObjectAtIndex:index withObject:newLetter];
+        [self.partialWord replaceObjectAtIndex:index withObject:letter];
     }
     
     self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
@@ -185,13 +181,12 @@
     //check to see how many letters are left and what letter was just used  
     int length = [self.remainingLettersLabel.text length];
     alphabetString = [NSMutableString stringWithCapacity: 26];
-    self.letter = [self.submitLetter.text characterAtIndex:0];
     
     //iterate through alphabet and remove letter that was just used
     for(int index = 0; index < length; index++) 
     {
         unichar character = [self.remainingLettersLabel.text characterAtIndex:index];
-        if (character == self.letter)
+        if (character == self.guessedLetter)
             [alphabetString appendString:@"  "];
         else
             [alphabetString appendFormat: @"%c", character];
@@ -250,7 +245,7 @@
 - (void)textFieldShouldReturn:(UITextField *)textField
 {    
     //get letter
-    self.letter = [self.submitLetter.text characterAtIndex:0];
+    self.guessedLetter = [self.submitLetter.text characterAtIndex:0];
     
     //retrieve word list and print dummy response to simulate some sort of gameplay
     [self guessLetter];

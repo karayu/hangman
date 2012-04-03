@@ -21,7 +21,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 @property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (assign, nonatomic) unsigned int numberOfLetters;
-@property unsigned char letter;
+@property unsigned char guessedLetter;
 @property BOOL isEvil;
 
 @property NSMutableString *alphabetString;
@@ -30,9 +30,13 @@
 
 - (IBAction)viewHighScores:(id)sender;
 - (IBAction)startNewGame:(id)sender;
+- (IBAction)showInfo:(id)sender;
 - (void)checkEndGame;
 - (void)createNewGameView;
 - (void)guessLetter;
+- (void)updateAlphabet;
+- (void)updateGuesses;
+- (void)viewDidLoad;
 
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
