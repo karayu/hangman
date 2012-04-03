@@ -97,6 +97,7 @@
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 - (BOOL) setWordLength
 {
+    //get user's default word length
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
@@ -125,9 +126,6 @@
             return YES;
         }
     }
-    else {
-        NSLog(@"invalid number!");        
-    }
     //if newWords is empty, user has chosen a word length that does has no words in this dictionary
     return NO;
 }
@@ -141,6 +139,7 @@
               [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
 }
 
+//picks a random word of correct word length for Good Game Play
 - (BOOL) pickWord
 {
     if ([_words count] >0) 
@@ -148,7 +147,6 @@
         //r is a random number ranging from 0 to number of words in dictionary
         int r = arc4random() % [_words count]; 
         _word = [_words objectAtIndex:r];
-        NSLog(@"your word is: %@", _word);
         return YES;
         
     }
@@ -165,9 +163,10 @@
     //add the letter to the list of used letters
     [_usedLetters addObject:letter];
     
-    
+    //setup string for all the positions in which a letter exists in a given word
     NSString *positions = [self occurenceLocations:letter InWord:_word];
     
+    //create and return an array of the positions
     NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
 
     return positions_arr;

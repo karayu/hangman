@@ -67,7 +67,7 @@
 }
 
 //if user clicks "Yes" on alert popup to start New Game, refresh the view (& thus start new game)
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) 
     {
@@ -91,6 +91,7 @@
         //refresh the view, initializing new settings and thus starting new game
         [self viewDidLoad];
     }
+    //if won, calculate EVIL score based on dictionary used, word length, and factor in extra EVIL points
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Evil calculateScore]];
@@ -105,6 +106,7 @@
         //refresh the view, initializing new settings and thus starting new game
         [self viewDidLoad];        
     }
+    //if won, calculate score based on dictionary, word length, and # of guesses
     else if (!isEvil && [self.Good checkGameWon])
     {
         NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Good calculateScore]];
@@ -125,9 +127,9 @@
 - (void)guessLetter
 {
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
+    
     NSArray *letterPositions;
     letterPositions = [self.Evil guessLetter:letter];
-    NSLog(@"%@", letterPositions);
     
     if ([letterPositions objectAtIndex:0]==@"nonexistent")
     {
@@ -139,34 +141,12 @@
         int count = [letterPositions count];
         for (int index=0; index < count; index++)
         {
-            NSLog(@"position: %@", [letterPositions objectAtIndex:index]);
-
             int position = [[letterPositions objectAtIndex:index] intValue];
             [self.partialWord replaceObjectAtIndex:position withObject:letter];
         }
     }
-    
-    /*submit guessLetter to gameplay model (Evil or Good)
-    if (isEvil)
-        index = [self.Evil guessLetter:letter];
-    else
-        index = [self.Good guessLetter:letter];
-    
-    //if guessLetter returns zero, the letter is NOT in the word
-    if (index == 0)
-    {
-        //decrement # of guesses if letter is incorrect
-        self.numberOfGuesses--;
-        [self updateGuesses];
-    }
-    else 
-    {
-        //insert letter at index's proper place (exactly 1 spot over)
-        index = index - 1;
-        
-        [self.partialWord replaceObjectAtIndex:index withObject:letter];
-    }*/
-    
+
+    //update textfield with 
     self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
 }
 
@@ -253,8 +233,13 @@
     //set number of letters to default user's settings
     if (!(self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]))
     {
-        //set a default number of letters for first time playing
-        self.numberOfLetters = 6;
+        //set a default number of letters for user's first time playing based on word lengths of dictionaries
+        if (self.isEvil)
+            self.numberOfLetters = [self.Evil minWordLength];
+        else
+            self.numberOfLetters = [self.Good minWordLength];
+        
+        //set this as default numberOfLetters until user changes their settings
         [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
     }        
     
@@ -321,6 +306,7 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+//flips to the Flipside view, sending "self" as delegate so we can get back to main controller
 - (IBAction)showInfo:(id)sender
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideViewController" bundle:nil];

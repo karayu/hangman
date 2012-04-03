@@ -20,22 +20,19 @@
 
 //word list given new letter from user
 @synthesize potentialWords = _potentialWords;
-
 @synthesize remainingGuesses = _remainingGuesses;//CHECK WHEN THIS BECOMES NEGATIVE
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
 @synthesize minWordLength =_minWordLength;
-
 @synthesize usedLetters = _usedLetters;
 
 
 //initialize
 -(id)init
 {
+    // Initialization
     if (self = [super init])
-    {
-        // Initialization
-        
+    {        
         //loads dictionary
         [self loadDictionary];
         
@@ -107,9 +104,8 @@
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 - (BOOL)setWordLength
 {
+    //gets default word length from user
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
-    NSLog(@"word length: %d",wordLength);
-    NSLog(@"max word length: %d",_maxWordLength);
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
@@ -128,7 +124,7 @@
                 [newWords addObject:word];
             }
         }
-        
+        //if words exist in the dictionary of length "wordLength", save these in _words and return true
         if([newWords count] > 0)
         {
             _words = newWords;
@@ -167,7 +163,6 @@
 - (NSArray *) guessLetter: (NSString *) letter 
 {
     
-    //NSLog(@"the list of words before your guess is: %@", _words);
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
@@ -176,9 +171,7 @@
     
     //the positions where the letter should appear
     NSString *bestPosition;
-    
-    //NSMutableArray *potentialKeys = [[NSMutableArray alloc] init];
-    
+        
     //number of words in equivalence class for that position
     int mostWords = 0;
     
@@ -206,17 +199,12 @@
     
     if ([positions objectAtIndex: 0] == @"nonexistent") {
         //it is better to say the letter isn't in the word
-        _words = [self words: _words WithoutLetter:letter ];
-        NSLog(@"the list of words is: %@", _words);
-    
-
+        _words = [self words: _words WithoutLetter:letter ];    
     }
     else {
         
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _words WithLetter:letter InPosition: bestPosition];
-        NSLog(@"the list of words is: %@", _words);
-
     }
     return positions;
 }
@@ -228,8 +216,8 @@
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
         
+        //gets the last word left in the "words" array
         NSString *word = [_words objectAtIndex:0];
-        NSLog(@"Used Letters: %@", _usedLetters);
         
         //for each letter in the word   
         for (int i=0; i< [word length]; i++) 
@@ -265,15 +253,14 @@
     
     //iterates through all the potential words 
     for (NSString *word in potentialWords) {    
+        
         //for each word in potentialWords, if the word has letter in position, add it to the new words
         if ( [[self occurenceLocations: letter InWord:word] isEqualToString: position]) 
         {
             [newWords addObject:word];  
         }
     }
-    
     return newWords;
-    
 }
 
 
@@ -282,7 +269,6 @@
 {
     //start result dictionary
     NSMutableDictionary *wordsByPosition = [[NSMutableDictionary alloc] init];
-    
     
     //for each word in the dictionary
     for (NSString *word in words) {
@@ -307,7 +293,6 @@
         
         //set our current array as the official array     
         [wordsByPosition setObject:curr forKey:occ];
-        
     }
     return wordsByPosition;
 }
@@ -357,7 +342,6 @@
             [potentialWords addObject:word];  
         }
     }
-    
     return potentialWords;
 }
 
