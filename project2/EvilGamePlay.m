@@ -162,12 +162,12 @@
 }
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
-//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nil as the first element
+//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nonexistent as the first element
 //updates _words to include only words with letter in the best position or words without the letter
 - (NSArray *) guessLetter: (NSString *) letter 
 {
     
-    NSLog(@"the list of words before your guess is: %@", _words);
+    //NSLog(@"the list of words before your guess is: %@", _words);
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
@@ -177,7 +177,7 @@
     //the positions where the letter should appear
     NSString *bestPosition;
     
-    NSMutableArray *potentialKeys =  [[NSMutableDictionary alloc] init];
+    //NSMutableArray *potentialKeys = [[NSMutableArray alloc] init];
     
     //number of words in equivalence class for that position
     int mostWords = 0;
@@ -204,15 +204,19 @@
     
     NSArray *positions = [bestPosition componentsSeparatedByString: @"-"];
     
-    if ([positions objectAtIndex: 0] == nil) {
+    if ([positions objectAtIndex: 0] == @"nonexistent") {
         //it is better to say the letter isn't in the word
         _words = [self words: _potentialWords WithoutLetter:letter ];
+        NSLog(@"the list of words is: %@", _words);
+    
 
     }
     else {
         
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _potentialWords WithLetter:letter InPosition: bestPosition];
+        NSLog(@"the list of words is: %@", _words);
+
     }
     return positions;
 }
@@ -334,7 +338,7 @@
         result = [occ componentsJoinedByString: @"-"];
     }
     else {
-        result = nil;
+        result = @"nonexistent";
     }
     
     return result;

@@ -129,18 +129,20 @@
     letterPositions = [self.Evil guessLetter:letter];
     NSLog(@"%@", letterPositions);
     
-    if ([letterPositions objectAtIndex:0]==nil)
+    if ([letterPositions objectAtIndex:0]==@"nonexistent")
     {
         self.numberOfGuesses--;
         [self updateGuesses];
     }
     else 
     {
-        for (int index=0; index <= [letterPositions count]; index++)
+        int count = [letterPositions count];
+        for (int index=0; index < count; index++)
         {
             NSLog(@"position: %@", [letterPositions objectAtIndex:index]);
-            if ([letterPositions objectAtIndex:index]!=nil)
-                [self.partialWord replaceObjectAtIndex:index withObject:letter];
+
+            int position = [[letterPositions objectAtIndex:index] intValue];
+            [self.partialWord replaceObjectAtIndex:position withObject:letter];
         }
     }
     
