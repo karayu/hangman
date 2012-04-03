@@ -16,6 +16,7 @@
 @property (nonatomic) int *remainingGuesses;
 @property (nonatomic) int wordLength;
 @property (nonatomic) int maxWordLength;
+@property (nonatomic) int minWordLength;
 
 @property (nonatomic) NSMutableArray *usedLetters;
 - (int) guessLetter: (NSString *) letter;
