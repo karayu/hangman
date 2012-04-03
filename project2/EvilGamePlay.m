@@ -28,47 +28,79 @@
 
 @synthesize usedLetters = _usedLetters;
 
+//initialize
+-(id)init
+{
+    if (self = [super init])
+    {
+        // Initialization
+        
+        //loads dictionary
+        [self loadDictionary];
+        
+        //determines max word length that user can specify
+        [self setMaxWordLength];
+        
+    }
+    return self;
+}
 
 //figures out the length of the longest word in the current dictionary and sets the _maxWordLength equal to that
-- (void) setMaxWordLength
+- (BOOL) setMaxWordLength
 {
     int maxLength = 0;
     
-    //iterates through all words and if the length is greater than maxLength, we update maxLength to match
-    for (NSString *word in _words) {
-        if ( [word length] > maxLength) {
-            maxLength = [word length];
+    if ([_words count]>0) 
+    {
+        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
+        for (NSString *word in _words) 
+        {
+            if ( [word length] > maxLength) 
+            {
+                maxLength = [word length];
+            }
         }
+        
+        //sets _maxWordLength equal to length of longest word in this dictionary 
+        _maxWordLength = maxLength;
+        return true;
+    }
+    else {
+        return false;
     }
     
-    //sets _maxWordLength equal to length of longest word in this dictionary 
-    _maxWordLength = maxLength;
-
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (void) setWordLength:(int)wordLength {
+- (BOOL) setWordLength: (int)wordLength 
+{
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
-    if (wordLength > 0 && wordLength <= _maxWordLength ) {
+    if (wordLength > 0 && wordLength <= _maxWordLength ) 
+    {
         
         //set the private variation equal to the word length
         _wordLength = wordLength;
         
         //results array
-        NSMutableArray *new_words = [[NSMutableArray alloc] init];
+        NSMutableArray *newWords = [[NSMutableArray alloc] init];
         
         //for each word, if its length matches, then add it to the result array
-        for (NSString *word in _words) {
-            if ([word length] == wordLength) {
-                [new_words addObject:word];
+        for (NSString *word in _words) 
+        {
+            if ([word length] == wordLength) 
+            {
+                [newWords addObject:word];
             }
         }
         
-        _words = new_words;
+        _words = newWords;
+        return true;
     }
     else {
-        NSLog(@"invalid number!");
+        
+        NSLog(@"invalid number!");        
+        return false;
     }
 }
 
@@ -170,6 +202,7 @@
 
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
+        
         NSString *word = [_words objectAtIndex:0];
         
         for (NSInteger i=0; i<word.length; i++) {

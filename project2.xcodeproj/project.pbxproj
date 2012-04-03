@@ -29,6 +29,7 @@
 		E70AE763151C437B00FB7BAE /* project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E70AE762151C437B00FB7BAE /* project2Tests.m */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
+		E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
 		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
 		E7B01AC51528F6DF00D861AF /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
+		E7B01ACE152AA07500D861AF /* GoodGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodGamePlay.h; path = ../GoodGamePlay.h; sourceTree = "<group>"; };
+		E7B01ACF152AA07500D861AF /* GoodGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoodGamePlay.m; path = ../GoodGamePlay.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 		E70AE737151C437A00FB7BAE /* project2 */ = {
 			isa = PBXGroup;
 			children = (
+				E7B01ACE152AA07500D861AF /* GoodGamePlay.h */,
+				E7B01ACF152AA07500D861AF /* GoodGamePlay.m */,
 				E7B01A5C15279B3100D861AF /* EvilGamePlay.h */,
 				E7B01A5D15279B3100D861AF /* EvilGamePlay.m */,
 				E70AE740151C437B00FB7BAE /* AppDelegate.h */,
@@ -300,6 +305,7 @@
 				E70AE745151C437B00FB7BAE /* MainViewController.m in Sources */,
 				E70AE748151C437B00FB7BAE /* FlipsideViewController.m in Sources */,
 				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
+				E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
