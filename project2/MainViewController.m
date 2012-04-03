@@ -100,7 +100,7 @@
         index = index - 1;
         
         NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
-        //[self.partialWord replaceObjectAtIndex:index withObject:newLetter];
+        [self.partialWord replaceObjectAtIndex:index withObject:newLetter];
     }
     
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
