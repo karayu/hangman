@@ -16,6 +16,7 @@
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength = _maxWordLength;
 
+@synthesize usedLetters = _usedLetters;
 
 -(id)init
 {
@@ -29,6 +30,8 @@
         //determines max word length that user can specify
         [self setMaxWordLength];
                 
+        //initializes the _usedLetters
+        _usedLetters = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -121,6 +124,9 @@
 //returns 0 if the letter isn't in the word
 - (int) guessLetter: (NSString *) letter 
 {
+    //add the letter to the list of used letters
+    [_usedLetters addObject:letter];  
+    
     if ([_word rangeOfString:letter].location == NSNotFound ) 
     {
         return 0;
@@ -132,24 +138,26 @@
     
 }
 
-- (BOOL) checkGameWon {
-    if ([_words count] == 1) {
-        NSString *word = [_words objectAtIndex:0];
+//checks to see if game has been won by seeing if all chars in the word have been guessed
+- (BOOL) checkGameWon: (NSString *) word
+{
+    //for each letter in the word   
+    for (int i=0; i< [word length]; i++) 
+    {
         
-        for (NSInteger i=0; i<word.length; i++) {
-            // if any characters in string have not been guessed, return false
-            // TEST THIS!  indexOfObject:char work with an array of strings??
-            //if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
-            //    return false;
-            //}
+        //get the letter
+        NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
+        
+        if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
+        {
+            //if the letter isn't in our usedletters, return false            
+            return false;
         }
-        
-        //if all characters in string have been guessed, return true
-        return true;
-        
     }
     
-    return false;
+    //if all characters in string have been guessed, return true
+    return true;
+    
 }
 
 

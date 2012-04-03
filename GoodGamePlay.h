@@ -16,6 +16,7 @@
 @property (nonatomic) int maxWordLength;
 @property (nonatomic) int wordLength;
 
+@property (nonatomic) NSMutableArray *usedLetters;
 
 
 @end

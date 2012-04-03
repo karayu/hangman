@@ -41,6 +41,9 @@
         //determines max word length that user can specify
         [self setMaxWordLength];
         
+        //initializes the _usedLetters
+        _usedLetters = [[NSMutableArray alloc] init];
+
     }
     return self;
 }
@@ -193,28 +196,31 @@
 /*checks to see if the game has been won by 
     1) seeing if the number of words left is 1
     2) seeing if all the letters in the word have been guessed
- 
- NEEDS TO BE DOUBLE CHECKED
  */
-
 - (BOOL) checkGameWon {
     if ([_words count] == 1) {
         
         NSString *word = [_words objectAtIndex:0];
         
-        for (NSInteger i=0; i<word.length; i++) {
-            // if any characters in string have not been guessed, return false
-            // TEST THIS!  indexOfObject:char work with an array of strings??
-            //if ([_usedLetters indexOfObject: [word characterAtIndex:charIdx]] == NSNotFound) {
-            //    return false;
-            //}
+        //for each letter in the word   
+        for (int i=0; i< [word length]; i++) 
+        {
+            
+            //get the letter
+            NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
+            
+            if ([_usedLetters indexOfObject:letter ] == NSNotFound) 
+            {
+                //if the letter isn't in our usedletters, return false            
+                return false;
+            }
         }
         
         //if all characters in string have been guessed, return true
         return true;
-        
     }
     
+    //if there is more than one word left, return false
     return false;
 }
 
