@@ -1,11 +1,11 @@
 For this alpha, we implemented Hangman in both evil and good forms. 
 
 Here are some things we plan to do for the release:
+- Improve the algorithm for speed
 - keep track of high scores
+- tell user that what the word was 
 - alert error if user has guessed a given letter already (and don't decrease number of guesses left)
-- don't allow user to guess number, non alphabet things
 - multiple images to visually show hangman gameplay
-- enable randomness in equivalence classes with the same number of words
 - Alert user of what word actually was if they lost
 - Alert for invalid word length - self.Good = [[GoodGamePlay alloc] init];
 - Make sure settings values = model values
