@@ -16,23 +16,31 @@
 @end
 
 @interface FlipsideViewController : UIViewController
-
 @property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;  
+
+//classes
+@property (nonatomic, retain) EvilGamePlay* Evil;
+@property (nonatomic, retain) GoodGamePlay* Good;
+
+//UI widgets
 @property (nonatomic, retain) IBOutlet UILabel *numberOfGuessesLabel;
 @property (nonatomic, retain) IBOutlet UILabel *numberOfLettersLabel;
 @property IBOutlet UISlider *numberOfGuessesSlider;
 @property IBOutlet UISlider *numberOfLettersSlider;
 @property IBOutlet UISwitch *evilSwitch;
 
+//variables
 @property (assign, nonatomic) unsigned int numberOfGuesses;
 @property (assign, nonatomic) unsigned int numberOfLetters;
 @property BOOL isEvil;
-@property (nonatomic, retain) EvilGamePlay* Evil;
-@property (nonatomic, retain) GoodGamePlay* Good;
 
+//UI methods
 - (IBAction)slidersChanged:(id)sender;
 - (IBAction)done:(id)sender;
+
+//other methods
 - (void)show;
 - (void)viewDidLoad;
+- (BOOL)checkWordLengths;
 
 @end

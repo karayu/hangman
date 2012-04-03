@@ -19,9 +19,8 @@
 @synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch, Evil, Good;
 
 - (void)viewDidLoad
-{
+{    
     //store guesses/letters from user's saved defaults in temporary instance variables
-    //???have some alternate value in case there are not yet any user defaults?
     self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];
     self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     self.isEvil = [[NSUserDefaults standardUserDefaults] boolForKey:@"evil"];
@@ -44,9 +43,11 @@
     self.evilSwitch.on = self.isEvil;
 }
 
+//check the max word length of good and evil to be sure the user's settings are allowed
 - (BOOL)checkWordLengths
 {
-    if ((self.isEvil && ![self.Evil setWordLength]) || (!self.isEvil && ![self.Good setWordLength]))
+    //alert user if word length is not allowed for a given dictionary
+    if (((self.isEvil) && ![self.Evil setWordLength]) || (!(self.isEvil) && ![self.Good setWordLength]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"WAIT!" 
                                                             message:@"That word length is not allowed, please fix it before continuing!" 
@@ -55,6 +56,7 @@
                                                   otherButtonTitles:nil];
         [alertView show];     
     }
+    //return true if word lengths are allowed
     else 
     {
         return YES;
@@ -64,6 +66,7 @@
 
 #pragma mark - Actions
 
+//plant an event listener to update instance variables when sliders or switch are changed
 - (IBAction)slidersChanged:(id)sender 
 {  
     //update instance variables for numbers based on current slider values
@@ -77,23 +80,23 @@
     [self show];
 }  
 
+//when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender
 {
     //save the default variables as user's defaults
     [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
     [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
     
-    
     //set evil as "YES" or "NO" based on if switch is on or off
-    if ([self.evilSwitch isOn]) 
+    if ([self.evilSwitch isOn])
     {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
         self.Evil = [[EvilGamePlay alloc] init];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
     }
     else 
     {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
         self.Good = [[GoodGamePlay alloc] init];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
     }
     
     //return to default controller with saved defaults

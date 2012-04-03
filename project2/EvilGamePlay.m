@@ -17,20 +17,20 @@
 //current word list
 @synthesize words = _words;
 
+
+//word list given new letter from user
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
 @synthesize minWordLength =_minWordLength;
-
 @synthesize usedLetters = _usedLetters;
 
 
 //initialize
--(id)init
+- (id) init
 {
+    // Initialization
     if (self = [super init])
-    {
-        // Initialization
-        
+    {        
         //loads dictionary
         [self loadDictionary];
         
@@ -102,6 +102,7 @@
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 - (BOOL)setWordLength
 {
+    //gets default word length from user
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     
     //Makes sure that user gave us ok input
@@ -121,7 +122,7 @@
                 [newWords addObject:word];
             }
         }
-        
+        //if words exist in the dictionary of length "wordLength", save these in _words and return true
         if([newWords count] > 0)
         {
             _words = newWords;
@@ -133,7 +134,7 @@
 
 
 //load the plist
-- (void)loadDictionary
+- (void) loadDictionary
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
@@ -168,9 +169,7 @@
     
     //the positions where the letter should appear
     NSString *bestPosition;
-    
-    //NSMutableArray *potentialKeys = [[NSMutableArray alloc] init];
-    
+        
     //number of words in equivalence class for that position
     int mostWords = 0;
     
@@ -219,6 +218,7 @@
 {
     if ([_words count] == 1) {
         
+        //gets the last word left in the "words" array
         NSString *word = [_words objectAtIndex:0];
         
         //for each letter in the word   
@@ -255,15 +255,14 @@
     
     //iterates through all the potential words 
     for (NSString *word in potentialWords) {    
+        
         //for each word in potentialWords, if the word has letter in position, add it to the new words
         if ( [[self occurenceLocations: letter InWord:word] isEqualToString: position]) 
         {
             [newWords addObject:word];  
         }
     }
-    
     return newWords;
-    
 }
 
 
@@ -272,7 +271,6 @@
 {
     //start result dictionary
     NSMutableDictionary *wordsByPosition = [[NSMutableDictionary alloc] init];
-    
     
     //for each word in the dictionary
     for (NSString *word in words) {
@@ -297,7 +295,6 @@
         
         //set our current array as the official array     
         [wordsByPosition setObject:curr forKey:occ];
-        
     }
     return wordsByPosition;
 }
@@ -358,7 +355,6 @@
             [potentialWords addObject:word];  
         }
     }
-    
     return potentialWords;
 }
 
