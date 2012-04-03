@@ -4,12 +4,14 @@
 <array>
 	<string>BEAR</string>
 	<string>BOAR</string>
-	<string>DEER</string>
+	<string>DEAR</string>
 	<string>DUCK</string>
 	<string>HARE</string>
 	<string>HAT</string>
 	<string>CAT</string>
 	<string>GAT</string>
 	<string>TAG</string>
+	<string>READ</string>
+	<string>BECK</string>
 </array>
 </plist>
