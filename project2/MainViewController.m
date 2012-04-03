@@ -136,7 +136,7 @@
     }
     else 
     {
-        for (int index=0; index < [letterPositions count]; index++)
+        for (int index=0; index <= [letterPositions count]; index++)
         {
             NSLog(@"position: %@", [letterPositions objectAtIndex:index]);
             if ([letterPositions objectAtIndex:index]!=nil)
