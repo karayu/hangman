@@ -104,7 +104,7 @@
 {
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     
-    //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
+    //Makes sure that user gave us ok input
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
     {
         //set the private variation equal to the word length
@@ -137,7 +137,7 @@
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 
@@ -215,7 +215,8 @@
     1) seeing if the number of words left is 1
     2) seeing if all the letters in the word have been guessed
  */
-- (BOOL) checkGameWon {
+- (BOOL) checkGameWon 
+{
     if ([_words count] == 1) {
         
         NSString *word = [_words objectAtIndex:0];

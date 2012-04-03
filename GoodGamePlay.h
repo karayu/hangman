@@ -23,7 +23,14 @@
 - (NSArray *) guessLetter: (NSString *) letter;
 - (int64_t) calculateScore;
 - (BOOL) checkGameWon;
+- (NSArray *) guessLetter: (NSString *) letter;
+- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string;
 - (BOOL) pickWord;
 - (BOOL) setWordLength;
+- (BOOL) setMaxWordLength;
+- (BOOL) setMinWordLength;
+- (void)loadDictionary;
+
+
 
 @end
