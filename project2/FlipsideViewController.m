@@ -19,11 +19,7 @@
 @synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch, Evil, Good;
 
 - (void)viewDidLoad
-{
-    //initialize Good & Evil models
-    self.Evil = [[EvilGamePlay alloc] init];
-    self.Good = [[GoodGamePlay alloc] init];
-    
+{    
     //store guesses/letters from user's saved defaults in temporary instance variables
     self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];
     self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
@@ -51,7 +47,7 @@
 - (BOOL)checkWordLengths
 {
     //alert user if word length is not allowed for a given dictionary
-    if ((self.isEvil && ![self.Evil setWordLength]) || (!self.isEvil && ![self.Good setWordLength]))
+    if (((self.isEvil) && ![self.Evil setWordLength]) || (!(self.isEvil) && ![self.Good setWordLength]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"WAIT!" 
                                                             message:@"That word length is not allowed, please fix it before continuing!" 
@@ -92,10 +88,16 @@
     [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfLetters forKey:@"numberOfLetters"];
     
     //set evil as "YES" or "NO" based on if switch is on or off
-    if ([self.evilSwitch isOn]) 
+    if ([self.evilSwitch isOn])
+    {
+        self.Evil = [[EvilGamePlay alloc] init];
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
+    }
     else 
+    {
+        self.Good = [[GoodGamePlay alloc] init];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
+    }
     
     //return to default controller with saved defaults
     if ([self checkWordLengths])

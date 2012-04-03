@@ -19,8 +19,6 @@
 
 
 //word list given new letter from user
-@synthesize potentialWords = _potentialWords;
-@synthesize remainingGuesses = _remainingGuesses;//CHECK WHEN THIS BECOMES NEGATIVE
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
 @synthesize minWordLength =_minWordLength;
@@ -28,7 +26,7 @@
 
 
 //initialize
--(id)init
+- (id) init
 {
     // Initialization
     if (self = [super init])
@@ -136,7 +134,7 @@
 
 
 //load the plist
-- (void)loadDictionary
+- (void) loadDictionary
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:

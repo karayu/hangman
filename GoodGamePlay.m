@@ -20,7 +20,7 @@
 
 @synthesize usedLetters = _usedLetters;
 
--(id)init
+- (id)init
 {
     // Initialization
     if (self = [super init])

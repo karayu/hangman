@@ -126,31 +126,36 @@
 //handles guessing of each letter
 - (void)guessLetter
 {
+    //cast letter to string and set up array for the letter's positions (if any) in the word
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
-    
     NSArray *letterPositions;
     
+    //depending on whether isEvil or not, grabs the letter positions of this letter
     if (isEvil)
         letterPositions = [self.Evil guessLetter:letter];
     else
         letterPositions = [self.Good guessLetter:letter];
     
+    //letterPositions returns "nonexistent" if the letter is not even in the word
     if ([letterPositions objectAtIndex:0]==@"nonexistent")
     {
         self.numberOfGuesses--;
         [self updateGuesses];
     }
+    //otherwise, iterate through all places to print out the letter wherever it shows up
     else 
     {
         int count = [letterPositions count];
         for (int index=0; index < count; index++)
         {
             int position = [[letterPositions objectAtIndex:index] intValue];
+            
+            //update "partialWord" by replacing underscores with the letter
             [self.partialWord replaceObjectAtIndex:position withObject:letter];
         }
     }
 
-    //update textfield with 
+    //update textfield with new partialWord
     self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
 }
 
@@ -174,10 +179,12 @@
         [self.partialWord addObject: @"_"];
     }
     
+    //join the blank underscores with spaces to show hangman-style blank word
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
     self.dummyResponse.text = joinedString;
 }
 
+//refreshes the remaining letters with every guess
 - (void)updateAlphabet
 {
     //check to see how many letters are left and what letter was just used  
