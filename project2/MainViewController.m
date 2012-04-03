@@ -127,6 +127,7 @@
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     NSArray *letterPositions;
     letterPositions = [self.Evil guessLetter:letter];
+    NSLog(@"%@", letterPositions);
     
     if ([letterPositions objectAtIndex:0]==nil)
     {

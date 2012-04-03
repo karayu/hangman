@@ -167,7 +167,7 @@
 - (NSArray *) guessLetter: (NSString *) letter 
 {
     
-    //NSLog(@"the list of words before your guess is: %@", _words);
+    NSLog(@"the list of words before your guess is: %@", _words);
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
