@@ -132,19 +132,50 @@
 
 //returns the location of the letter +1
 //returns 0 if the letter isn't in the word
-- (int) guessLetter: (NSString *) letter 
+- (NSArray *) guessLetter: (NSString *) letter 
 {
     //add the letter to the list of used letters
     [_usedLetters addObject:letter];
     
-    if ([_word rangeOfString:letter].location == NSNotFound ) 
+    
+    NSString *positions = [self occurenceLocations:letter InWord:_word];
+    
+    NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
+
+    return positions_arr;
+}
+
+
+//returns a string with locations of occurence(s)
+- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
+{
+    NSMutableArray *occ = [[NSMutableArray alloc] init];
+    
+    NSRange searchRange = NSMakeRange(0,string.length);
+    NSRange foundRange;
+    while (searchRange.location < string.length) {
+        searchRange.length = string.length-searchRange.location;
+        foundRange = [string rangeOfString:letter options:nil range:searchRange];
+        if (foundRange.location != NSNotFound) {
+            // found an occurrence of the letter! add the location to the database
+            [occ addObject: [NSNumber numberWithInt: foundRange.location]];
+            searchRange.location = foundRange.location+foundRange.length;
+        } else {
+            // no more letters to find
+            break;
+        }
+    }
+    
+    NSString *result;
+    if ([occ count] > 0) 
     {
-        return 0;
+        result = [occ componentsJoinedByString: @"-"];
     }
     else {
-        return [_word rangeOfString:letter].location +1;
+        result = @"nonexistent";
     }
-
+    
+    return result;
     
 }
 
