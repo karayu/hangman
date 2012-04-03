@@ -14,16 +14,40 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, alphabetArray, partialWord;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton;
 
+//turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
-{
-    //show user high score table-list in popup dialog (I think an alert would be fine)
+{    
+    //ANIMATED WOOOO!
+    CATransition *animation = [CATransition animation];
+    
+    //if the high scores table is hidden, unhide it when "High Scores" button is clicked
+    if (highScoresTable.hidden == YES) 
+    {
+        animation.type = kCATransitionMoveIn;
+        [highScoresTable.layer addAnimation:animation forKey:nil];
+        
+        //unhide high scores table and "Back" button
+        highScoresTable.hidden = NO;
+        backButton.hidden = NO;
+    }
+    //if it's not hidden, hide table & button when "Back" button is clicked
+    else 
+    {
+        animation.type = kCATransitionPush;
+        [highScoresTable.layer addAnimation:animation forKey:nil];
+        
+        //hide high scores table and back button
+        highScoresTable.hidden = YES;
+        backButton.hidden = YES;
+    }
 }
 
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
 {
+    //if user agrees "Yes" to starting a new game, the view will be re-loaded
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You sure you want a new game?" 
                                                         message:@"(You will lose your current game)" 
                                                        delegate:self 
@@ -32,7 +56,7 @@
     [alertView show];
 }
 
-//if user clicks "Yes" on alert popup to start New Game, load a new view
+//if user clicks "Yes" on alert popup to start New Game, refresh the view (& thus start new game)
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) 
@@ -64,7 +88,7 @@
     //decrement # of guesses if letter is incorrect, i.e. this would not usually be here
     self.numberOfGuesses--;
     [self updateGuesses];
-    
+
     if (5 == 0)
     {
         //decrement guesses here
@@ -86,22 +110,22 @@
 //initializes the alphabet with the start of each new game
 - (void)createAlphabet
 {
-    alphabetArray = [NSMutableString stringWithCapacity: 26];
+    alphabetString = [NSMutableString stringWithCapacity: 26];
     
     //create alphabet
     for(char c = 'A'; c <= 'Z'; c++)
     {
-        [alphabetArray appendFormat: @"%c", c];
+        [alphabetString appendFormat: @"%c", c];
     }
     //print alphabet to remainingLettersLabel
-    self.remainingLettersLabel.text = alphabetArray;  
+    self.remainingLettersLabel.text = alphabetString;  
 }
 
 - (void)updateAlphabet
 {
     //check to see how many letters are left and what letter was just used  
     int length = [self.remainingLettersLabel.text length];
-    alphabetArray = [NSMutableString stringWithCapacity: 26];
+    alphabetString = [NSMutableString stringWithCapacity: 26];
     self.letter = [self.submitLetter.text characterAtIndex:0];
     
     //iterate through alphabet and remove letter that was just used
@@ -109,13 +133,13 @@
     {
         unichar character = [self.remainingLettersLabel.text characterAtIndex:index];
         if (character == self.letter)
-            [alphabetArray appendString:@"  "];
+            [alphabetString appendString:@"  "];
         else
-            [alphabetArray appendFormat: @"%c", character];
+            [alphabetString appendFormat: @"%c", character];
     }
     
     //print out new alphabet
-    self.remainingLettersLabel.text = alphabetArray;  
+    self.remainingLettersLabel.text = alphabetString;  
 }
 
 //updates the number of guesses label with the current # of guesses remaining
@@ -145,12 +169,6 @@
     }
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
     self.dummyResponse.text = joinedString;
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 //actions performed when user submits a letter as a guess
@@ -185,6 +203,27 @@
     return YES;
 }
 
+//setup High Scores table by calculating the number of rows
+//source:http://stackoverflow.com/questions/5365107/fill-tableview-with-mutable-array
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
+{
+    //dummy placeholder array to fill High Scores for now
+    self.highScoresArray = [NSMutableArray arrayWithObjects:@"COMPUTER - 1100 pts", @"SCIENCE - 1000 pts", @"CATS - 900 pts", nil];
+    return self.highScoresArray.count;
+}
+
+
+//setup rows in High Scores table to display the array text
+//source:http://stackoverflow.com/questions/5365107/fill-tableview-with-mutable-array
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    cell.textLabel.text = [self.highScoresArray objectAtIndex:indexPath.row];
+    return cell;
+}
 
 #pragma mark - Flipside View
 

@@ -13,13 +13,17 @@
 //not sure about types, pointers, and properties for all of these
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
-@property (assign, nonatomic) unsigned int numberOfGuesses;
-@property (assign, nonatomic) unsigned int numberOfLetters;
+@property IBOutlet UITableView *highScoresTable;
+@property IBOutlet UIButton *backButton;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
+@property (assign, nonatomic) unsigned int numberOfGuesses;
+@property (assign, nonatomic) unsigned int numberOfLetters;
 @property unsigned char letter;
-@property NSMutableString *alphabetArray;
+
+@property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
+@property NSMutableArray *highScoresArray;
 
 - (IBAction)viewHighScores:(id)sender;
 - (IBAction)startNewGame:(id)sender;

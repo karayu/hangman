@@ -14,7 +14,7 @@
 
 @implementation FlipsideViewController
 
-@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider,evilSwitch;
+@synthesize delegate, numberOfGuesses, numberOfLetters, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch;
 
 - (void)viewDidLoad
 {
@@ -67,11 +67,6 @@
     
     //return to default controller with saved defaults
     [self.delegate flipsideViewControllerDidFinish:self];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 @end
