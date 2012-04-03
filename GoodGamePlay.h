@@ -24,5 +24,6 @@
 - (int64_t) calculateScore;
 - (BOOL) checkGameWon;
 - (BOOL) pickWord;
+- (BOOL) setWordLength;
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "FlipsideViewController.h"
+#import "EvilGamePlay.h"
+#import "GoodGamePlay.h"
 
 @interface FlipsideViewController ()
 
@@ -42,6 +44,24 @@
     self.evilSwitch.on = self.isEvil;
 }
 
+- (BOOL)checkWordLengths
+{
+    if ((self.isEvil && ![self.Evil setWordLength]) || (!self.isEvil && ![self.Good setWordLength]))
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"WAIT!" 
+                                                            message:@"That word length is not allowed, please fix it before continuing!" 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"Close" 
+                                                  otherButtonTitles:nil];
+        [alertView show];     
+    }
+    else 
+    {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Actions
 
 - (IBAction)slidersChanged:(id)sender 
@@ -68,14 +88,17 @@
     if ([self.evilSwitch isOn]) 
     {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
+        self.Evil = [[EvilGamePlay alloc] init];
     }
     else 
     {
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"evil"];
+        self.Good = [[GoodGamePlay alloc] init];
     }
     
     //return to default controller with saved defaults
-    [self.delegate flipsideViewControllerDidFinish:self];
+    if ([self checkWordLengths])
+        [self.delegate flipsideViewControllerDidFinish:self];
 }
 
 @end

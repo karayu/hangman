@@ -105,7 +105,7 @@
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (void)setWordLength
+- (BOOL)setWordLength
 {
     int wordLength = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
     NSLog(@"word length: %d",wordLength);
@@ -129,13 +129,13 @@
             }
         }
         
-        _words = newWords;
-//        return YES;
+        if([newWords count] > 0)
+        {
+            _words = newWords;
+            return YES;
+        }
     }
-    else {
-        NSLog(@"invalid number!");        
-    }
-//    return NO;
+    return NO;
 }
 
 
@@ -206,7 +206,7 @@
     
     if ([positions objectAtIndex: 0] == @"nonexistent") {
         //it is better to say the letter isn't in the word
-        _words = [self words: _potentialWords WithoutLetter:letter ];
+        _words = [self words: _words WithoutLetter:letter ];
         NSLog(@"the list of words is: %@", _words);
     
 
@@ -214,7 +214,7 @@
     else {
         
         //updates the dictionary to be only words with the guessed letter in the right positions
-        _words = [self words: _potentialWords WithLetter:letter InPosition: bestPosition];
+        _words = [self words: _words WithLetter:letter InPosition: bestPosition];
         NSLog(@"the list of words is: %@", _words);
 
     }
