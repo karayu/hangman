@@ -200,10 +200,14 @@
     if ([positions objectAtIndex: 0] == @"nonexistent") {
         //it is better to say the letter isn't in the word
         _words = [self words: _words WithoutLetter:letter ];    
+        NSLog(@"current words: %@", _words);
+    
     }
     else {
         //updates the dictionary to be only words with the guessed letter in the right positions
         _words = [self words: _words WithLetter:letter InPosition: bestPosition];
+        NSLog(@"current words: %@", _words);
+
     }
     return positions;
 }

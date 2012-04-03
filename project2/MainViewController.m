@@ -129,7 +129,11 @@
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     
     NSArray *letterPositions;
-    letterPositions = [self.Evil guessLetter:letter];
+    
+    if (isEvil)
+        letterPositions = [self.Evil guessLetter:letter];
+    else
+        letterPositions = [self.Good guessLetter:letter];
     
     if ([letterPositions objectAtIndex:0]==@"nonexistent")
     {
