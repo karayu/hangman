@@ -8,6 +8,8 @@
 
 #import "FlipsideViewController.h"
 
+@class GoodGamePlay, EvilGamePlay;
+
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate>
 
 //not sure about types, pointers, and properties for all of these
@@ -27,6 +29,10 @@
 
 - (IBAction)viewHighScores:(id)sender;
 - (IBAction)startNewGame:(id)sender;
+
+@property (nonatomic, retain) EvilGamePlay* Evil;
+@property (nonatomic, retain) GoodGamePlay* Good;
+
 
 //- (IBAction)updatePartialWord:(id)sender;
 //- (void)show or something to update partialWord and remainingLetters

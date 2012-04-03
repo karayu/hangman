@@ -60,7 +60,7 @@
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (BOOL) setWordLength: (int)wordLength 
+- (void) setWordLength: (int)wordLength 
 {
     
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
@@ -83,12 +83,12 @@
         }
         
         _words = newWords;
-        return true;
+//        return true;
     }
     else {
         
         NSLog(@"invalid number!");        
-        return false;
+//        return false;
     }
 }
 

@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+#import "EvilGamePlay.h"
+#import "GoodGamePlay.h"
 
 @interface MainViewController ()
 
@@ -14,7 +16,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, letter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good;
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
@@ -86,20 +88,23 @@
 - (void)guessLetter
 {
     //decrement # of guesses if letter is incorrect, i.e. this would not usually be here
-    self.numberOfGuesses--;
-    [self updateGuesses];
 
-    if (5 == 0)
+    NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
+    
+    int index = [self.Evil guessLetter:newLetter];
+    
+    
+    if (index == 0)
     {
         //decrement guesses here
+        self.numberOfGuesses--;
+        [self updateGuesses];
     }
     else 
     {
         //insert letter at index
-        int index = 2;
         index = index - 1;
         
-        NSString *newLetter = [NSString stringWithFormat:@"%c", self.letter];
         [self.partialWord replaceObjectAtIndex:index withObject:newLetter];
     }
     
@@ -151,6 +156,10 @@
 //actions to perform with each reloading of the view (i.e. for every new game)
 - (void)viewDidLoad
 {
+    self.Evil = [[EvilGamePlay alloc] init];
+    [self.Evil setWordLength:[[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]];
+    
+    
     //display number of guesses from user's settings
     self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"];        
     [self updateGuesses];

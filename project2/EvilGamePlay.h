@@ -19,6 +19,7 @@
 @property (nonatomic) int maxWordLength;
 
 @property (nonatomic) NSMutableArray *usedLetters;
+- (int) guessLetter: (NSString *) letter;
 
 
 @end

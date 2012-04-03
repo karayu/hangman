@@ -72,13 +72,11 @@
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (BOOL) setWordLength: (int)wordLength 
+- (void)setWordLength: (int)wordLength 
 {
-    
     //NEED TO ALSO EXCLUDE WHEN THE WORD LENGTH IS TOO LONG
     if (wordLength > 0 && wordLength <= _maxWordLength ) 
     {
-        
         //set the private variation equal to the word length
         _wordLength = wordLength;
         
@@ -95,13 +93,12 @@
         }
         
         _words = newWords;
-        return true;
+//        return true;
     }
     else {
-        
         NSLog(@"invalid number!");        
-        return false;
     }
+//    return FALSE;
 }
 
 
