@@ -71,7 +71,7 @@
 //figures out the length of the longest word in the current dictionary and sets the _maxWordLength equal to that
 - (BOOL) setMinWordLength
 {
-    int minLength = 0;
+    int minLength = 200;
     
     if ([_words count]>0) 
     {
@@ -168,6 +168,7 @@
     
     NSString *positions = [self occurenceLocations:letter InWord:_word];
     
+    NSLog(@"positions are: %@", positions);
     NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
 
     return positions_arr;

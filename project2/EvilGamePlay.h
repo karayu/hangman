@@ -11,7 +11,6 @@
 @interface EvilGamePlay : NSObject
 
 @property (strong, nonatomic) NSMutableArray *words;
-@property (strong, nonatomic) NSMutableArray *potentialWords;
 
 @property (nonatomic) int *remainingGuesses;
 @property (nonatomic) int wordLength;
