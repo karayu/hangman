@@ -22,7 +22,7 @@
 @synthesize potentialWords = _potentialWords;
         
 @synthesize evil = _evil;
-@synthesize remainingGuesses = _remainingGuesses;
+@synthesize remainingGuesses = _remainingGuesses; //CHECK WHEN THIS BECOMES NEGATIVE
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
 
@@ -117,7 +117,6 @@
 }
 
 
-//NEED TO TEST if this works
 //figures out whether this letter has already been guessed before
 - (BOOL) letterValid: (NSString *) letter 
 {
@@ -132,68 +131,57 @@
 }
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
-//if we should tell the user that the letter isn't in the word, returns 0
+//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with "nonexistent
 //updates _words to include only words with letter in the best position or words without the letter
-- (int) guessLetter: (NSString *) letter 
+- (NSArray *) guessLetter: (NSString *) letter 
 {
     
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
-    //figure out the words that have the letter in it
-    _potentialWords = [self words: _words WithLetter: letter];
-
-    //if there are more words that don't have the letter than do, say the letter isn't there [IS THIS RIGHT?]
-
-    //we have determined that it's better to tell the user that the letter is in the word than not
-        
-    //hashtable of # of words with letter in each position
-    NSMutableDictionary *positionPopularity = [self words: _potentialWords ByPositionForLetter: letter];
-        
-    //the position with the most words
-    NSInteger bestPosition = 0;     
+    NSMutableDictionary *equivHash=[self words:_words ByPositionForLetter:letter];
     
-    //the number of words in the position with the most words
-    NSInteger mostWords = 0; 
-        
-        
-    for (id key in positionPopularity) 
+    
+    //the positions where the letter should appear
+    NSString *bestPosition;
+    
+    //number of words in equivalence class for that position
+    int mostWords = 0;
+    
+    
+    for (id key in equivHash) 
     {
-        id value = [positionPopularity objectForKey:key];
+        //value = list of words that have the same equivalence class
+        id value = [equivHash objectForKey:key];
         
-            //if the number of words at position "num" is greater than our current max
-        if ([value integerValue] > mostWords ) 
+        //if the number of words at position "num" is greater than our current max
+        if ([value count] > mostWords ) 
         {
-                
-            //update bestposition to be our current position 
-            bestPosition = [key integerValue];
-                
-            //update the most # of words to the # of words at that position
-            mostWords = [value integerValue];
+            //update bestposition to be our current positions 
+            bestPosition = key;
+            
+            //update the number of words to be the # of words with that key
+            mostWords = [value count];
         }
-                
     }
-        
-    //adds the letter to used letters list
-    [_usedLetters addObject:letter];         
     
-    //if the set of words with the letter at position bestPosition is bigger than words without the letter
-    if ( mostWords > ([_words count] - [_potentialWords count]))
-    {
-        //bestPosition starts at 1 for the first letter
-        //updates the dictionary to be only words with the guessed letter in the right position
-        _words = [self words: _potentialWords WithLetter:letter InPosition:(bestPosition-1)];
-        
-        //returns the best position for the letter involved
-        return bestPosition;
+    
+    //adds the letter to used letters list
+    [_usedLetters addObject:letter];
+    
+    NSArray *positions = [bestPosition componentsSeparatedByString: @"-"];
+    
+    if ([positions objectAtIndex: 0] == @"nonexistent") {
+        //it is better to say the letter isn't in the word
+        _words = [self words: _potentialWords WithoutLetter:letter ];
     }
     else {
-        //it is better to say the letter isn't in the word
         
-        _words = [self words: _potentialWords WithoutLetter:letter ];
-        return 0;
+        //updates the dictionary to be only words with the guessed letter in the right positions
+        _words = [self words: _potentialWords WithLetter:letter InPosition: bestPosition];
     }
-    
+   
+    return positions;
 }
 
 /*checks to see if the game has been won by 
@@ -228,15 +216,16 @@
 }
 
 
-//returns a set of words out of potentialWords which have letter in the right position
-- (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (int) position
+//returns a set of words which have the letter in the right positions
+- (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (NSString *) position
 {
     NSMutableArray *newWords = [[NSMutableArray alloc] init];
     
     //iterates through all the potential words 
     for (NSString *word in potentialWords) {    
         //for each word in potentialWords, if the word has letter in position, add it to the new words
-        if ([word rangeOfString:letter].location == position ) {
+        if ( [[self occurenceLocations: letter InWord:word] isEqualToString: position]) 
+        {
             [newWords addObject:word];  
         }
     }
@@ -246,55 +235,72 @@
 }
 
 
-//given a list of words that have the letter, returns a hash table of position-> (number of words with letter in that position) pairs
-//THERE IS A BUG HERE - IF LETTER OCCURS TWICE IN WORD, ONLY TAKE INTO ACCOUNT FIRST OCCCURENCE
-//starts at 1 for position location
+//returns a hashtable of equivalence class name->array of words that match that equivalence class
 - (NSMutableDictionary *) words: (NSMutableArray *) words ByPositionForLetter: letter
 {
     //start result dictionary
-    NSMutableDictionary *wordsCount = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *wordsByPosition = [[NSMutableDictionary alloc] init];
+    
     
     //for each word in the dictionary
     for (NSString *word in words) {
         
-        //if the word has the letter at position p, increment the value of potential_words at position p
-        if ([word rangeOfString:letter].location != NSNotFound) {
-            
-            //get the location where the letter matches.  We are starting at 1 for the first letter
-            NSNumber *position = [NSNumber numberWithInt: ([word rangeOfString:letter].location)+1];
-            
-            //creates new_value which is (value at position)+1  
-            NSNumber *new_value = [NSNumber numberWithInt: [[wordsCount objectForKey: position] intValue] + 1];
-            
-            //increment value in hashtable at key: letter position 
-            [wordsCount setObject:new_value forKey: position];
-            
-        } else {
-            NSLog(@"no match between letter and word!!");
+        //get the equivalence class for the word 
+        NSString *occ = [self occurenceLocations:letter InWord:word];
+        
+        //temp variable holding all words of this equivalence class
+        NSMutableArray *curr =[[NSMutableArray alloc] init];   
+        [curr removeAllObjects];
+        
+        //put in all the words that were in this equivalenc class before this word
+        [curr addObjectsFromArray: [wordsByPosition objectForKey:occ]];
+        
+        //add the new word to the array of words with the same equivalence class
+        if (curr != NULL) {
+            [curr addObject: word];
         }
+        else {
+            curr = [NSMutableArray arrayWithObjects: word, nil];
+        }
+        
+        //set our current array as the official array     
+        [wordsByPosition setObject:curr forKey:occ];
+        
     }
-    
-    return wordsCount;
-
+    return wordsByPosition;
 }
 
-//returns array of words that work with the letter (given the starting word list)
-- (NSMutableArray *) words: words WithLetter:(NSString *)letter 
+//returns a string with locations of occurence(s)
+- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
 {
-    NSMutableArray *potentialWords = [[NSMutableArray alloc] init];
-
+    NSMutableArray *occ = [[NSMutableArray alloc] init];
     
-    //iterates through all the potential words
-    for (NSString *word in _words ) {
-
-        //for each word in potentialWords, if the word has the letter, add it to the new words
-        if ([word rangeOfString:letter].location != NSNotFound ) {
-            [potentialWords addObject:word];  
+    NSRange searchRange = NSMakeRange(0,string.length);
+    NSRange foundRange;
+    while (searchRange.location < string.length) {
+        searchRange.length = string.length-searchRange.location;
+        foundRange = [string rangeOfString:letter options:nil range:searchRange];
+        if (foundRange.location != NSNotFound) {
+            // found an occurrence of the letter! add the location to the database
+            [occ addObject: [NSNumber numberWithInt: foundRange.location]];
+            searchRange.location = foundRange.location+foundRange.length;
+        } else {
+            // no more letters to find
+            break;
         }
     }
     
-    return potentialWords;
-        
+    NSString *result;
+    if ([occ count] > 0) 
+    {
+        result = [occ componentsJoinedByString: @"-"];
+    }
+    else {
+        result = @"nonexistent";
+    }
+    
+    return result;
+    
 }
 
 - (NSMutableArray *) words: words WithoutLetter: (NSString *)letter
