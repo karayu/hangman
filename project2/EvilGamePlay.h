@@ -21,6 +21,7 @@
 - (NSArray *) guessLetter: (NSString *) letter;
 - (int64_t) calculateScore;
 - (BOOL) checkGameWon;
+- (BOOL) setWordLength;
 
 
 @end

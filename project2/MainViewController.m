@@ -238,6 +238,9 @@
     {
         self.Evil = [[EvilGamePlay alloc] init];
         self.isEvil = YES;
+        
+        //give Evil the default value of "YES" in case this is the first time user has played
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
     }
     
     //clear any input in textbox

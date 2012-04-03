@@ -119,7 +119,7 @@
         }
         
         //make sure newWords actually contains something, and if so assign this to "words" and return true
-        if(newWords)
+        if([newWords count] > 0)
         {
             _words = newWords;
             return YES;

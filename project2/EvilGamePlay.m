@@ -123,11 +123,11 @@
             }
         }
         
-        _words = newWords;
-        return YES;
-    }
-    else {
-        NSLog(@"invalid number!");        
+        if([newWords count] > 0)
+        {
+            _words = newWords;
+            return YES;
+        }
     }
     return NO;
 }
@@ -201,7 +201,7 @@
         //it is better to say the letter isn't in the word
         _words = [self words: _words WithoutLetter:letter ];    
         NSLog(@"current words: %@", _words);
-
+    
     }
     else {
         //updates the dictionary to be only words with the guessed letter in the right positions
