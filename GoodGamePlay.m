@@ -15,6 +15,8 @@
 
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength = _maxWordLength;
+@synthesize minWordLength = _minWordLength;
+
 
 @synthesize usedLetters = _usedLetters;
 
@@ -64,6 +66,32 @@
     else {
         return NO;
     }
+}
+
+//figures out the length of the longest word in the current dictionary and sets the _maxWordLength equal to that
+- (BOOL) setMinWordLength
+{
+    int minLength = 0;
+    
+    if ([_words count]>0) 
+    {
+        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
+        for (NSString *word in _words) 
+        {
+            if ( [word length] < minLength) 
+            {
+                minLength = [word length];
+            }
+        }
+        
+        //sets _maxWordLength equal to length of longest word in this dictionary 
+        _minWordLength = minLength;
+        return YES;
+    }
+    else {
+        return NO;
+    }
+    
 }
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
@@ -132,19 +160,50 @@
 
 //returns the location of the letter +1
 //returns 0 if the letter isn't in the word
-- (int) guessLetter: (NSString *) letter 
+- (NSArray *) guessLetter: (NSString *) letter 
 {
     //add the letter to the list of used letters
     [_usedLetters addObject:letter];
     
-    if ([_word rangeOfString:letter].location == NSNotFound ) 
+    
+    NSString *positions = [self occurenceLocations:letter InWord:_word];
+    
+    NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
+
+    return positions_arr;
+}
+
+
+//returns a string with locations of occurence(s)
+- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
+{
+    NSMutableArray *occ = [[NSMutableArray alloc] init];
+    
+    NSRange searchRange = NSMakeRange(0,string.length);
+    NSRange foundRange;
+    while (searchRange.location < string.length) {
+        searchRange.length = string.length-searchRange.location;
+        foundRange = [string rangeOfString:letter options:nil range:searchRange];
+        if (foundRange.location != NSNotFound) {
+            // found an occurrence of the letter! add the location to the database
+            [occ addObject: [NSNumber numberWithInt: foundRange.location]];
+            searchRange.location = foundRange.location+foundRange.length;
+        } else {
+            // no more letters to find
+            break;
+        }
+    }
+    
+    NSString *result;
+    if ([occ count] > 0) 
     {
-        return 0;
+        result = [occ componentsJoinedByString: @"-"];
     }
     else {
-        return [_word rangeOfString:letter].location +1;
+        result = @"nonexistent";
     }
-
+    
+    return result;
     
 }
 

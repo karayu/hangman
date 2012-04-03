@@ -24,6 +24,8 @@
 @synthesize remainingGuesses = _remainingGuesses;//CHECK WHEN THIS BECOMES NEGATIVE
 @synthesize wordLength = _wordLength;
 @synthesize maxWordLength =_maxWordLength;
+@synthesize minWordLength =_minWordLength;
+
 @synthesize usedLetters = _usedLetters;
 
 
@@ -68,6 +70,32 @@
         
         //sets _maxWordLength equal to length of longest word in this dictionary 
         _maxWordLength = maxLength;
+        return YES;
+    }
+    else {
+        return NO;
+    }
+    
+}
+
+//figures out the length of the longest word in the current dictionary and sets the _maxWordLength equal to that
+- (BOOL) setMinWordLength
+{
+    int minLength = 0;
+    
+    if ([_words count]>0) 
+    {
+        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
+        for (NSString *word in _words) 
+        {
+            if ( [word length] < minLength) 
+            {
+                minLength = [word length];
+            }
+        }
+        
+        //sets _maxWordLength equal to length of longest word in this dictionary 
+        _minWordLength = minLength;
         return YES;
     }
     else {
@@ -174,7 +202,7 @@
     
     NSArray *positions = [bestPosition componentsSeparatedByString: @"-"];
     
-    if ([positions objectAtIndex: 0] == @"nonexistent") {
+    if ([positions objectAtIndex: 0] == nil) {
         //it is better to say the letter isn't in the word
         _words = [self words: _potentialWords WithoutLetter:letter ];
 
