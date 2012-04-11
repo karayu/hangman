@@ -138,7 +138,7 @@
 {    
     // load plist file into dictionary
     _words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 
@@ -244,7 +244,10 @@
     }
     else {
         //updates the dictionary to be only words with the guessed letter in the right positions
-        _words = [self words: _words WithLetter:letter InPosition: bestPosition];
+        
+        _words = [equivHash objectForKey:bestPosition];
+        
+        //_words = [self words: _words WithLetter:letter InPosition: bestPosition];
         
         //NSLog(@"current words: %@", _words);
 
@@ -300,6 +303,7 @@
         //set our current array as the official array     
         [wordsByPosition setObject:curr forKey:occ];
     }
+    
     return wordsByPosition;
 }
 
