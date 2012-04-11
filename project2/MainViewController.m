@@ -81,8 +81,19 @@
     //send user an alert if she is out of guesses
     if (self.numberOfGuesses == 0) 
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"OH NO!" 
-                                                            message:@"You lose!  Joseph is dead!" 
+        //declare the string word
+        NSString *losingWord;
+        
+        //get losing word from Evil or Good
+        if (isEvil)
+           losingWord = [self.Evil losingWord];
+        else
+            losingWord = [self.Good word];
+        
+        //create losing message that gives user the word they were not smart enough to guess
+        NSString *losingMessage = [NSString stringWithFormat:@"In case you were wondering, your word was %@", losingWord];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"YOU LOSE!" 
+                                                            message:losingMessage
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 
                                                   otherButtonTitles:nil];
@@ -96,7 +107,7 @@
     {
         NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Evil calculateScore]];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You wing! Joseph Lives"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 

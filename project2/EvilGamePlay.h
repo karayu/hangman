@@ -19,7 +19,7 @@
 @property (nonatomic) int minWordLength;
 
 //leters that the users have guessed
-@property (nonatomic) NSMutableArray *usedLetters;
+@property (nonatomic, strong) NSMutableArray *usedLetters;
 
 
 - (int64_t) calculateScore;
@@ -28,6 +28,7 @@
 - (BOOL) setMaxWordLength;
 - (BOOL) setMinWordLength;
 - (void)loadDictionary;
+- (NSString *) losingWord;
 - (BOOL) letterValid: (NSString *) letter;
 
 //the main brains behind everything
