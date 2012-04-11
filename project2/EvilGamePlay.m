@@ -200,7 +200,6 @@
 //updates _words to include only words with letter in the best position or words without the letter
 - (NSArray *) guessLetter: (NSString *) letter 
 {
-    
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
@@ -231,46 +230,19 @@
     }
     
     //adds the letter to used letters list
-    [_usedLetters addObject:letter];
+    [self.usedLetters addObject:letter];
     
+    //converts the key of letter positions into an array
     NSArray *positions = [bestPosition componentsSeparatedByString: @"-"];
     
-    if ([positions objectAtIndex: 0] == @"nonexistent") {
-        //it is better to say the letter isn't in the word
-        _words = [self words: _words WithoutLetter:letter ];    
-        
-        //NSLog(@"current words: %@", _words);
-    
-    }
-    else {
-        //updates the dictionary to be only words with the guessed letter in the right positions
-        
-        _words = [equivHash objectForKey:bestPosition];
-        
-        //_words = [self words: _words WithLetter:letter InPosition: bestPosition];
-        
-        //NSLog(@"current words: %@", _words);
+    //sets the words to the set of of words with the most common equivalence class
+    self.words = [equivHash objectForKey:bestPosition];
+    //NSLog(@"current words: %@", _words);
 
-    }
+
     return positions;
 }
 
-//returns a set of words which have the letter in the right positions
-- (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (NSString *) position
-{
-    NSMutableArray *newWords = [[NSMutableArray alloc] init];
-    
-    //iterates through all the potential words 
-    for (NSString *word in potentialWords) {    
-        
-        //for each word in potentialWords, if the word has letter in position, add it to the new words
-        if ( [[self occurenceLocations: letter InWord:word] isEqualToString: position]) 
-        {
-            [newWords addObject:word];  
-        }
-    }
-    return newWords;
-}
 
 
 //returns a hashtable of equivalence class name->array of words that match that equivalence class
@@ -350,22 +322,6 @@
     return result;
     
 }
-
-- (NSMutableArray *) words: words WithoutLetter: (NSString *)letter
-{
-    NSMutableArray *potentialWords = [[NSMutableArray alloc] init];
-    
-    //iterates through all the potential words
-    for (NSString *word in _words ) {
-        
-        //for each word in potentialWords, if the word has the letter, add it to the new words
-        if ([word rangeOfString:letter].location == NSNotFound ) {
-            [potentialWords addObject:word];  
-        }
-    }
-    return potentialWords;
-}
-
 
 
 @end

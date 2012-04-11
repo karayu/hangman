@@ -96,16 +96,6 @@
     
 }
 
-- (void) testWordsWithLetterInPosition
-{
-    NSMutableArray *new_words = [self.evilLogic words:self.evilLogic.words WithLetter: @"A" InPosition: @"1"];
-    
-    //just tests one instance... 
-    return [new_words isEqualToArray: [[NSMutableArray alloc] initWithObjects: @"HARE", @"HAT",@"CAT",@"GAT",@"TAG", nil]];
-    
-}
-
-
 
 
 - (void)tearDown
