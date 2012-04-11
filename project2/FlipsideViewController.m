@@ -47,7 +47,7 @@
 - (BOOL)checkWordLengths
 {
     //alert user if word length is not allowed for a given dictionary
-    if (((self.isEvil) && ![self.Evil setWordLength]) || (!(self.isEvil) && ![self.Good setWordLength]))
+    if (((self.isEvil) && ![self.Evil setWordLength]) || ((!self.isEvil) && ![self.Good setWordLength]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"WAIT!" 
                                                             message:@"That word length is not allowed, please fix it before continuing!" 

@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
 @property IBOutlet UITableView *highScoresTable;
 @property IBOutlet UIButton *backButton;
+@property IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UITextField *submitLetter;
 @property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 
@@ -32,6 +33,9 @@
 @property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
 @property NSMutableArray *highScoresArray;
+@property (strong) NSMutableArray *imageArray;
+@property int imageNumber;
+@property int imageIncrement;
 
 //UI methods
 - (IBAction)viewHighScores:(id)sender;

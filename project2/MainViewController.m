@@ -16,7 +16,13 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
+@synthesize remainingLettersLabel, imageView, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, imageArray, imageNumber, imageIncrement, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
+
+
+-(IBAction)changeImage:(id)sender
+{
+    //imageView.image = [imageArray objectAtIndex:0];
+}
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
@@ -134,6 +140,8 @@
     }
 }
 
+
+
 //handles guessing of each letter
 - (void)guessLetter
 {
@@ -141,33 +149,46 @@
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     NSArray *letterPositions;
     
-    //depending on whether isEvil or not, grabs the letter positions of this letter
-    if (isEvil)
-        letterPositions = [self.Evil guessLetter:letter];
-    else
-        letterPositions = [self.Good guessLetter:letter];
-    
-    //letterPositions returns "nonexistent" if the letter is not even in the word
-    if ([letterPositions objectAtIndex:0]==@"nonexistent")
+    if ((isEvil && ![self.Evil letterValid:letter]) || (!isEvil && ![self.Good letterValid:letter]))
     {
-        self.numberOfGuesses--;
-        [self updateGuesses];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"HEY"
+                                                            message:@"You already guessed that!"
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"OK" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
     }
-    //otherwise, iterate through all places to print out the letter wherever it shows up
     else 
     {
-        int count = [letterPositions count];
-        for (int index=0; index < count; index++)
+        //depending on whether isEvil or not, grabs the letter positions of this letter
+        if (isEvil)
+            letterPositions = [self.Evil guessLetter:letter];
+        else
+            letterPositions = [self.Good guessLetter:letter];
+        
+        //letterPositions returns "nonexistent" if the letter is not even in the word
+        if ([letterPositions objectAtIndex:0]==@"nonexistent")
         {
-            int position = [[letterPositions objectAtIndex:index] intValue];
-            
-            //update "partialWord" by replacing underscores with the letter
-            [self.partialWord replaceObjectAtIndex:position withObject:letter];
+            self.numberOfGuesses--;
+            [self updateGuesses];
         }
+        //otherwise, iterate through all places to print out the letter wherever it shows up
+        else 
+        {
+            int count = [letterPositions count];
+            for (int index=0; index < count; index++)
+            {
+                int position = [[letterPositions objectAtIndex:index] intValue];
+                
+                //update "partialWord" by replacing underscores with the letter
+                [self.partialWord replaceObjectAtIndex:position withObject:letter];
+            }
+        }
+        
+        //update textfield with new partialWord
+        self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
     }
-
-    //update textfield with new partialWord
-    self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
+    
 }
 
 //renders the full alphabet with the start of each new game
@@ -216,10 +237,16 @@
     self.remainingLettersLabel.text = alphabetString;
 }
 
-//updates the number of guesses label with the current # of guesses remaining
+
+//updates the number of guesses label with the current # of guesses remaining and change images
 - (void)updateGuesses
 {
     self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+    
+    //change hangman image with each wrong guess
+    self.imageNumber = self.imageNumber + self.imageIncrement;
+    NSLog(@"%d", self.imageNumber);
+    self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
 }
 
 //actions to perform with each reloading of the view (i.e. for every new game)
@@ -243,15 +270,36 @@
     //clear any input in textbox
     submitLetter.text = @"";
     
-    //display number of guesses from user's settings
+    //set number of guesses from user's settings
     if (!(self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"]))
     {
         //set a default number of guesses for first time playing
         self.numberOfGuesses = 7;
         [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
     }
-    [self updateGuesses];
     
+    //load images for hangman
+    self.imageArray = [NSMutableArray arrayWithCapacity:27];
+    for (int i=0; i<27; i++)
+    {
+        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
+        [self.imageArray addObject:[UIImage imageNamed:imageName]];
+    }
+    
+    NSLog(@"imageNumber: %d", self.imageNumber);
+    NSLog(@"numberOfGuesses: %d", self.numberOfGuesses);
+    
+    //initialize imageNumber to zero, get first image
+    self.imageNumber = 0;
+    self.imageIncrement = 26/self.numberOfGuesses;
+    
+    NSLog(@"imageIncrement: %d", self.imageIncrement);
+    
+    self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
+    
+    //display number of guesses
+    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+
     //set number of letters to default user's settings
     if (!(self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]))
     {
