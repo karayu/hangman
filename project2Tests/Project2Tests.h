@@ -1,13 +1,13 @@
 //
-//  project2Tests.h
-//  project2Tests
+//  Project2Tests.h
+//  Project2Tests
 //
-//  Created by Kara Yu on 3/23/12.
+//  Created by Kara Yu on 4/10/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface project2Tests : SenTestCase
+@interface Project2Tests : SenTestCase
 
 @end

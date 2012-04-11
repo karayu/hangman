@@ -8,6 +8,7 @@
 	<string>DUCK</string>
 	<string>HARE</string>
 	<string>HAT</string>
+	<string>BLACK</string>
 	<string>CAT</string>
 	<string>GAT</string>
 	<string>TAG</string>
@@ -15,5 +16,8 @@
 	<string>BECK</string>
 	<string>BEAB</string>
 	<string>DEAD</string>
+	<string>ALA</string>
+	<string>ABBB</string>
+	<string>PORA</string>
 </array>
 </plist>

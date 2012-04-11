@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Project2Tests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>project2.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>E70AE753151C437B00FB7BAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7864B0B1534F31D009E0AF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7864B221534F444009E0AF3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
