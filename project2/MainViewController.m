@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+#import "HighScoresViewController.h"
+
 #import "EvilGamePlay.h"
 #import "GoodGamePlay.h"
 
@@ -24,48 +26,42 @@
     NSNumber *newScore = [[NSNumber alloc] init];
     newScore = [NSNumber numberWithInt:score];
 
-    if ((int)[self.highScoresArray count] < (int)[self.maxHighScores intValue]) 
-    {
-        NSLog(@"high scores are: %@", self.highScoresArray);
-        [self.highScoresArray addObject:newScore];
-        NSLog(@"high scores are: %@", self.highScoresArray);
-    }
-    else 
-    {
-        [self.highScoresArray addObject:newScore];
-        NSLog(@"high scores are: %@", self.highScoresArray);
+    //add score to the high scores array
+    [self.highScoresArray addObject:newScore];
 
-        //[self.highScoresArray sortUsingSelector:@selector(compare:)];
-        
-        //sort the scores - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
-        NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
-        NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-        
-        self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
-        
-        
-        NSLog(@"high scores are: %@", self.highScoresArray);
+    //sort the high scores array
+    //sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
+    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+    NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+    
+    self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
 
+    
+    //if we have too many scores, delete the smallest one
+    if ((int)[self.highScoresArray count] > (int)[self.maxHighScores intValue]) 
+    {
         [self.highScoresArray removeLastObject];
         NSLog(@"high scores are: %@", self.highScoresArray);
 
     }
     
     return YES;
-    
-    
   }
 
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
 {    
-    HighScoreViewController *controller = [[HighScoreViewController alloc] initWithNibName:@"HighScoreViewController" bundle:nil];
-        
-    controller.delegate = self;
-    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
-    [self presentModalViewController:controller animated:YES];
+    HighScoresViewController *highScoresController = [[HighScoresViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
+    
+    highScoresController.maxHighScores = self.maxHighScores;
+    highScoresController.highScoresArray = self.highScoresArray;
+    
+    highScoresController.delegate = (id)self;
+    highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentModalViewController:highScoresController animated:YES];
     
     /*
     //ANIMATED WOOOO!
@@ -374,8 +370,12 @@
     return YES;
 }
 
+#pragma mark - HighScore View
 
-
+- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
 
 #pragma mark - Flipside View
 

@@ -7,11 +7,14 @@
 //
 
 #import "FlipsideViewController.h"
+#import "HighScoresViewController.h"
+
 
 @class GoodGamePlay, EvilGamePlay;
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate> 
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, HighScoresViewControllerDelegate> 
 //models
+
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
 
@@ -47,6 +50,7 @@
 - (void)viewDidLoad;
 - (void)textFieldShouldReturn:(UITextField *)textField;
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller;
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
 
 @end

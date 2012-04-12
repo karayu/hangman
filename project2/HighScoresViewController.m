@@ -1,22 +1,24 @@
 //
-//  HighScoreViewControllerViewController.m
+//  HighScoresViewController.m
 //  project2
 //
 //  Created by Kara Yu on 4/12/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HighScoreViewController.h"
-#import "MainViewController.h"
+#import "HighScoresViewController.h"
 
-@interface HighScoreViewController ()
+@interface HighScoresViewController ()
 
 @end
 
-@implementation HighScoreViewController
+@implementation HighScoresViewController
 
 @synthesize maxHighScores = _maxHighScores;
 @synthesize highScoresArray = _highScoresArray;
+
+@synthesize delegate = _delegate;
+@synthesize tableView = _tableView;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,6 +32,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    if (!self.maxHighScores) 
+    {
+        self.maxHighScores = [[NSNumber alloc] init];
+        //self.maxHighScores = [NSNumber numberWithInt: 2];
+    }
+    
+    //initializes the set of all high scores
+    if (!self.highScoresArray) 
+    {
+        self.highScoresArray = [[NSMutableArray alloc] init];
+    }
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -54,17 +69,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    //#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
-    //return (NSInteger)self.maxHighScores;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return self.highScoresArray.count;
-
+    //return [self.highScoresArray count];
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,19 +87,19 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    /*if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }*/
+    // no cell in cache, so allocate a new cell
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
-    NSLog(@"high scores array: %@", self.highScoresArray);
-    cell.textLabel.text = [self.highScoresArray objectAtIndex:indexPath.row];
-    
-    
+    NSLog(@"high scores are: %@", self.highScoresArray);
+    // text of cell is the score
+    cell.textLabel.text = [self.highScoresArray objectAtIndex: [indexPath row]];
+    return cell;
     // Configure the cell...
     
     return cell;
 }
-
 
 
 // Override to support conditional editing of the table view.
@@ -137,5 +152,13 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+//when user is done editing settings, save final variables as defaults
+- (IBAction)done:(id)sender
+{
+    [self.delegate highScoresViewControllerDidFinish:self];
+}
+
+
 
 @end
