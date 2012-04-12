@@ -16,11 +16,58 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores;
+
+//Depending on how high the score is, adds the high score to the high scores table, in the right position
+- (BOOL) addHighScore: (int) score
+{
+    NSNumber *newScore = [[NSNumber alloc] init];
+    newScore = [NSNumber numberWithInt:score];
+
+    if ((int)[self.highScoresArray count] < (int)[self.maxHighScores intValue]) 
+    {
+        NSLog(@"high scores are: %@", self.highScoresArray);
+        [self.highScoresArray addObject:newScore];
+        NSLog(@"high scores are: %@", self.highScoresArray);
+    }
+    else 
+    {
+        [self.highScoresArray addObject:newScore];
+        NSLog(@"high scores are: %@", self.highScoresArray);
+
+        //[self.highScoresArray sortUsingSelector:@selector(compare:)];
+        
+        //sort the scores - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
+        NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+        NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+        
+        self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
+        
+        
+        NSLog(@"high scores are: %@", self.highScoresArray);
+
+        [self.highScoresArray removeLastObject];
+        NSLog(@"high scores are: %@", self.highScoresArray);
+
+    }
+    
+    return YES;
+    
+    
+  }
+
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
 {    
+    HighScoreViewController *controller = [[HighScoreViewController alloc] initWithNibName:@"HighScoreViewController" bundle:nil];
+        
+    controller.delegate = self;
+    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentModalViewController:controller animated:YES];
+    
+    /*
     //ANIMATED WOOOO!
     CATransition *animation = [CATransition animation];
     
@@ -32,6 +79,12 @@
         
         //show high scores table
         highScoresTable.hidden = NO;
+        
+        
+        [self tableView:highScoresTable cellForRowAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
+
+        NSLog(@"high scores are: %@", self.highScoresArray);
+
         
         //show back button with SICK animation
         animation.type = kCATransitionFade;
@@ -51,7 +104,7 @@
         animation.type = kCATransitionFade;
         [backButton.layer addAnimation:animation forKey:nil];
         backButton.hidden = YES;
-    }
+    }*/
 }
 
 //feeds user an alert when she clicks "New Game"
@@ -94,9 +147,13 @@
     //if won, calculate EVIL score based on dictionary used, word length, and factor in extra EVIL points
     else if (isEvil && [self.Evil checkGameWon]) 
     {
-        NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Evil calculateScore]];
+        int score = [self.Evil calculateScore];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You wing! Joseph Lives"
+        [self addHighScore:score];
+        
+        NSString *text = [NSString stringWithFormat:@"Score: %d", score];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 
@@ -108,8 +165,12 @@
     }
     //if won, calculate score based on dictionary, word length, and # of guesses
     else if (!isEvil && [self.Good checkGameWon])
-    {
-        NSString *text = [NSString stringWithFormat:@"Score: %d", [self.Good calculateScore]];
+    {        
+        float score = [self.Good calculateScore];
+        
+        [self addHighScore:score];
+
+        NSString *text = [NSString stringWithFormat:@"Score: %d", score];
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text
@@ -215,6 +276,19 @@
 - (void)viewDidLoad
 {
     //initialize model based on Evil or not
+    
+    //sets the max number of high scores
+    if (!self.maxHighScores) 
+    {
+        self.maxHighScores = [NSNumber numberWithInt: 2];
+    }
+    
+    //initializes the set of all high scores
+    if (!self.highScoresArray) 
+    {
+        self.highScoresArray = [[NSMutableArray alloc] init];
+    }
+    
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"evil"] == NO) 
     {
         self.Good = [[GoodGamePlay alloc] init];
@@ -300,27 +374,8 @@
     return YES;
 }
 
-//setup High Scores table by calculating the number of rows
-//source:http://stackoverflow.com/questions/5365107/fill-tableview-with-mutable-array
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
-{
-    //dummy placeholder array to fill High Scores for now
-    self.highScoresArray = [NSMutableArray arrayWithObjects:@"COMPUTER - 1100 pts", @"SCIENCE - 1000 pts", @"CATS - 900 pts", nil];
-    return self.highScoresArray.count;
-}
 
 
-//setup rows in High Scores table to display the array text
-//source:http://stackoverflow.com/questions/5365107/fill-tableview-with-mutable-array
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-    }
-    cell.textLabel.text = [self.highScoresArray objectAtIndex:indexPath.row];
-    return cell;
-}
 
 #pragma mark - Flipside View
 

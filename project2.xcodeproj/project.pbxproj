@@ -28,6 +28,8 @@
 		E7864B2C1534F444009E0AF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7864B2A1534F444009E0AF3 /* InfoPlist.strings */; };
 		E7864B2F1534F444009E0AF3 /* Project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864B2E1534F444009E0AF3 /* Project2Tests.m */; };
 		E7864B3D153507F8009E0AF3 /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
+		E7864B59153730CC009E0AF3 /* HighScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864B57153730CC009E0AF3 /* HighScoreViewController.m */; };
+		E7864B5A153730CC009E0AF3 /* HighScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864B58153730CC009E0AF3 /* HighScoreViewController.xib */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
 		E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
@@ -63,6 +65,9 @@
 		E7864B2D1534F444009E0AF3 /* Project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2Tests.h; sourceTree = "<group>"; };
 		E7864B2E1534F444009E0AF3 /* Project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project2Tests.m; sourceTree = "<group>"; };
 		E7864B301534F444009E0AF3 /* Project2Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project2Tests-Prefix.pch"; sourceTree = "<group>"; };
+		E7864B56153730CC009E0AF3 /* HighScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoreViewController.h; sourceTree = "<group>"; };
+		E7864B57153730CC009E0AF3 /* HighScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoreViewController.m; sourceTree = "<group>"; };
+		E7864B58153730CC009E0AF3 /* HighScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoreViewController.xib; sourceTree = "<group>"; };
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
 		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
 		E7B01AC51528F6DF00D861AF /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
@@ -143,6 +148,9 @@
 				E70AE746151C437B00FB7BAE /* FlipsideViewController.h */,
 				E70AE747151C437B00FB7BAE /* FlipsideViewController.m */,
 				E70AE749151C437B00FB7BAE /* MainViewController.xib */,
+				E7864B56153730CC009E0AF3 /* HighScoreViewController.h */,
+				E7864B57153730CC009E0AF3 /* HighScoreViewController.m */,
+				E7864B58153730CC009E0AF3 /* HighScoreViewController.xib */,
 				013EA96A15229301008BF76B /* hangman.jpg */,
 				E70AE74C151C437B00FB7BAE /* FlipsideViewController.xib */,
 				E70AE738151C437A00FB7BAE /* Supporting Files */,
@@ -262,6 +270,7 @@
 				018467EF1527E78E001D0234 /* jong.png in Resources */,
 				E7B01AC61528F6DF00D861AF /* small.plist in Resources */,
 				E7B01AD6152B039200D861AF /* README in Resources */,
+				E7864B5A153730CC009E0AF3 /* HighScoreViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +311,7 @@
 				E70AE748151C437B00FB7BAE /* FlipsideViewController.m in Sources */,
 				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
 				E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */,
+				E7864B59153730CC009E0AF3 /* HighScoreViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

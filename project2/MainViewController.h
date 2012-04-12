@@ -10,8 +10,7 @@
 
 @class GoodGamePlay, EvilGamePlay;
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate>
-
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate> 
 //models
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
@@ -29,9 +28,10 @@
 @property (assign, nonatomic) unsigned int numberOfLetters;
 @property unsigned char guessedLetter;
 @property BOOL isEvil;
+@property (nonatomic, strong) NSNumber *maxHighScores;
 @property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
-@property NSMutableArray *highScoresArray;
+@property (nonatomic, strong) NSMutableArray *highScoresArray;
 
 //UI methods
 - (IBAction)viewHighScores:(id)sender;
@@ -47,8 +47,6 @@
 - (void)viewDidLoad;
 - (void)textFieldShouldReturn:(UITextField *)textField;
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
 
 @end

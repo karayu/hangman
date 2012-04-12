@@ -15,13 +15,17 @@
 
 @property (nonatomic) int maxWordLength;
 @property (nonatomic) int minWordLength;
-
 @property (nonatomic) int wordLength;
+
+@property (nonatomic, readwrite) int maxHighScores;
 
 @property (nonatomic) NSMutableArray *usedLetters;
 
+//high scores list
+@property (nonatomic, strong) NSMutableArray *highScores;
+
 - (NSArray *) guessLetter: (NSString *) letter;
-- (int64_t) calculateScore;
+- (int) calculateScore;
 - (BOOL) checkGameWon;
 - (NSArray *) guessLetter: (NSString *) letter;
 - (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string;
@@ -30,6 +34,8 @@
 - (BOOL) setMaxWordLength;
 - (BOOL) setMinWordLength;
 - (void)loadDictionary;
+- (BOOL) addHighScore: (float) score;
+
 
 
 
