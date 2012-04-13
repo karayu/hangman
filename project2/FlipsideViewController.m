@@ -50,8 +50,10 @@
 //check the max word length of good and evil to be sure the user's settings are allowed
 - (BOOL)checkWordLengths
 {
+    int length = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
+
     //alert user if word length is not allowed for a given dictionary
-    if (((self.isEvil) && ![self.Evil setWordLength]) || ((!self.isEvil) && ![self.Good setWordLength]))
+    if (((self.isEvil) && ![self.Evil tryWordLength:length]) || ((!self.isEvil) && ![self.Good tryWordLength:length]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"WAIT!" 
                                                             message:@"That word length is not allowed, please fix it before continuing!" 

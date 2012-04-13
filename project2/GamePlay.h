@@ -14,6 +14,9 @@ extern NSString *FileName;
 
 //dictionary of words
 @property (strong, nonatomic) NSMutableArray *words;
+//list of letters already guessed
+@property (nonatomic, strong) NSMutableArray *usedLetters;
+
 
 //variables
 @property (nonatomic) int maxWordLength;
