@@ -20,11 +20,23 @@
 @synthesize delegate = _delegate;
 @synthesize tableView = _tableView;
 
-- (id)initWithStyle:(UITableViewStyle)style
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
+        if (!self.maxHighScores) 
+        {
+            self.maxHighScores = [[NSNumber alloc] init];
+            //self.maxHighScores = [NSNumber numberWithInt: 2];
+        }
+        
+        //initializes the set of all high scores
+        if (!self.highScoresArray) 
+        {
+            self.highScoresArray = [[NSMutableArray alloc] init];
+        }
     }
     return self;
 }
@@ -33,18 +45,7 @@
 {
     [super viewDidLoad];
     
-    
-    if (!self.maxHighScores) 
-    {
-        self.maxHighScores = [[NSNumber alloc] init];
-        //self.maxHighScores = [NSNumber numberWithInt: 2];
-    }
-    
-    //initializes the set of all high scores
-    if (!self.highScoresArray) 
-    {
-        self.highScoresArray = [[NSMutableArray alloc] init];
-    }
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -78,8 +79,8 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    //return [self.highScoresArray count];
-    return 2;
+    return [self.highScoresArray count];
+    //return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,12 +94,15 @@
     }
     
     NSLog(@"high scores are: %@", self.highScoresArray);
-    // text of cell is the score
-    cell.textLabel.text = [self.highScoresArray objectAtIndex: [indexPath row]];
+    NSLog(@"indexpath is: %@", indexPath);
+
+
+    // Text of cell is the score. Second element in indexPath is the row #, also index of where in highScoresArray we shold be looking
+    cell.textLabel.text = [[self.highScoresArray objectAtIndex: (int)[indexPath indexAtPosition:1]] description];
+
+
     return cell;
-    // Configure the cell...
     
-    return cell;
 }
 
 
