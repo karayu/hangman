@@ -11,18 +11,24 @@
 @interface EvilGamePlay : NSObject
 
 //full list of words currently in play
-@property (strong, nonatomic) NSMutableArray *words;
+@property (nonatomic, readwrite, strong) NSMutableArray *words;
 
 //word length set by user
-@property (nonatomic) int wordLength;
-@property (nonatomic) int maxWordLength;
-@property (nonatomic) int minWordLength;
+@property (nonatomic, readwrite) int wordLength;
+@property (nonatomic, readwrite) int maxWordLength;
+@property (nonatomic, readwrite) int minWordLength;
 
 //leters that the users have guessed
 @property (nonatomic, strong) NSMutableArray *usedLetters;
 
+//letters that the users have guessed
+@property (nonatomic, strong) NSMutableArray *usedLetters;
 
-- (int64_t) calculateScore;
+//high scores list
+@property (nonatomic, strong) NSMutableArray *highScores;
+
+
+- (int) calculateScore;
 - (BOOL) checkGameWon;
 - (BOOL) setWordLength;
 - (BOOL) setMaxWordLength;
@@ -30,6 +36,7 @@
 - (void)loadDictionary;
 - (NSString *) losingWord;
 - (BOOL) letterValid: (NSString *) letter;
+- (BOOL) addHighScore: (float) score;
 
 //the main brains behind everything
 - (NSArray *) guessLetter: (NSString *) letter;
@@ -43,8 +50,6 @@
 - (NSMutableArray *) words: words WithoutLetter: (NSString *)letter;
 
 
-
-    
 
 
 @end

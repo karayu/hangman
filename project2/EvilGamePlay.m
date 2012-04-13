@@ -22,7 +22,7 @@
 {
     // Initialization
     if (self = [super init])
-    {        
+    {   
         //loads dictionary
         [self loadDictionary];
         
@@ -179,13 +179,47 @@
     return NO;
 }
 
-//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL! 
-- (int64_t) calculateScore
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL!  
+- (int) calculateScore
 {
     float percentAccuracy =  (float)self.wordLength /  (float)[self.usedLetters count];
     return percentAccuracy*self.wordLength*[self.words count];
 }
 
+//Depending on how high the score is, adds the high score to the high scores table, in the right position
+- (BOOL) addHighScore: (float) score
+{
+    NSNumber *newScore = [NSNumber numberWithFloat:score];
+                          
+    //if there's space on the high scores table or if we're at least higher than the last score, add us
+    if ((self.highScores.count < self.maxHighScores) || (score > [[self.highScores objectAtIndex: self.highScores.count -1] floatValue])) 
+    {
+        //for each score, compare ourselves to it
+        for ( int i = 0; i < self.highScores.count; i++ )
+        {
+            //if we're higher than that high score, add us
+            if (score > [[self.highScores objectAtIndex:i] floatValue])
+            {            
+                //add us to highscore table
+                [self.highScores addObject:newScore];
+                
+                //if high scores table is too big, kick off the last score
+                if (self.highScores.count > self.maxHighScores) 
+                {
+                    [self.highScores removeLastObject];
+                }
+                return YES;
+                
+            }
+
+        }
+        
+        //if we managed to go through all the scores on the highscore table without being bigger than them, add us to the end
+        [self.highScores addObject:newScore];
+        return YES;
+    }
+    return NO;
+}
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
 //returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nonexistent as the first element

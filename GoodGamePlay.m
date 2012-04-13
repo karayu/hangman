@@ -17,6 +17,8 @@
 @synthesize maxWordLength = _maxWordLength;
 @synthesize minWordLength = _minWordLength;
 
+@synthesize maxHighScores = _maxHighScores;
+@synthesize highScores = _highScores;
 
 @synthesize usedLetters = _usedLetters;
 
@@ -230,11 +232,48 @@
 }
 
 //calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct
-- (int64_t) calculateScore
+- (int) calculateScore
 {
     float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
-    return percentAccuracy*_wordLength*[_words count];
+    return percentAccuracy*_wordLength*10000;
 }
+
+
+//Depending on how high the score is, adds the high score to the high scores table, in the right position
+- (BOOL) addHighScore: (int) score
+{
+    NSNumber *newScore = [NSNumber numberWithInt:score];
+    
+    //if there's space on the high scores table or if we're at least higher than the last score, add us
+    if ((self.highScores.count < self.maxHighScores) || (score > [[self.highScores objectAtIndex: self.highScores.count -1] intValue])) 
+    {
+        //for each score, compare ourselves to it
+        for ( int i = 0; i < self.highScores.count; i++ )
+        {
+            //if we're higher than that high score, add us
+            if (score > [[self.highScores objectAtIndex:i] intValue])
+            {            
+                //add us to highscore table
+                [self.highScores addObject:newScore];
+                
+                //if high scores table is too big, kick off the last score
+                if (self.highScores.count > self.maxHighScores) 
+                {
+                    [self.highScores removeLastObject];
+                }
+                return YES;
+                
+            }
+            
+        }
+        
+        //if we managed to go through all the scores on the highscore table without being bigger than them, add us to the end
+        [self.highScores addObject:newScore];
+        return YES;
+    }
+    return NO;
+}
+
 
 //checks to see if game has been won by seeing if all chars in the word have been guessed
 - (BOOL) checkGameWon

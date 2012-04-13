@@ -55,6 +55,8 @@
 		E7864B2C1534F444009E0AF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7864B2A1534F444009E0AF3 /* InfoPlist.strings */; };
 		E7864B2F1534F444009E0AF3 /* Project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864B2E1534F444009E0AF3 /* Project2Tests.m */; };
 		E7864B3D153507F8009E0AF3 /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
+		E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864D9E1537886200E127F3 /* HighScoresViewController.m */; };
+		E7864DA11537886300E127F3 /* HighScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864D9F1537886300E127F3 /* HighScoresViewController.xib */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
 		E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
@@ -117,6 +119,9 @@
 		E7864B2D1534F444009E0AF3 /* Project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2Tests.h; sourceTree = "<group>"; };
 		E7864B2E1534F444009E0AF3 /* Project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project2Tests.m; sourceTree = "<group>"; };
 		E7864B301534F444009E0AF3 /* Project2Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project2Tests-Prefix.pch"; sourceTree = "<group>"; };
+		E7864D9D1537886200E127F3 /* HighScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresViewController.h; sourceTree = "<group>"; };
+		E7864D9E1537886200E127F3 /* HighScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoresViewController.m; sourceTree = "<group>"; };
+		E7864D9F1537886300E127F3 /* HighScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoresViewController.xib; sourceTree = "<group>"; };
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
 		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
 		E7B01AC51528F6DF00D861AF /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
@@ -229,9 +234,12 @@
 				E70AE741151C437B00FB7BAE /* AppDelegate.m */,
 				E70AE743151C437B00FB7BAE /* MainViewController.h */,
 				E70AE744151C437B00FB7BAE /* MainViewController.m */,
+				E70AE749151C437B00FB7BAE /* MainViewController.xib */,
 				E70AE746151C437B00FB7BAE /* FlipsideViewController.h */,
 				E70AE747151C437B00FB7BAE /* FlipsideViewController.m */,
-				E70AE749151C437B00FB7BAE /* MainViewController.xib */,
+				E7864D9D1537886200E127F3 /* HighScoresViewController.h */,
+				E7864D9E1537886200E127F3 /* HighScoresViewController.m */,
+				E7864D9F1537886300E127F3 /* HighScoresViewController.xib */,
 				013EA96A15229301008BF76B /* hangman.jpg */,
 				E70AE74C151C437B00FB7BAE /* FlipsideViewController.xib */,
 				E70AE738151C437A00FB7BAE /* Supporting Files */,
@@ -418,6 +426,7 @@
 				E70AE748151C437B00FB7BAE /* FlipsideViewController.m in Sources */,
 				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
 				E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */,
+				E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
