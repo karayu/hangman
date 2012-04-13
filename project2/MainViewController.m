@@ -11,6 +11,8 @@
 
 #import "EvilGamePlay.h"
 #import "GoodGamePlay.h"
+#import "History.h"
+
 
 @interface MainViewController ()
 
@@ -40,8 +42,11 @@ char AlphabetEnd = 'Z';
     
     HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
     
-    highScoresController.maxHighScores = &(MaxHighScores);
-    highScoresController.highScoresArray = self.highScoresArray;
+    
+    highScoresController.history = history;
+
+    //highScoresController.maxHighScores = &(MaxHighScores);
+    //highScoresController.highScoresArray = self.highScoresArray;
     
     highScoresController.delegate = (id)self;
     highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -121,7 +126,7 @@ char AlphabetEnd = 'Z';
     {        
         int score = [self.Good calculateScore];
         
-        [self addHighScore:score];
+        [self.history addHighScore:score];
 
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
         
@@ -256,9 +261,9 @@ char AlphabetEnd = 'Z';
     //initialize model based on Evil or not
     
     //initializes the set of all high scores
-    if (!self.highScoresArray) 
+    if (!self.history) 
     {
-        self.highScoresArray = [[NSMutableArray alloc] init];
+        self.history = [[History alloc] init];
     }
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"evil"] == NO) 

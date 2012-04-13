@@ -36,6 +36,7 @@
 @property (strong) NSMutableArray *imageArray;
 @property int imageNumber;
 @property int imageIncrement;
+@property (nonatomic, strong) History *history;
 
 //global constants
 extern int InitialNumberOfGuesses;
