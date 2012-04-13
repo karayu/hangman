@@ -139,7 +139,7 @@
 {    
     // load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 
@@ -196,41 +196,6 @@
     float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
     int score =  percentAccuracy*(self.wordLength)*5500;
     return score;
-}
-
-//Depending on how high the score is, adds the high score to the high scores table, in the right position
-- (BOOL) addHighScore: (int) score
-{
-    NSNumber *newScore = [NSNumber numberWithFloat:score];
-                          
-    //if there's space on the high scores table or if we're at least higher than the last score, add us
-    if ((self.highScores.count < self.maxHighScores) || (score > [[self.highScores objectAtIndex: self.highScores.count -1] floatValue])) 
-    {
-        //for each score, compare ourselves to it
-        for ( int i = 0; i < self.highScores.count; i++ )
-        {
-            //if we're higher than that high score, add us
-            if (score > [[self.highScores objectAtIndex:i] floatValue])
-            {            
-                //add us to highscore table
-                [self.highScores addObject:newScore];
-                
-                //if high scores table is too big, kick off the last score
-                if ([self.highScores count] > self.maxHighScores) 
-                {
-                    [self.highScores removeLastObject];
-                }
-                return YES;
-                
-            }
-
-        }
-        
-        //if we managed to go through all the scores on the highscore table without being bigger than them, add us to the end
-        [self.highScores addObject:newScore];
-        return YES;
-    }
-    return NO;
 }
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
@@ -341,7 +306,7 @@
     while (searchRange.location < string.length) {
         searchRange.length = string.length-searchRange.location;
         //store where we found the letter in the word
-        foundRange = [string rangeOfString:letter options:nil range:searchRange];
+        foundRange = [string rangeOfString:letter options:0 range:searchRange];
         if (foundRange.location != NSNotFound) {
             // found an occurrence of the letter! add the location to the database
             [occ addObject: [NSNumber numberWithInt: foundRange.location]];

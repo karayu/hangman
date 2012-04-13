@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GamePlay.h"
 
-@interface GoodGamePlay : NSObject
+@interface GoodGamePlay : GamePlay
 
 @property (nonatomic) NSString *word;
 @property (strong, nonatomic) NSMutableArray *words;

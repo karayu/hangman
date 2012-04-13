@@ -36,7 +36,6 @@
 - (void)loadDictionary;
 - (NSString *) losingWord;
 - (BOOL) letterValid: (NSString *) letter;
-- (BOOL) addHighScore: (int) score;
 
 //the main brains behind everything
 - (NSArray *) guessLetter: (NSString *) letter;

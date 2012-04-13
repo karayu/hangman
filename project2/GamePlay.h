@@ -10,7 +10,6 @@
 
 @interface GamePlay : NSObject
 
-@property (nonatomic) NSString *word;
 @property (strong, nonatomic) NSMutableArray *words;
 
 @property (nonatomic) int maxWordLength;
