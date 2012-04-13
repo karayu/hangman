@@ -29,7 +29,8 @@ char AlphabetEnd = 'Z';
 //allows user to view high scores via HistoryViewController
 - (IBAction)viewHighScores:(id)sender
 {    
-    HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
+    
+    HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"historyViewController" bundle:nil];
     
     highScoresController.history = History;
     
@@ -99,8 +100,12 @@ char AlphabetEnd = 'Z';
     {
         //get score from Evil model and display it to user
         int score = [self.Evil calculateScore];
-        NSString *calculatedScore = [NSString stringWithFormat:@"Score: %d", score];
+        [self.History addHighScore:score];
+        [self.History saveScores];
         
+
+        NSString *calculatedScore = [NSString stringWithFormat:@"Score: %d", score];
+                
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:calculatedScore
                                                            delegate:self 

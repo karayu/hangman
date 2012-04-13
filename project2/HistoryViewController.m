@@ -14,9 +14,7 @@
 
 @implementation HistoryViewController
 
-@synthesize history = _history;
-@synthesize delegate = _delegate;
-@synthesize tableView = _tableView;
+@synthesize history, delegate, tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,25 +72,26 @@
     return [self.history.highScoresArray count];
 }
 
-
+//render tableView cells as rows
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // no cell in cache, so allocate a new cell
-    if (cell == nil) {
+    //no cell in cache, so allocate a new cell
+    if (cell == nil) 
+    {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    // Text of cell is the score. Second element in indexPath is the row #, also index of where in highScoresArray we shold be looking
+    //Text of cell is the score. Second element in indexPath is the row #, also index of where in highScoresArray we shold be looking
     cell.textLabel.text = [[self.history.highScoresArray objectAtIndex: (int)[indexPath indexAtPosition:1]] description];
     
     return cell;
 }
 
 
-// Override to support conditional editing of the table view.
+//Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
@@ -104,7 +103,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
+    //Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
      // ...
