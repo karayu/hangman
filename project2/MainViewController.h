@@ -51,6 +51,7 @@ extern char AlphabetEnd;
 - (IBAction)showInfo:(id)sender;
 
 //all other methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (void)checkEndGame;
 - (void)createNewGameView;
 - (void)guessLetter;

@@ -1,9 +1,9 @@
 //
-//  WordList.m
+//  EvilGamePlay.m
 //  project2
 //
 //  Created by Kara Yu on 3/31/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "EvilGamePlay.h"
@@ -26,8 +26,8 @@
  2) seeing if all the letters in the word have been guessed
  */
 - (BOOL) checkGameWon 
-{
-    //IF ONLY ONE WORD IS LEFT YOU HAVE WON! (if you've guessed all the letters)
+{    
+    //IF ONLY ONE WORD IS LEFT YOU MIGHT HAVE WON! (if you've guessed all the letters)
     if ([self.words count] == 1) {
         
         //gets the last word left in the "words" array
@@ -61,16 +61,15 @@
  */
 - (NSArray *) guessLetter: (NSString *) letter 
 {
-    
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
-
+    
     //create the dictionary
     NSMutableDictionary *equivHash=[self words:self.words ByPositionForLetter:letter];
     
     //the positions where the letter should appear
     NSString *bestPosition;
-        
+    
     //number of words in equivalence class for that position
     int mostWords = 0;
     
@@ -105,7 +104,7 @@
     
     //sets the words to the set of of words with the most common equivalence class
     self.words = [equivHash objectForKey:bestPosition];
-
+    
     return positions;
 }
 

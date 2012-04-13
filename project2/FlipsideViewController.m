@@ -41,7 +41,7 @@
     //show number of letters in numeric form & in slider
     self.numberOfLettersLabel.text = [NSString stringWithFormat:@" %d", self.numberOfLetters];
     self.numberOfLettersSlider.value = self.numberOfLetters;
-
+    
     //toggle switch based on whether evil or not
     self.evilSwitch.on = self.isEvil;
 }

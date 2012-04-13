@@ -3,7 +3,7 @@
 //  project2
 //
 //  Created by Kara Yu on 4/12/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "HistoryViewController.h"
@@ -12,23 +12,19 @@
 #import "MainViewController.h"
 
 
-@interface HistoryViewController ()
-
-@end
-
 @implementation HistoryViewController
 
 @synthesize history = _history;
-
-
+@synthesize delegate = _delegate;
+@synthesize tableView = _tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) 
     {
-
-
+        
+        
     }
     return self;
 }
@@ -38,10 +34,10 @@
 {
     [super viewDidLoad];
     
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
@@ -88,10 +84,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-
+    
     // Text of cell is the score. Second element in indexPath is the row #, also index of where in highScoresArray we shold be looking
     cell.textLabel.text = [[self.history.highScoresArray objectAtIndex: (int)[indexPath indexAtPosition:1]] description];
-
+    
     return cell;
 }
 

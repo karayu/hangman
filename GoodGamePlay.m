@@ -3,7 +3,7 @@
 //  project2
 //
 //  Created by Kara Yu on 4/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "GoodGamePlay.h"
@@ -60,7 +60,7 @@
     {
         //get the letter
         NSString* letter = [self.word substringWithRange:NSMakeRange(i,1)];
-
+        
         //if the letter isn't in our usedletters, return false            
         if ([self.usedLetters indexOfObject:letter ] == NSNotFound) 
         {
@@ -84,7 +84,7 @@
     
     //create and return an array of the positions
     NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
-
+    
     return positions_arr;
 }
 

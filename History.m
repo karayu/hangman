@@ -3,15 +3,11 @@
 //  project2
 //
 //  Created by Kara Yu on 4/13/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "History.h"
 
-
-@interface History ()
-
-@end
 
 @implementation History
 
@@ -53,8 +49,8 @@ NSString *HighScoreFileName = @"scores";
     [self.highScoresArray writeToFile: [HighScoreFileName stringByAppendingString: @".plist"] atomically:YES];
     
     //[[self.highScoresArray description] writeToFile:[[NSBundle mainBundle] pathForResource:HighScoreFileName ofType:@"plist"] automatically:YES encoding:NSASCIIStringEncoding];
-
-
+    
+    
 }
 
 
@@ -63,26 +59,26 @@ NSString *HighScoreFileName = @"scores";
 {
     NSNumber *newScore = [[NSNumber alloc] init];
     newScore = [NSNumber numberWithInt:score];
-
+    
     //add score to the high scores array
     [self.highScoresArray addObject: newScore];
-
+    
     //sort the high scores array
     //sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
     NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-
+    
     self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
-
-
+    
+    
     //if we have too many scores, delete the smallest one
     if ((int)[self.highScoresArray count] > MaxHighScores ) 
     {
         [self.highScoresArray removeLastObject];
         NSLog(@"high scores are: %@", self.highScoresArray);
-    
+        
     }
-
+    
     NSLog(@"at the end of addHighScore, high scores are: %@", self.highScoresArray);
     return YES;
 }
