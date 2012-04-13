@@ -8,19 +8,18 @@
 
 #import "EvilGamePlay.h"
 
-@interface EvilGamePlay ()
-
-@end
-
 @implementation EvilGamePlay
 
-//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by a much bigger constant for playing EVIL!  
+
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct
 - (int) calculateScore
 {
     float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
-    int score =  percentAccuracy*(self.wordLength)*5500;
-    return score;
+    
+    //beef up the score with a constant multiplier (multiplied by a much bigger constant than Good for playing EVIL!)
+    return percentAccuracy*(self.wordLength)*5500;
 }
+
 
 /*checks to see if the game has been won by 
  1) seeing if the number of words left is 1
@@ -37,13 +36,12 @@
         //for each letter in the word   
         for (int i=0; i< [word length]; i++) 
         {
-            
             //get the letter
             NSString* letter = [word substringWithRange:NSMakeRange(i,1)];
             
+            //if the letter isn't in our used letters, return false                        
             if ([self.usedLetters indexOfObject:letter ] == NSNotFound) 
             {
-                //if the letter isn't in our used letters, return false            
                 return NO;
             }
         }
@@ -55,24 +53,26 @@
 }
 
 
-//called when the user inputs a letter and returns where we should tell the user the letter is
-//returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nonexistent as the first element
-//updates self.words to include only words with letter in the best position or words without the letter
+/*
+ 1) called when the user inputs a letter and returns where we should tell the user the letter is
+ 2) returns an array of all letter positions.  
+ 3) if the letter isn't there, returns an array with nonexistent as the first element
+ 4) updates self.words to include only words with letter in the given position (or words without the letter if that is the case)
+ */
 - (NSArray *) guessLetter: (NSString *) letter 
 {
     
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
+    //create the dictionary
     NSMutableDictionary *equivHash=[self words:self.words ByPositionForLetter:letter];
-    
     
     //the positions where the letter should appear
     NSString *bestPosition;
         
     //number of words in equivalence class for that position
     int mostWords = 0;
-    
     
     for (id key in equivHash) 
     {
@@ -98,12 +98,9 @@
     
     //sets the words to the set of of words with the most common equivalence class
     self.words = [equivHash objectForKey:bestPosition];
-    //NSLog(@"current words: %@", self.words);
-
 
     return positions;
 }
-
 
 
 //if user loses , return a random word from the remaining set of words

@@ -10,19 +10,9 @@
 
 @implementation GamePlay
 
+@synthesize words, wordLength, minWordLength, maxWordLength, usedLetters;
 
-//current word list
-@synthesize words = _words;
-
-
-//word list given new letter from user
-@synthesize wordLength = _wordLength;
-@synthesize maxWordLength =_maxWordLength;
-@synthesize minWordLength =_minWordLength;
-@synthesize usedLetters = _usedLetters;
-
-
-- (id)init
+- (id) init
 {
     // Initialization
     if (self = [super init])
@@ -37,10 +27,11 @@
         [self setWordLength];
         
         //initializes the _usedLetters
-        _usedLetters = [[NSMutableArray alloc] init];
+        self.usedLetters = [[NSMutableArray alloc] init];
     }
     return self;
 }
+
 
 //load the plist
 - (void) loadDictionary
@@ -50,12 +41,14 @@
                   [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
+
 //figures out the length of the longest word in the current dictionary and sets the self.maxWordLength equal to that
 - (BOOL) setMaxWordLength
 {
+    //initialize a temp variable
     int maxLength = 0;
     
-    if ([self.words count]>0) 
+    if ([self.words count] > 0) 
     {
         //iterates through all words and if the length is greater than maxLength, we update maxLength to match
         for (NSString *word in self.words) 
@@ -79,11 +72,12 @@
 //figures out the length of the shortest word in the current dictionary and sets the self.minWordLength equal to that
 - (BOOL) setMinWordLength
 {
+    //initialize minLength to a large number before iterating through the dictionary to find smaller word lengths
     int minLength = 200;
     
     if ([self.words count]>0) 
     {
-        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
+        //iterates through all words and whenever the length is less than minLength, we update minLength to match
         for (NSString *word in self.words) 
         {
             if ( [word length] < minLength) 
@@ -140,7 +134,7 @@
 //figures out whether this letter has already been guessed before
 - (BOOL) letterValid: (NSString *) letter 
 {
-    //if self.usedLetters doesn't contain letter
+    //if self.usedLetters doesn't contain letter, then the guess is good to go!
     if ([self.usedLetters indexOfObject: letter] == NSNotFound) {
         return YES;
     }
@@ -163,10 +157,14 @@
     NSRange foundRange;
     
     while (searchRange.location < string.length) {
+        
         searchRange.length = string.length-searchRange.location;
+        
         //store where we found the letter in the word
         foundRange = [string rangeOfString:letter options:0 range:searchRange];
+        
         if (foundRange.location != NSNotFound) {
+            
             // found an occurrence of the letter! add the location to the database
             [occ addObject: [NSNumber numberWithInt: foundRange.location]];
             
@@ -184,14 +182,13 @@
     {
         result = [occ componentsJoinedByString: @"-"];
     }
-    else {
-        
+    else 
+    {
         //if there are no occurences, return the string "nonexistent"
         result = @"nonexistent";
     }
     
     return result;
-    
 }
 
 

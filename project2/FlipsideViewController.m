@@ -18,6 +18,7 @@
 
 @synthesize delegate, numberOfGuesses, numberOfLetters, isEvil, numberOfGuessesLabel, numberOfLettersLabel,numberOfGuessesSlider, numberOfLettersSlider, evilSwitch, Evil, Good;
 
+
 - (void)viewDidLoad
 {    
     //store guesses/letters from user's saved defaults in temporary instance variables
@@ -29,6 +30,8 @@
     [self show];
 }
 
+
+//called every time we want to update the text boxes with slider values
 - (void)show
 {
     //show number of guesses in numeric form & in slider
@@ -42,6 +45,7 @@
     //toggle switch based on whether evil or not
     self.evilSwitch.on = self.isEvil;
 }
+
 
 //check the max word length of good and evil to be sure the user's settings are allowed
 - (BOOL)checkWordLengths
@@ -64,6 +68,7 @@
     return NO;
 }
 
+
 #pragma mark - Actions
 
 //plant an event listener to update instance variables when sliders or switch are changed
@@ -79,6 +84,7 @@
     //call show to display the slider values in numeric form
     [self show];
 }  
+
 
 //when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender

@@ -20,7 +20,8 @@
 
 @synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
 
-//Depending on how high the score is, adds the high score to the high scores table, in the right position
+
+//depending on how high the score is, adds the high score to the high scores table, in the right position
 - (BOOL) addHighScore: (int) score
 {
     //create a temp variable to save our new score
@@ -44,21 +45,6 @@
     return YES;
   }
 
-
-//flips to the high score controller 
-- (IBAction)viewHighScores:(id)sender
-{    
-    HighScoresViewController *highScoresController = [[HighScoresViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
-    
-    //pass max high scores and the array of scores into the high scores controller
-    highScoresController.maxHighScores = self.maxHighScores;
-    highScoresController.highScoresArray = self.highScoresArray;
-    
-    //set delegate to self so we can get back to MainViewController
-    highScoresController.delegate = (id)self;
-    highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:highScoresController animated:YES];
-}
 
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
@@ -112,7 +98,6 @@
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
-        NSLog(@"score: %d", score);
         [self addHighScore:score];
         
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
@@ -149,19 +134,20 @@
 }
 
 
-//handles guessing of each letter
+//handles appropriate responses to the guessing of a letter
 - (void)guessLetter
 {
     //cast letter to string and set up array for the letter's positions (if any) in the word
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     NSArray *letterPositions;
     
+    //alert user if they have already guessed that letter
     if ((isEvil && ![self.Evil letterValid:letter]) || (!isEvil && ![self.Good letterValid:letter]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"HEY"
                                                             message:@"You already guessed that!"
                                                            delegate:self 
-                                                  cancelButtonTitle:@"OK" 
+                                                  cancelButtonTitle:@"OK!" 
                                                   otherButtonTitles:nil];
         [alertView show];
     }
@@ -170,7 +156,6 @@
         //depending on whether isEvil or not, grabs the letter positions of this letter
         if (isEvil){
             letterPositions = [self.Evil guessLetter:letter];
-            NSLog(@"letter positions is: %@", letterPositions);
         }
         else
             letterPositions = [self.Good guessLetter:letter];
@@ -199,6 +184,7 @@
     }
     
 }
+
 
 //renders the full alphabet with the start of each new game
 - (void)createNewGameView
@@ -357,11 +343,12 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You need to give us input" 
                                                             message:nil
                                                            delegate:self 
-                                                  cancelButtonTitle:@"Okay!" 
+                                                  cancelButtonTitle:@"OK!" 
                                                   otherButtonTitles:nil];
         [alertView show];
     }
 }
+
 
 //allows only one character in the submitLetter textField
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -374,12 +361,30 @@
     return YES;
 }
 
-#pragma mark - HighScore View
+
+#pragma mark - HighScores View
 
 - (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+
+//flips to the high score controller 
+- (IBAction)viewHighScores:(id)sender
+{    
+    HighScoresViewController *highScoresController = [[HighScoresViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
+    
+    //pass max high scores and the array of scores into the high scores controller
+    highScoresController.maxHighScores = self.maxHighScores;
+    highScoresController.highScoresArray = self.highScoresArray;
+    
+    //set delegate to self so we can get back to MainViewController
+    highScoresController.delegate = (id)self;
+    highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:highScoresController animated:YES];
+}
+
 
 #pragma mark - Flipside View
 
@@ -387,6 +392,7 @@
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+
 
 //flips to the Flipside view, sending "self" as delegate so we can get back to main controller
 - (IBAction)showInfo:(id)sender

@@ -11,17 +11,13 @@
 
 @interface GoodGamePlay : GamePlay
 
-//the word we are trying to guess
+//variable: the initially chosen word
 @property (nonatomic) NSString *word;
 
-//the brains behind it all
+//methods
 - (NSArray *) guessLetter: (NSString *) letter;
-
-//calculates the score, this is smaller for good game play
 - (int) calculateScore;
 - (BOOL) checkGameWon;
 - (BOOL) pickWord;
-
-
 
 @end

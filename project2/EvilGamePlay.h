@@ -11,13 +11,10 @@
 
 @interface EvilGamePlay : GamePlay
 
-
+//methods
 - (int) calculateScore;
 - (BOOL) checkGameWon;
-
-//the main brains behind everything
 - (NSArray *) guessLetter: (NSString *) letter;
-
 - (NSString *) losingWord;
 
 //hash table mapping equivalence classes to words in that equivalence class
