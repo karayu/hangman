@@ -18,11 +18,12 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position
 - (BOOL) addHighScore: (int) score
 {
+    //create a temp variable to save our new score
     NSNumber *newScore = [[NSNumber alloc] init];
     newScore = [NSNumber numberWithInt:score];
 
@@ -30,39 +31,33 @@
     [self.highScoresArray addObject:newScore];
 
     //sort the high scores array
-    //sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
+    //source for sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
     NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
     NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-    
     self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
-
     
     //if we have too many scores, delete the smallest one
     if ((int)[self.highScoresArray count] > (int)[self.maxHighScores intValue]) 
     {
         [self.highScoresArray removeLastObject];
-        NSLog(@"high scores are: %@", self.highScoresArray);
-
     }
-    
     return YES;
   }
 
 
-//turns on/off "hidden" value for high scores table
+//flips to the high score controller 
 - (IBAction)viewHighScores:(id)sender
 {    
-    
     HighScoresViewController *highScoresController = [[HighScoresViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
     
+    //pass max high scores and the array of scores into the high scores controller
     highScoresController.maxHighScores = self.maxHighScores;
     highScoresController.highScoresArray = self.highScoresArray;
     
+    //set delegate to self so we can get back to MainViewController
     highScoresController.delegate = (id)self;
     highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
     [self presentModalViewController:highScoresController animated:YES];
-
 }
 
 //feeds user an alert when she clicks "New Game"
@@ -198,7 +193,7 @@
         }
         
         //update textfield with new partialWord
-        self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
+        self.partialWordLabel.text = [self.partialWord componentsJoinedByString:@"  "];
     }
     
 }
@@ -225,7 +220,7 @@
     
     //join the blank underscores with spaces to show hangman-style blank word
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
-    self.dummyResponse.text = joinedString;
+    self.partialWordLabel.text = joinedString;
 }
 
 //refreshes the remaining letters with every guess

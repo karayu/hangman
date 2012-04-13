@@ -9,23 +9,22 @@
 #import "FlipsideViewController.h"
 #import "HighScoresViewController.h"
 
-
 @class GoodGamePlay, EvilGamePlay;
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate, HighScoresViewControllerDelegate> 
-//models
 
+//models
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
 
 //UI widgets
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
 @property (nonatomic, weak) IBOutlet UILabel *numberOfGuessesLabel;
+@property (nonatomic, weak) IBOutlet UITextField *submitLetter;
+@property (nonatomic, weak) IBOutlet UILabel *partialWordLabel;
 @property IBOutlet UITableView *highScoresTable;
 @property IBOutlet UIButton *backButton;
 @property IBOutlet UIImageView *imageView;
-@property (nonatomic, weak) IBOutlet UITextField *submitLetter;
-@property (nonatomic, weak) IBOutlet UILabel *dummyResponse;
 
 //variables
 @property (assign, nonatomic) unsigned int numberOfGuesses;
@@ -49,11 +48,13 @@
 - (void)checkEndGame;
 - (void)createNewGameView;
 - (void)guessLetter;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+- (void)textFieldShouldReturn:(UITextField *)textField;
 - (void)updateAlphabet;
 - (void)updateGuesses;
 - (void)viewDidLoad;
-- (void)textFieldShouldReturn:(UITextField *)textField;
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+
+//controller methods
 - (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller;
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
 
