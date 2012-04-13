@@ -11,11 +11,14 @@
 
 @interface History ()
 
+@property (nonatomic, strong) NSString *filePath;
+
 @end
 
 @implementation History
 
 @synthesize highScoresArray = _highScoresArray;
+@synthesize filePath = _filePath;
 
 //global constants
 int MaxHighScores = 9;
@@ -27,12 +30,19 @@ NSString *HighScoreFileName = @"scores";
     // Initialization
     if (self = [super init])
     {        
-        //loads dictionary
+        //figures out where high scores list is kept
+        if (! self.filePath)
+        {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *docDir = [paths objectAtIndex: 0];
+            self.filePath = [docDir stringByAppendingPathComponent: HighScoreFileName];
+        }
+        
+        //initializes high scores list
         if (! self.highScoresArray)
         {
-            NSLog(@"initializing high scores array!");
-            //self.highScoresArray = [[NSMutableArray alloc] init];
             [self loadScores];
+            
         }
         
     }
@@ -40,21 +50,25 @@ NSString *HighScoreFileName = @"scores";
 }
 
 
-//load the plist
+//load the plist of high scores
 - (void) loadScores
 {    
-    // load plist file into dictionary
-    self.highScoresArray = [[NSMutableArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:HighScoreFileName ofType:@"plist"]];
+
+    //sees if we can find the plist and load it
+    self.highScoresArray = [[NSMutableArray alloc] initWithContentsOfFile:[self.filePath stringByAppendingString:@".plist"]];
+
+        
+    //otherwise, initialize an empty high scores array
+    if (! self.highScoresArray) 
+    {
+        self.highScoresArray = [[NSMutableArray alloc] init];
+    }
 }
 
+//saves the scores to the plist
 - (void) saveScores
 {
-    
-    [self.highScoresArray writeToFile: [HighScoreFileName stringByAppendingString: @".plist"] atomically:YES];
-    
-    //[[self.highScoresArray description] writeToFile:[[NSBundle mainBundle] pathForResource:HighScoreFileName ofType:@"plist"] automatically:YES encoding:NSASCIIStringEncoding];
-
-
+    [self.highScoresArray writeToFile: [self.filePath stringByAppendingString: @".plist"] atomically:YES];
 }
 
 

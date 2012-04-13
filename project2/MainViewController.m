@@ -40,7 +40,7 @@ char AlphabetEnd = 'Z';
 - (IBAction)viewHighScores:(id)sender
 {    
     
-    HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
+    HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"historyViewController" bundle:nil];
     
     
     highScoresController.history = history;
@@ -107,8 +107,8 @@ char AlphabetEnd = 'Z';
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
-        NSLog(@"score: %d", score);
         [self.history addHighScore:score];
+        [self.history saveScores];
         
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
         
@@ -128,6 +128,7 @@ char AlphabetEnd = 'Z';
         int score = [self.Good calculateScore];
         
         [self.history addHighScore:score];
+        [self.history saveScores];
 
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
         
@@ -165,7 +166,6 @@ char AlphabetEnd = 'Z';
         //depending on whether isEvil or not, grabs the letter positions of this letter
         if (isEvil){
             letterPositions = [self.Evil guessLetter:letter];
-            NSLog(@"letter positions is: %@", letterPositions);
         }
         else
             letterPositions = [self.Good guessLetter:letter];

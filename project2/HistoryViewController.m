@@ -116,7 +116,7 @@
 //when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender
 {
-    [self.history saveScores];
+    //[self.history saveScores];
     [self.delegate historyViewControllerDidFinish:self];
 }
 
