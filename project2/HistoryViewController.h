@@ -26,12 +26,10 @@
 //delegate
 @property (weak, nonatomic) id <HistoryViewControllerDelegate> delegate; 
 
-
-//classes
+//methods
 - (void)viewDidLoad;
 - (void)viewDidUnload;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;

@@ -21,7 +21,7 @@
 @synthesize filePath = _filePath;
 
 //global constants
-int MaxHighScores = 9;
+int MaxHighScores = 15;
 NSString *HighScoreFileName = @"scores";
 
 

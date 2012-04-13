@@ -20,8 +20,6 @@
 
 @synthesize history = _history;
 
-@synthesize delegate = _delegate;
-@synthesize tableView = _tableView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,6 +33,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,6 +46,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -54,10 +54,12 @@
     // e.g. self.myOutlet = nil;
 }
 
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 
 #pragma mark - Table view data source
 
@@ -68,12 +70,14 @@
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.history.highScoresArray count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -112,6 +116,7 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
 
 //when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender

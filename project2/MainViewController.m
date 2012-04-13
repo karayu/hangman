@@ -20,12 +20,9 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, history;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, history;
 
 //define constants
-
-//sets max # of high scores
-
 int InitialNumberOfGuesses = 7;
 int ImageArrayCapacity = 27;
 int AlphabetLength = 26;
@@ -33,15 +30,11 @@ char AlphabetStart = 'A';
 char AlphabetEnd = 'Z';
 
 
-
-
-
-//turns on/off "hidden" value for high scores table
+//allows user to view high scores via HistoryViewController
 - (IBAction)viewHighScores:(id)sender
 {    
     
     HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"historyViewController" bundle:nil];
-    
     
     highScoresController.history = history;
 
@@ -55,6 +48,7 @@ char AlphabetEnd = 'Z';
 
 }
 
+
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
 {
@@ -66,6 +60,7 @@ char AlphabetEnd = 'Z';
                                               otherButtonTitles:@"Yes I am sure", nil];
     [alertView show];
 }
+
 
 //if user clicks "Yes" on alert popup to start New Game, refresh the view (& thus start new game)
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -110,8 +105,9 @@ char AlphabetEnd = 'Z';
         [self.history addHighScore:score];
         [self.history saveScores];
         
+
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
-        
+                
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text
                                                            delegate:self 
@@ -145,19 +141,22 @@ char AlphabetEnd = 'Z';
 }
 
 
-//handles guessing of each letter
-- (void)guessLetter
+//handles appropriate responses to the guessing of a letter
+- (void) guessLetter
 {
-    //cast letter to string and set up array for the letter's positions (if any) in the word
+    //cast letter to string and ensure the letter is uppercase
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
+    
+    //set up array for the letter's positions (if any) in the word
     NSArray *letterPositions;
     
+    //alert user if they have already guessed that letter
     if ((isEvil && ![self.Evil letterValid:letter]) || (!isEvil && ![self.Good letterValid:letter]))
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"HEY"
-                                                            message:@"You already guessed that!"
+                                                            message:@"You already guessed that"
                                                            delegate:self 
-                                                  cancelButtonTitle:@"OK" 
+                                                  cancelButtonTitle:@"OK!" 
                                                   otherButtonTitles:nil];
         [alertView show];
     }
@@ -190,10 +189,11 @@ char AlphabetEnd = 'Z';
         }
         
         //update textfield with new partialWord
-        self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
+        self.partialWordLabel.text = [self.partialWord componentsJoinedByString:@"  "];
     }
     
 }
+
 
 //renders the full alphabet with the start of each new game
 - (void)createNewGameView
@@ -217,7 +217,7 @@ char AlphabetEnd = 'Z';
     
     //join the blank underscores with spaces to show hangman-style blank word
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
-    self.dummyResponse.text = joinedString;
+    self.partialWordLabel.text = joinedString;
 }
 
 //refreshes the remaining letters with every guess
@@ -251,6 +251,7 @@ char AlphabetEnd = 'Z';
     self.imageNumber = self.imageNumber + self.imageIncrement;
     self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
 }
+
 
 //actions to perform with each reloading of the view (i.e. for every new game)
 - (void)viewDidLoad
@@ -324,33 +325,52 @@ char AlphabetEnd = 'Z';
 //actions performed when user submits a letter as a guess
 - (void)textFieldShouldReturn:(UITextField *)textField
 {    
-    @try {
+ 
+    //set up alert for any failures in user guessing
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Plase enter valid input" 
+                                                        message:nil
+                                                       delegate:self 
+                                              cancelButtonTitle:@"OK!" 
+                                              otherButtonTitles:nil];
+    @try 
+    {
         //get letter
         self.guessedLetter = [self.submitLetter.text characterAtIndex:0];
 
-        //retrieve word list and print dummy response to simulate some sort of gameplay
-        [self guessLetter];
-    
-        //update the alphabet
-        [self updateAlphabet];
+        //if the character is not an alphabetical character, discontinue gameplay
+        if (!isalpha(self.guessedLetter))
+        {
+            [alertView show];
+        }
+        else
+        {
+            //convert to string to check if is uppercase
+            NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
+            
+            //if input is not a letter, this will return an error and feed the user the alert below
+            letter = [letter uppercaseString];
+            self.guessedLetter = [letter characterAtIndex:0];
+            
+            //retrieve word list and print out partial word using underscores and letters
+            [self guessLetter];
+            
+            //update the alphabet
+            [self updateAlphabet];
+            
+            //hide keyboard with each turn
+            [self.submitLetter resignFirstResponder];
+            
+            //check to see if user has lost game
+            [self checkEndGame];
         
-        //hide keyboard
-        [self.submitLetter resignFirstResponder];
-    
-        //check to see if user has lost game
-        [self checkEndGame];
+        }
     }
-    @catch (NSException * e) 
+    @catch (NSException *e) 
     {
-        //complains to user to give input
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You need to give us input" 
-                                                            message:nil
-                                                           delegate:self 
-                                                  cancelButtonTitle:@"Okay!" 
-                                                  otherButtonTitles:nil];
         [alertView show];
     }
 }
+
 
 //allows only one character in the submitLetter textField
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -370,12 +390,14 @@ char AlphabetEnd = 'Z';
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
 #pragma mark - Flipside View
 
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+
 
 //flips to the Flipside view, sending "self" as delegate so we can get back to main controller
 - (IBAction)showInfo:(id)sender
