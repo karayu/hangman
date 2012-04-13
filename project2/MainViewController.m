@@ -24,6 +24,7 @@
 
 //define constants
 int InitialNumberOfGuesses = 7;
+int InitialWordLength = 4;
 int ImageArrayCapacity = 27;
 int AlphabetLength = 26;
 char AlphabetStart = 'A';
@@ -267,16 +268,19 @@ char AlphabetEnd = 'Z';
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"evil"] == NO) 
     {
         self.Good = [[GoodGamePlay alloc] init];
+        [self.Good tryWordLength:InitialWordLength];
         self.isEvil = NO;
     }
     else 
     {
         self.Evil = [[EvilGamePlay alloc] init];
+        [self.Evil tryWordLength:InitialWordLength];
         self.isEvil = YES;
         
         //give Evil the default value of "YES" in case this is the first time user has played
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"evil"];
     }
+    
     
     //clear any input in textbox
     submitLetter.text = @"";

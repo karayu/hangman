@@ -40,6 +40,7 @@
 
 //global constants
 extern int InitialNumberOfGuesses;
+extern int InitialWordLength;
 extern int ImageArrayCapacity;
 extern int AlphabetLength;
 extern char AlphabetStart;

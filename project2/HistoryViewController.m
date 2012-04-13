@@ -19,6 +19,8 @@
 @implementation HistoryViewController
 
 @synthesize history = _history;
+@synthesize delegate = _delegate;
+@synthesize tableView = _tableView;
 
 
 
