@@ -19,6 +19,7 @@ NSString *FileName = @"small";
     //Initialization
     if (self = [super init])
     {        
+        self.words = [[NSMutableArray alloc] init];
         //loads dictionary
         [self loadDictionary];
         
@@ -38,6 +39,7 @@ NSString *FileName = @"small";
     //load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
                   [[NSBundle mainBundle] pathForResource:FileName ofType:@"plist"]];
+    
 }
 
 

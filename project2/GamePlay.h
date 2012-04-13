@@ -11,7 +11,7 @@
 @interface GamePlay : NSObject
 
 //dictionary of words
-@property (strong, nonatomic) NSMutableArray *words;
+@property (strong, nonatomic, readwrite) NSMutableArray *words;
 
 //list of letters already guessed
 @property (nonatomic, strong) NSMutableArray *usedLetters;

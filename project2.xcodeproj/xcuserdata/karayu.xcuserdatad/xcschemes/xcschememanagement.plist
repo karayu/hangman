@@ -4,17 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Project2LogicTests.xcscheme</key>
+		<key>Project2LogicTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
-		<key>Project2Tests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>project2.xcscheme</key>
+		<key>project2.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -43,6 +38,16 @@
 			<true/>
 		</dict>
 		<key>E7864B221534F444009E0AF3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7C28CA6153844F7003D6C75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E7CF4C4A153861F400BE422E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

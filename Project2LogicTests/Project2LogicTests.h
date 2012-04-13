@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface Project2LogicTests : SenTestCase
+@interface Project2LogicTests : SenTestCase 
 
 @end

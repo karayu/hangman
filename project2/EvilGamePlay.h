@@ -15,6 +15,7 @@
 - (int)calculateScore;
 - (BOOL)checkGameWon;
 - (NSArray *)guessLetter: (NSString *)letter;
+- (void)loadDictionary;
 - (NSString *)losingWord;
 
 //hash table mapping equivalence classes to words in that equivalence class
