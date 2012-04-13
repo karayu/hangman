@@ -19,8 +19,8 @@
 @property (weak, nonatomic) id <FlipsideViewControllerDelegate> delegate;  
 
 //classes
-@property (nonatomic, retain) EvilGamePlay* Evil;
-@property (nonatomic, retain) GoodGamePlay* Good;
+@property (nonatomic, retain) EvilGamePlay *Evil;
+@property (nonatomic, retain) GoodGamePlay *Good;
 
 //UI widgets
 @property (nonatomic, retain) IBOutlet UILabel *numberOfGuessesLabel;

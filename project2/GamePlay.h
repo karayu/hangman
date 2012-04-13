@@ -22,12 +22,12 @@ extern NSString *FileName;
 @property (nonatomic, strong) NSMutableArray *usedLetters;
 
 //methods
-- (void) loadDictionary;
-- (BOOL) setMaxWordLength;
-- (BOOL) setMinWordLength;
-- (BOOL) setWordLength;
-- (BOOL) letterValid: (NSString *) letter;
-- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string;
+- (void)loadDictionary;
+- (BOOL)setMaxWordLength;
+- (BOOL)setMinWordLength;
+- (BOOL)setWordLength;
+- (BOOL)letterValid: (NSString *) letter;
+- (NSString *)occurenceLocations: (NSString *) letter InWord: (NSString *) string;
 
 
 

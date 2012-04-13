@@ -16,7 +16,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, history;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, History;
 
 //define constants
 int InitialNumberOfGuesses = 7;
@@ -31,7 +31,7 @@ char AlphabetEnd = 'Z';
 {    
     HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
     
-    highScoresController.history = history;
+    highScoresController.history = History;
     
     //highScoresController.maxHighScores = &(MaxHighScores);
     //highScoresController.highScoresArray = self.highScoresArray;
@@ -116,7 +116,7 @@ char AlphabetEnd = 'Z';
     {        
         //get score from Good model and add it to user's high scores
         int score = [self.Good calculateScore];
-        [self.history addHighScore:score];
+        [self.History addHighScore:score];
         
         //display score to user too
         NSString *calculatedScore = [NSString stringWithFormat:@"Score: %d", score];
@@ -135,7 +135,7 @@ char AlphabetEnd = 'Z';
 
 
 //handles appropriate responses to the guessing of a letter
-- (void) guessLetter
+- (void)guessLetter
 {
     //cast letter to string and ensure the letter is uppercase
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
@@ -157,7 +157,8 @@ char AlphabetEnd = 'Z';
     else 
     {
         //depending on whether isEvil or not, grabs the letter positions of this letter
-        if (isEvil){
+        if (isEvil)
+        {
             letterPositions = [self.Evil guessLetter:letter];
         }
         else
@@ -252,9 +253,9 @@ char AlphabetEnd = 'Z';
 - (void)viewDidLoad
 {
     //initializes the set of all high scores
-    if (!self.history) 
+    if (!self.History) 
     {
-        self.history = [[History alloc] init];
+        self.History = [[History alloc] init];
     }
     
     //initialize model based on Evil or not

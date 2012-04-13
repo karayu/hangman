@@ -16,7 +16,7 @@
 //models
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
-@property (nonatomic, retain) History* history;
+@property (nonatomic, retain) History* History;
 
 //UI widgets
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;

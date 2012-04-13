@@ -15,9 +15,9 @@
 @property (nonatomic) NSString *word;
 
 //methods
-- (NSArray *) guessLetter: (NSString *) letter;
-- (int) calculateScore;
-- (BOOL) checkGameWon;
-- (BOOL) pickWord;
+- (NSArray *)guessLetter: (NSString *) letter;
+- (int)calculateScore;
+- (BOOL)checkGameWon;
+- (BOOL)pickWord;
 
 @end
