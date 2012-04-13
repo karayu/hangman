@@ -16,7 +16,7 @@
 //models
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
-@property (nonatomic, retain) History* history;
+@property (nonatomic, retain) History* History;
 
 //UI widgets
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
@@ -52,6 +52,7 @@ extern char AlphabetEnd;
 - (IBAction)showInfo:(id)sender;
 
 //all other methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (void)checkEndGame;
 - (void)createNewGameView;
 - (void)guessLetter;

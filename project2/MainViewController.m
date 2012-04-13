@@ -14,13 +14,9 @@
 #import "History.h"
 
 
-@interface MainViewController ()
-
-@end
-
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, history;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, History;
 
 //define constants
 int InitialNumberOfGuesses = 7;
@@ -37,8 +33,8 @@ char AlphabetEnd = 'Z';
     
     HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"historyViewController" bundle:nil];
     
-    highScoresController.history = history;
-
+    highScoresController.history = History;
+    
     //highScoresController.maxHighScores = &(MaxHighScores);
     //highScoresController.highScoresArray = self.highScoresArray;
     
@@ -46,7 +42,7 @@ char AlphabetEnd = 'Z';
     highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
     [self presentModalViewController:highScoresController animated:YES];
-
+    
 }
 
 
@@ -72,6 +68,7 @@ char AlphabetEnd = 'Z';
     }
 }
 
+
 //checks to see if number of guesses remaining is at zero; if so, user has lost and starts new game
 - (void)checkEndGame
 {
@@ -83,7 +80,7 @@ char AlphabetEnd = 'Z';
         
         //get losing word from Evil or Good
         if (isEvil)
-           losingWord = [self.Evil losingWord];
+            losingWord = [self.Evil losingWord];
         else
             losingWord = [self.Good word];
         
@@ -102,15 +99,16 @@ char AlphabetEnd = 'Z';
     //if won, calculate EVIL score based on dictionary used, word length, and factor in extra EVIL points
     else if (isEvil && [self.Evil checkGameWon]) 
     {
+        //get score from Evil model and display it to user
         int score = [self.Evil calculateScore];
-        [self.history addHighScore:score];
-        [self.history saveScores];
+        [self.History addHighScore:score];
+        [self.History saveScores];
         
 
-        NSString *text = [NSString stringWithFormat:@"Score: %d", score];
+        NSString *calculatedScore = [NSString stringWithFormat:@"Score: %d", score];
                 
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
-                                                            message:text
+                                                            message:calculatedScore
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 
                                                   otherButtonTitles:nil];
@@ -122,15 +120,15 @@ char AlphabetEnd = 'Z';
     //if won, calculate score based on dictionary, word length, and # of guesses
     else if (!isEvil && [self.Good checkGameWon])
     {        
+        //get score from Good model and add it to user's high scores
         int score = [self.Good calculateScore];
+        [self.History addHighScore:score];
         
-        [self.history addHighScore:score];
-        [self.history saveScores];
-
-        NSString *text = [NSString stringWithFormat:@"Score: %d", score];
+        //display score to user too
+        NSString *calculatedScore = [NSString stringWithFormat:@"Score: %d", score];
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
-                                                            message:text
+                                                            message:calculatedScore
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 
                                                   otherButtonTitles:nil];
@@ -143,7 +141,7 @@ char AlphabetEnd = 'Z';
 
 
 //handles appropriate responses to the guessing of a letter
-- (void) guessLetter
+- (void)guessLetter
 {
     //cast letter to string and ensure the letter is uppercase
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
@@ -161,10 +159,12 @@ char AlphabetEnd = 'Z';
                                                   otherButtonTitles:nil];
         [alertView show];
     }
+    //if user has not guessed the letter:
     else 
     {
         //depending on whether isEvil or not, grabs the letter positions of this letter
-        if (isEvil){
+        if (isEvil)
+        {
             letterPositions = [self.Evil guessLetter:letter];
         }
         else
@@ -208,7 +208,7 @@ char AlphabetEnd = 'Z';
     }
     //print alphabet to remainingLettersLabel
     self.remainingLettersLabel.text = alphabetString;  
-
+    
     //load underscores to visually represent un-guessed letters in a word
     self.partialWord = [NSMutableArray arrayWithCapacity:self.numberOfLetters];
     for (int index = 1; index <= self.numberOfLetters; index++)
@@ -220,6 +220,7 @@ char AlphabetEnd = 'Z';
     NSString *joinedString = [self.partialWord componentsJoinedByString:@"  "];
     self.partialWordLabel.text = joinedString;
 }
+
 
 //refreshes the remaining letters with every guess
 - (void)updateAlphabet
@@ -257,14 +258,13 @@ char AlphabetEnd = 'Z';
 //actions to perform with each reloading of the view (i.e. for every new game)
 - (void)viewDidLoad
 {
-    //initialize model based on Evil or not
-    
     //initializes the set of all high scores
-    if (!self.history) 
+    if (!self.History) 
     {
-        self.history = [[History alloc] init];
+        self.History = [[History alloc] init];
     }
     
+    //initialize model based on Evil or not
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"evil"] == NO) 
     {
         self.Good = [[GoodGamePlay alloc] init];
@@ -283,7 +283,7 @@ char AlphabetEnd = 'Z';
     
     
     //clear any input in textbox
-    submitLetter.text = @"";
+    self.submitLetter.text = @"";
     
     //set number of guesses from user's settings
     if (!(self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"]))
@@ -301,14 +301,16 @@ char AlphabetEnd = 'Z';
         [self.imageArray addObject:[UIImage imageNamed:imageName]];
     }
     
-    //initialize imageNumber to zero, display first image (empty hangman)
+    //initialize imageNumber to zero, calculates image increment based on # of guesses
     self.imageNumber = 0;
     self.imageIncrement = (ImageArrayCapacity-1)/self.numberOfGuesses;
+    
+    //display initial image (empty hangman) at the beginning of each game
     self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
     
     //display number of guesses
     self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
-
+    
     //set number of letters to default user's settings
     if (!(self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]))
     {
@@ -326,26 +328,30 @@ char AlphabetEnd = 'Z';
     [self createNewGameView];
 }
 
+
 //actions performed when user submits a letter as a guess
 - (void)textFieldShouldReturn:(UITextField *)textField
 {    
- 
     //set up alert for any failures in user guessing
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Plase enter valid input" 
                                                         message:nil
                                                        delegate:self 
                                               cancelButtonTitle:@"OK!" 
                                               otherButtonTitles:nil];
-    @try 
+    @try
     {
-        //get letter
+        //get letter from submission
         self.guessedLetter = [self.submitLetter.text characterAtIndex:0];
-
+        
         //if the character is not an alphabetical character, discontinue gameplay
         if (!isalpha(self.guessedLetter))
         {
             [alertView show];
+            
+            //clear any input in textbox
+            self.submitLetter.text = @"";
         }
+        //if the character is a letter, complete gameplay:
         else
         {
             //convert to string to check if is uppercase
@@ -366,9 +372,10 @@ char AlphabetEnd = 'Z';
             
             //check to see if user has lost game
             [self checkEndGame];
-        
+            
         }
     }
+    //show the alert error if an exception is thrown
     @catch (NSException *e) 
     {
         [alertView show];
@@ -386,6 +393,7 @@ char AlphabetEnd = 'Z';
     //if got to this point, there are 0 characters in textField so we allow one to be typed
     return YES;
 }
+
 
 #pragma mark - History View
 

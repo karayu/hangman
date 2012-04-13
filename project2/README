@@ -7,6 +7,8 @@ Since the alpha, we have more greatly restricted user input to just alphabetical
 
 Twenty-six images show Hangman game play up to the greatest possible # of wrong guesses (26).  When a user plays with less than 26 guesses, the images are divided into larger increments (i.e. displaying image #1, then #4, then #7 rather than just numbers 1, 2, & 3).  That way, a user who plays with only two or three wrong guesses will still be able to see the man hanged.
 
+As a note, we clear the text box when user enters invalid input, but when the user enters a correct letter we leave it in the text box as a memory of what letter was just guessed.  When the user clicks on the text box to enter a new letter, it automatically clears last turn's guess.
+
 # clone repo into ~/vhosts/karay
 cd ~/vhosts
 git clone git@bitbucket.org:karay/project2.git karay

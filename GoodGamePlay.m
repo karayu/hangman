@@ -3,7 +3,7 @@
 //  project2
 //
 //  Created by Kara Yu on 4/2/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "GoodGamePlay.h"
@@ -14,7 +14,7 @@
 
 
 //initialization for good game play
-- (id) init
+- (id)init
 {
     if (self = [super init])
     {        
@@ -26,7 +26,7 @@
 
 
 //picks a random word of correct word length at the beginning of each new game
-- (BOOL) pickWord
+- (BOOL)pickWord
 {
     if ([self.words count] > 0) 
     {
@@ -43,7 +43,7 @@
 
 
 //calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct
-- (int) calculateScore
+- (int)calculateScore
 {
     float percentAccuracy =  (float)self.wordLength /  (float)[self.usedLetters count];
     
@@ -53,14 +53,14 @@
 
 
 //checks to see if game has been won by seeing if all chars in the word have been guessed
-- (BOOL) checkGameWon
+- (BOOL)checkGameWon
 {        
     //for each letter in the word   
     for (int i=0; i< [self.word length]; i++) 
     {
         //get the letter
         NSString* letter = [self.word substringWithRange:NSMakeRange(i,1)];
-
+        
         //if the letter isn't in our usedletters, return false            
         if ([self.usedLetters indexOfObject:letter ] == NSNotFound) 
         {
@@ -74,7 +74,7 @@
 
 
 //returns the location of the letter +1 (because it returns 0 if the letter isn't in the word)
-- (NSArray *) guessLetter: (NSString *) letter 
+- (NSArray *)guessLetter: (NSString *) letter 
 {
     //add the letter to the list of used letters
     [self.usedLetters addObject:letter];
@@ -84,7 +84,7 @@
     
     //create and return an array of the positions
     NSArray *positions_arr = [positions componentsSeparatedByString: @"-"];
-
+    
     return positions_arr;
 }
 

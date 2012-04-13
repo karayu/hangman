@@ -3,7 +3,7 @@
 //  project2
 //
 //  Created by Kara Yu on 4/12/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "GamePlay.h"
@@ -14,9 +14,9 @@
 NSString *FileName = @"words";
 @synthesize words, wordLength, minWordLength, maxWordLength, usedLetters;
 
-- (id) init
+- (id)init
 {
-    // Initialization
+    //Initialization
     if (self = [super init])
     {        
         //loads dictionary
@@ -24,7 +24,6 @@ NSString *FileName = @"words";
         
         //determines max word length that user can specify
         [self setMaxWordLength];
-        
             
         //initializes the _usedLetters
         self.usedLetters = [[NSMutableArray alloc] init];
@@ -34,16 +33,16 @@ NSString *FileName = @"words";
 
 
 //load the plist
-- (void) loadDictionary
+- (void)loadDictionary
 {    
-    // load plist file into dictionary
+    //load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
                   [[NSBundle mainBundle] pathForResource:FileName ofType:@"plist"]];
 }
 
 
 //figures out the length of the longest word in the current dictionary and sets the self.maxWordLength equal to that
-- (BOOL) setMaxWordLength
+- (BOOL)setMaxWordLength
 {
     //initialize a temp variable
     int maxLength = 0;
@@ -70,7 +69,7 @@ NSString *FileName = @"words";
 }
 
 //figures out the length of the shortest word in the current dictionary and sets the self.minWordLength equal to that
-- (BOOL) setMinWordLength
+- (BOOL)setMinWordLength
 {
     //initialize minLength to a large number before iterating through the dictionary to find smaller word lengths
     int minLength = 200;
@@ -98,7 +97,7 @@ NSString *FileName = @"words";
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 //gets default word length from user    
-- (BOOL)tryWordLength: (int) length
+- (BOOL)tryWordLength: (int)length
 {
     //makes sure that user gave us ok input
     if (length > 0 && length <= self.maxWordLength ) 
@@ -130,7 +129,7 @@ NSString *FileName = @"words";
 
 
 //figures out whether this letter has already been guessed before
-- (BOOL) letterValid: (NSString *) letter 
+- (BOOL)letterValid: (NSString *) letter 
 {
     //if self.usedLetters doesn't contain letter, then the guess is good to go!
     if ([self.usedLetters indexOfObject: letter] == NSNotFound) {
@@ -143,9 +142,11 @@ NSString *FileName = @"words";
 }
 
 
-//returns a string with locations of occurence(s)
-//source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first
-- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
+/*
+ * returns a string with locations of occurence(s)
+ * source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first 
+ */
+- (NSString *)occurenceLocations: (NSString *) letter InWord: (NSString *) string
 {
     //empty array for occurrences of letter
     NSMutableArray *occ = [[NSMutableArray alloc] init];
@@ -163,13 +164,13 @@ NSString *FileName = @"words";
         
         if (foundRange.location != NSNotFound) {
             
-            // found an occurrence of the letter! add the location to the database
+            //found an occurrence of the letter! add the location to the database
             [occ addObject: [NSNumber numberWithInt: foundRange.location]];
             
             //move ahead and continue
             searchRange.location = foundRange.location+foundRange.length;
         } else {
-            // no more letters to find
+            //no more letters to find
             break;
         }
     }

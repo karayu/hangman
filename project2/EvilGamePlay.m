@@ -1,9 +1,9 @@
 //
-//  WordList.m
+//  EvilGamePlay.m
 //  project2
 //
 //  Created by Kara Yu on 3/31/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 EPIC. All rights reserved.
 //
 
 #import "EvilGamePlay.h"
@@ -12,7 +12,7 @@
 
 
 //calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct
-- (int) calculateScore
+- (int)calculateScore
 {
     float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
     
@@ -21,14 +21,16 @@
 }
 
 
-/*checks to see if the game has been won by 
- 1) seeing if the number of words left is 1
- 2) seeing if all the letters in the word have been guessed
+/*
+ * checks to see if the game has been won by 
+ * 1) seeing if the number of words left is 1
+ * 2) seeing if all the letters in the word have been guessed
  */
-- (BOOL) checkGameWon 
-{
-    //IF ONLY ONE WORD IS LEFT YOU HAVE WON! (if you've guessed all the letters)
-    if ([self.words count] == 1) {
+- (BOOL)checkGameWon 
+{    
+    //IF ONLY ONE WORD IS LEFT YOU MIGHT HAVE WON! (if you've guessed all the letters)
+    if ([self.words count] == 1) 
+    {
         
         //gets the last word left in the "words" array
         NSString *word = [self.words objectAtIndex:0];
@@ -54,23 +56,22 @@
 
 
 /*
- 1) called when the user inputs a letter and returns where we should tell the user the letter is
- 2) returns an array of all letter positions.  
- 3) if the letter isn't there, returns an array with nonexistent as the first element
- 4) updates self.words to include only words with letter in the given position (or words without the letter if that is the case)
+ * 1) called when the user inputs a letter and returns where we should tell the user the letter is
+ * 2) returns an array of all letter positions.  
+ * 3) if the letter isn't there, returns an array with nonexistent as the first element
+ * 4) updates self.words to include only words with letter in the given position (or words without the letter if that is the case)
  */
-- (NSArray *) guessLetter: (NSString *) letter 
+- (NSArray *)guessLetter: (NSString *) letter 
 {
-    
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
-
+    
     //create the dictionary
     NSMutableDictionary *equivHash=[self words:self.words ByPositionForLetter:letter];
     
     //the positions where the letter should appear
     NSString *bestPosition;
-        
+    
     //number of words in equivalence class for that position
     int mostWords = 0;
     
@@ -105,13 +106,13 @@
     
     //sets the words to the set of of words with the most common equivalence class
     self.words = [equivHash objectForKey:bestPosition];
-
+    
     return positions;
 }
 
 
 //if user loses , return a random word from the remaining set of words
-- (NSString *) losingWord
+- (NSString *)losingWord
 {
     //r is a random number ranging from 0 to number of words in dictionary
     int r = arc4random() % [self.words count]; 
@@ -120,14 +121,14 @@
 
 
 //returns a hashtable of equivalence class name->array of words that match that equivalence class
-- (NSMutableDictionary *) words: (NSMutableArray *) wordList ByPositionForLetter: letter
+- (NSMutableDictionary *)words: (NSMutableArray *)wordList ByPositionForLetter: letter
 {
     //start result dictionary
     NSMutableDictionary *wordsByPosition = [[NSMutableDictionary alloc] init];
     
     //for each word in the dictionary
-    for (NSString *word in wordList) {
-        
+    for (NSString *word in wordList) 
+    {
         //get the equivalence class for the word 
         NSString *occ = [self occurenceLocations:letter InWord:word];
         
@@ -139,10 +140,12 @@
         [curr addObjectsFromArray: [wordsByPosition objectForKey:occ]];
         
         //add the new word to the array of words with the same equivalence class
-        if (curr != NULL) {
+        if (curr != NULL) 
+        {
             [curr addObject: word];
         }
-        else {
+        else 
+        {
             curr = [NSMutableArray arrayWithObjects: word, nil];
         }
         
