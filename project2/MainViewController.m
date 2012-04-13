@@ -18,13 +18,36 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, imageView, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, imageArray, imageNumber, imageIncrement, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores;
 
-
--(IBAction)changeImage:(id)sender
+//Depending on how high the score is, adds the high score to the high scores table, in the right position
+- (BOOL) addHighScore: (int) score
 {
-    //imageView.image = [imageArray objectAtIndex:0];
-}
+    NSNumber *newScore = [[NSNumber alloc] init];
+    newScore = [NSNumber numberWithInt:score];
+
+    //add score to the high scores array
+    [self.highScoresArray addObject:newScore];
+
+    //sort the high scores array
+    //sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
+    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
+    NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
+    
+    self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
+
+    
+    //if we have too many scores, delete the smallest one
+    if ((int)[self.highScoresArray count] > (int)[self.maxHighScores intValue]) 
+    {
+        [self.highScoresArray removeLastObject];
+        NSLog(@"high scores are: %@", self.highScoresArray);
+
+    }
+    
+    return YES;
+  }
+
 
 //turns on/off "hidden" value for high scores table
 - (IBAction)viewHighScores:(id)sender
@@ -132,6 +155,10 @@
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
+        
+        [self addHighScore:score];
+        
+        NSString *text = [NSString stringWithFormat:@"Score: %d", score];
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text

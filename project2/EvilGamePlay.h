@@ -19,7 +19,6 @@
 @property (nonatomic, readwrite) int minWordLength;
 
 //leters that the users have guessed
-@property (nonatomic, strong) NSMutableArray *usedLetters;
 
 //letters that the users have guessed
 @property (nonatomic, strong) NSMutableArray *usedLetters;

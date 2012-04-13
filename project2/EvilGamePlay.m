@@ -17,6 +17,16 @@
 //current word list
 @synthesize words, minWordLength, wordLength, maxWordLength, usedLetters;
 
+
+//word list given new letter from user
+@synthesize wordLength = _wordLength;
+@synthesize maxWordLength =_maxWordLength;
+@synthesize minWordLength =_minWordLength;
+@synthesize usedLetters = _usedLetters;
+
+@synthesize maxHighScores = _maxHighScores;
+@synthesize highScores = _highScores;
+
 //initialize
 - (id) init
 {
@@ -32,8 +42,13 @@
         //sets word length for this round of play
         [self setWordLength];
         
-        //initializes the self.usedLetters
+    int maxLength = 0;
         self.usedLetters = [[NSMutableArray alloc] init];
+        
+        //sets max # of high scores we track
+        self.maxHighScores = 10;
+        //initializes highscores
+        self.highScores = [[NSMutableArray alloc] init];
 
     }
     return self;
@@ -182,8 +197,10 @@
 //calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL!  
 - (int) calculateScore
 {
-    float percentAccuracy =  (float)self.wordLength /  (float)[self.usedLetters count];
-    return percentAccuracy*self.wordLength*[self.words count];
+    
+    //the positions where the letter should appear
+    NSString *bestPosition;
+        
 }
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position

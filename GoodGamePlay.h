@@ -34,7 +34,8 @@
 - (BOOL) setMaxWordLength;
 - (BOOL) setMinWordLength;
 - (void)loadDictionary;
-- (BOOL) letterValid: (NSString *) letter;
+
+
 
 
 @end
