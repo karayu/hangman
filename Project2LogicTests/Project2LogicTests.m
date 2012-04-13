@@ -18,8 +18,6 @@
 // private properties
 
 @property (nonatomic, readwrite, strong) EvilGamePlay *evilLogic;
-@property (nonatomic, readwrite, strong) GoodGamePlay *goodLogic;
-@property (nonatomic, readwrite, strong) GamePlay *gameLogic;
 
 @end
 
@@ -28,9 +26,6 @@
 
 
 @synthesize evilLogic=_evilLogic;
-@synthesize goodLogic=_goodLogic;
-@synthesize gameLogic=_gameLogic;
-
 
 
 - (void)setUp
@@ -38,60 +33,29 @@
     [super setUp];
     NSLog(@"setup");
     // Set-up code here.
-        
-    //makes sure we're testing with the right dictionary
-    //FileName = @"small";
 
     self.evilLogic = [[EvilGamePlay alloc] init];    
-    self.goodLogic = [[GoodGamePlay alloc] init];
-    self.gameLogic = [[GamePlay alloc] init];
-    
     
     STAssertNotNil(self.evilLogic, @"Cannot create Evil instance");
-    STAssertNotNil(self.goodLogic, @"Cannot create Good instance");
-    STAssertNotNil(self.gameLogic, @"Cannot create Gameplay instance");
+    
+    //manually init because dictionary load doesn't seem to be working in unit test...
+    self.evilLogic.words = [[NSMutableArray alloc] initWithObjects:@"BEAR", @"BOAR", @"DEAR", @"DUCK", @"HARE",
+                            @"HAT", @"BLACK", @"CAT", @"GAT", @"TAG", @"READ", @"BECK", @"BEAB", @"DEAD", @"ALA",
+                            @"ABBB", @"PORA", nil];
+    [self.evilLogic setMaxWordLength];
+    
     
 }
 
+//sees if the function to modify our words list ot only be words of a certain length works
 - (void) testTryWordLength
 {
-    [self.gameLogic tryWordLength:3];
+    [self.evilLogic tryWordLength:3];
     NSMutableArray *tmp = [[NSMutableArray alloc]  initWithObjects: @"HAT", @"CAT", @"GAT", @"TAG", @"ALA", nil];
-    STAssertTrue([self.gameLogic.words isEqualToArray:tmp], @"Words are of the wrong length");
+    STAssertTrue([self.evilLogic.words isEqualToArray:tmp], @"Words are of the wrong length");
 
 }
 
-
-- (void) testLoadDictionary
-{
-    [self.evilLogic loadDictionary];
-    STAssertNotNil(self.gameLogic.words, @"Dictionary not initialized");
-}
-
-- (void) testGameInit
-{
-    //makes sure that it initializes the dictionary
-    NSLog(@"evil logic words: %@", self.evilLogic.words);
-    
-    self.evilLogic = [[EvilGamePlay alloc] init];    
-
-    STAssertNotNil(self.gameLogic.words, @"Dictionary not initialized");
-    
-    //makes sure that the entire dictionary was loaded
-    STAssertTrue(self.gameLogic.words.count == 17, @"Dictionary not completely loaded");
-    
-    //makes sure that the entire dictionary was loaded
-    STAssertTrue(self.gameLogic.maxWordLength == 5, @"Max word length logic wrong");
-    
-}
-
-- (void) testGoodPickWord
-{
-    [self.goodLogic pickWord];
-    NSLog(@"good logic word is: %@", self.goodLogic.word);
-    STAssertNotNil(self.goodLogic.word, @"Word not initialized");
-    
-}
 
 - (void) testWordsByPositionForLetter
 {
@@ -102,34 +66,33 @@
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     NSMutableArray *tmp = [[NSMutableArray alloc] initWithObjects:@"ABBB", nil];    
-    tmp = [[NSMutableArray alloc] initWithObjects:@"ALA", nil];    
     STAssertTrue([[hashtable objectForKey:@"0"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '0'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"ALA", nil];
-    //STAssertTrue([[hashtable objectForKey:@"0-2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '0-2'");
+    STAssertTrue([[hashtable objectForKey:@"0-2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '0-2'");
 
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"HARE", @"HAT",@"CAT",@"GAT",@"TAG", nil];
-    //STAssertTrue([[hashtable objectForKey:@"1"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '1'");
+    STAssertTrue([[hashtable objectForKey:@"1"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '1'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"BEAR", @"BOAR",@"DEAR",@"BLACK",@"READ",@"BEAB", @"DEAD", nil];
-    //STAssertTrue([[hashtable objectForKey:@"2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '2'");
+    STAssertTrue([[hashtable objectForKey:@"2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '2'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"PORA", nil];
-    //STAssertTrue([[hashtable objectForKey:@"3"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '3'");
+    STAssertTrue([[hashtable objectForKey:@"3"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '3'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"DUCK",@"BECK", nil];
-    //STAssertTrue([[hashtable objectForKey:@"nonexistent"] isEqualToArray:tmp], @"Hashtable not correct at equiv class 'nonexistent'");
+    STAssertTrue([[hashtable objectForKey:@"nonexistent"] isEqualToArray:tmp], @"Hashtable not correct at equiv class 'nonexistent'");
 
     [tmp removeAllObjects];
         

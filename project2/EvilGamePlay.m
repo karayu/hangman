@@ -135,7 +135,7 @@
     {
         //get the equivalence class for the word 
         NSString *occ = [self occurenceLocations:letter InWord:word];
-        
+
         //temp variable holding all words of this equivalence class
         NSMutableArray *curr =[[NSMutableArray alloc] init];   
         [curr removeAllObjects];
@@ -155,6 +155,7 @@
         
         //set our current array as the official array     
         [wordsByPosition setObject:curr forKey:occ];
+        
     }
     
     return wordsByPosition;
