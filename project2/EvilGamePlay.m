@@ -14,148 +14,13 @@
 
 @implementation EvilGamePlay
 
-//current word list
-@synthesize words, minWordLength, wordLength, maxWordLength, usedLetters;
-
-
-//word list given new letter from user
-@synthesize maxHighScores = _maxHighScores;
-@synthesize highScores = _highScores;
-
-//initialize
-- (id) init
+//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by a much bigger constant for playing EVIL!  
+- (int) calculateScore
 {
-    // Initialization
-    if (self = [super init])
-    {   
-        //loads dictionary
-        [self loadDictionary];
-        
-        //determines max word length that user can specify
-        [self setMaxWordLength];
-        
-        //sets word length for this round of play
-        [self setWordLength];
-        
-        self.usedLetters = [[NSMutableArray alloc] init];
-        
-        //sets max # of high scores we track
-        self.maxHighScores = 10;
-        //initializes highscores
-        self.highScores = [[NSMutableArray alloc] init];
-
-    }
-    return self;
+    float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
+    int score =  percentAccuracy*(self.wordLength)*5500;
+    return score;
 }
-
-//figures out the length of the longest word in the current dictionary and sets the self.maxWordLength equal to that
-- (BOOL) setMaxWordLength
-{
-    int maxLength = 0;
-    
-    if ([self.words count]>0) 
-    {
-        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
-        for (NSString *word in self.words) 
-        {
-            if ( [word length] > maxLength) 
-            {
-                maxLength = [word length];
-            }
-        }
-        
-        //sets self.maxWordLength equal to length of longest word in this dictionary 
-        self.maxWordLength = maxLength;
-        return YES;
-    }
-    else {
-        return NO;
-    }
-    
-}
-
-//figures out the length of the longest word in the current dictionary and sets the self.maxWordLength equal to that
-- (BOOL) setMinWordLength
-{
-    int minLength = 200;
-    
-    if ([self.words count]>0) 
-    {
-        //iterates through all words and if the length is greater than maxLength, we update maxLength to match
-        for (NSString *word in self.words) 
-        {
-            if ( [word length] < minLength) 
-            {
-                minLength = [word length];
-            }
-        }
-        
-        //sets self.maxWordLength equal to length of longest word in this dictionary 
-        self.minWordLength = minLength;
-        return YES;
-    }
-    else {
-        return NO;
-    }
-    
-}
-
-//when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
-- (BOOL)setWordLength
-{
-    //gets default word length from user
-    int length = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"];
-    
-    //makes sure that user gave us ok input
-    if (length > 0 && length <= self.maxWordLength ) 
-    {
-        //set the private variation equal to the word length
-        self.wordLength = length;
-        
-        //results array
-        NSMutableArray *newWords = [[NSMutableArray alloc] init];
-        
-        //for each word, if its length matches, then add it to the result array
-        for (NSString *word in self.words) 
-        {
-            if ([word length] == length) 
-            {
-                [newWords addObject:word];
-            }
-        }
-        //if words exist in the dictionary of length "wordLength", save these in self.words and return true
-        if([newWords count] > 0)
-        {
-            self.words = newWords;
-            return YES;
-        }
-    }
-    return NO;
-}
-
-
-//load the plist
-- (void) loadDictionary
-{    
-    // load plist file into dictionary
-    self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
-}
-
-
-//figures out whether this letter has already been guessed before
-- (BOOL) letterValid: (NSString *) letter 
-{
-    //if self.usedLetters doesn't contain letter
-    if ([self.usedLetters indexOfObject: letter] == NSNotFound) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
-
-}
-
 
 /*checks to see if the game has been won by 
  1) seeing if the number of words left is 1
@@ -163,7 +28,7 @@
  */
 - (BOOL) checkGameWon 
 {
-    //IF ONLY ONE WORD IS LEFT YOU HAVE WON!
+    //IF ONLY ONE WORD IS LEFT YOU HAVE WON! (if you've guessed all the letters)
     if ([self.words count] == 1) {
         
         //gets the last word left in the "words" array
@@ -189,20 +54,13 @@
     return NO;
 }
 
-//calculates the score based on word's length, number of words of the same length in the dictionary, and percent of guesses that were correct, multiplied by TWO for playing EVIL!  
-- (int) calculateScore
-{
-    
-    float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
-    int score =  percentAccuracy*(self.wordLength)*5500;
-    return score;
-}
 
 //called when the user inputs a letter and returns where we should tell the user the letter is
 //returns an array of all letter positions.  If hangman should say that the letter isn't there, returns an array with nonexistent as the first element
 //updates self.words to include only words with letter in the best position or words without the letter
 - (NSArray *) guessLetter: (NSString *) letter 
 {
+    
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
     
@@ -248,6 +106,15 @@
 
 
 
+//if user loses , return a random word from the remaining set of words
+- (NSString *) losingWord
+{
+    //r is a random number ranging from 0 to number of words in dictionary
+    int r = arc4random() % [self.words count]; 
+    return [self.words objectAtIndex:r];
+}
+
+
 //returns a hashtable of equivalence class name->array of words that match that equivalence class
 - (NSMutableDictionary *) words: (NSMutableArray *) wordList ByPositionForLetter: letter
 {
@@ -282,58 +149,6 @@
     return wordsByPosition;
 }
 
-
-//if user loses , return a random word from the remaining set of words
-- (NSString *) losingWord
-{
-    //r is a random number ranging from 0 to number of words in dictionary
-    int r = arc4random() % [self.words count]; 
-    return [self.words objectAtIndex:r];
-}
-
-
-//returns a string with locations of occurence(s)
-//source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first
-- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
-{
-    //empty array for occurrences of letter
-    NSMutableArray *occ = [[NSMutableArray alloc] init];
-    
-    //search range is the entire length of the string
-    NSRange searchRange = NSMakeRange(0,string.length);
-    NSRange foundRange;
-    
-    while (searchRange.location < string.length) {
-        searchRange.length = string.length-searchRange.location;
-        //store where we found the letter in the word
-        foundRange = [string rangeOfString:letter options:0 range:searchRange];
-        if (foundRange.location != NSNotFound) {
-            // found an occurrence of the letter! add the location to the database
-            [occ addObject: [NSNumber numberWithInt: foundRange.location]];
-            
-            //move ahead and continue
-            searchRange.location = foundRange.location+foundRange.length;
-        } else {
-            // no more letters to find
-            break;
-        }
-    }
-    
-    //if there are occurrence(s) of the string in word, piece them together into a string to make a good key
-    NSString *result;
-    if ([occ count] > 0) 
-    {
-        result = [occ componentsJoinedByString: @"-"];
-    }
-    else {
-        
-        //if there are no occurences, return the string "nonexistent"
-        result = @"nonexistent";
-    }
-    
-    return result;
-    
-}
 
 
 @end

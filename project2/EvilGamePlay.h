@@ -7,48 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GamePlay.h"
 
-@interface EvilGamePlay : NSObject
-
-//full list of words currently in play
-@property (nonatomic, readwrite, strong) NSMutableArray *words;
-
-//word length set by user
-@property (nonatomic, readwrite) int wordLength;
-@property (nonatomic, readwrite) int maxWordLength;
-@property (nonatomic, readwrite) int minWordLength;
-@property (nonatomic, readwrite) int maxHighScores;
-
-//leters that the users have guessed
-
-//letters that the users have guessed
-@property (nonatomic, strong) NSMutableArray *usedLetters;
-
-//high scores list
-@property (nonatomic, strong) NSMutableArray *highScores;
+@interface EvilGamePlay : GamePlay
 
 
 - (int) calculateScore;
 - (BOOL) checkGameWon;
-- (BOOL) setWordLength;
-- (BOOL) setMaxWordLength;
-- (BOOL) setMinWordLength;
-- (void)loadDictionary;
-- (NSString *) losingWord;
-- (BOOL) letterValid: (NSString *) letter;
 
 //the main brains behind everything
 - (NSArray *) guessLetter: (NSString *) letter;
 
-//set of words with letter in the right position(s)
-- (NSMutableArray *) words: potentialWords WithLetter: (NSString *) letter InPosition: (NSString *) position;
+- (NSString *) losingWord;
 
 //hash table mapping equivalence classes to words in that equivalence class
 - (NSMutableDictionary *) words: (NSMutableArray *) words ByPositionForLetter: letter;
-- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string;
-- (NSMutableArray *) words: words WithoutLetter: (NSString *)letter;
-
-
 
 
 @end

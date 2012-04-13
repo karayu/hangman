@@ -173,8 +173,10 @@
     else 
     {
         //depending on whether isEvil or not, grabs the letter positions of this letter
-        if (isEvil)
+        if (isEvil){
             letterPositions = [self.Evil guessLetter:letter];
+            NSLog(@"letter positions is: %@", letterPositions);
+        }
         else
             letterPositions = [self.Good guessLetter:letter];
         

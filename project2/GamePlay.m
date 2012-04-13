@@ -21,9 +21,6 @@
 @synthesize minWordLength =_minWordLength;
 @synthesize usedLetters = _usedLetters;
 
-@synthesize maxHighScores = _maxHighScores;
-@synthesize highScores = _highScores;
-
 
 - (id)init
 {
@@ -50,7 +47,7 @@
 {    
     // load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
+                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 //figures out the length of the longest word in the current dictionary and sets the self.maxWordLength equal to that
@@ -153,6 +150,49 @@
     
 }
 
+
+//returns a string with locations of occurence(s)
+//source: http://stackoverflow.com/questions/7033574/find-all-locations-of-substring-in-nsstring-not-just-first
+- (NSString *) occurenceLocations: (NSString *) letter InWord: (NSString *) string
+{
+    //empty array for occurrences of letter
+    NSMutableArray *occ = [[NSMutableArray alloc] init];
+    
+    //search range is the entire length of the string
+    NSRange searchRange = NSMakeRange(0,string.length);
+    NSRange foundRange;
+    
+    while (searchRange.location < string.length) {
+        searchRange.length = string.length-searchRange.location;
+        //store where we found the letter in the word
+        foundRange = [string rangeOfString:letter options:0 range:searchRange];
+        if (foundRange.location != NSNotFound) {
+            // found an occurrence of the letter! add the location to the database
+            [occ addObject: [NSNumber numberWithInt: foundRange.location]];
+            
+            //move ahead and continue
+            searchRange.location = foundRange.location+foundRange.length;
+        } else {
+            // no more letters to find
+            break;
+        }
+    }
+    
+    //if there are occurrence(s) of the string in word, piece them together into a string to make a good key
+    NSString *result;
+    if ([occ count] > 0) 
+    {
+        result = [occ componentsJoinedByString: @"-"];
+    }
+    else {
+        
+        //if there are no occurences, return the string "nonexistent"
+        result = @"nonexistent";
+    }
+    
+    return result;
+    
+}
 
 
 @end
