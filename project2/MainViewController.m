@@ -117,7 +117,7 @@
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
-        
+        NSLog(@"score: %d", score);
         [self addHighScore:score];
         
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
@@ -135,7 +135,7 @@
     //if won, calculate score based on dictionary, word length, and # of guesses
     else if (!isEvil && [self.Good checkGameWon])
     {        
-        float score = [self.Good calculateScore];
+        int score = [self.Good calculateScore];
         
         [self addHighScore:score];
 
@@ -257,7 +257,6 @@
     
     //change hangman image with each wrong guess
     self.imageNumber = self.imageNumber + self.imageIncrement;
-    NSLog(@"%d", self.imageNumber);
     self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
 }
 

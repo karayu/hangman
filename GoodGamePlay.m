@@ -235,7 +235,7 @@
 - (int) calculateScore
 {
     float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
-    return percentAccuracy*_wordLength*10000;
+    return percentAccuracy*_wordLength*1500;
 }
 
 

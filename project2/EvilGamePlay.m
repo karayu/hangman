@@ -139,7 +139,7 @@
 {    
     // load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
 }
 
 
@@ -163,6 +163,7 @@
  */
 - (BOOL) checkGameWon 
 {
+    //IF ONLY ONE WORD IS LEFT YOU HAVE WON!
     if ([self.words count] == 1) {
         
         //gets the last word left in the "words" array
@@ -193,10 +194,8 @@
 {
     
     float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
-    int score =  percentAccuracy*(self.wordLength)*10000;
-    
+    int score =  percentAccuracy*(self.wordLength)*5500;
     return score;
-        
 }
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position
