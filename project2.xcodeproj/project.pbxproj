@@ -30,6 +30,7 @@
 		E7864B3D153507F8009E0AF3 /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864D9E1537886200E127F3 /* HighScoresViewController.m */; };
 		E7864DA11537886300E127F3 /* HighScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864D9F1537886300E127F3 /* HighScoresViewController.xib */; };
+		E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864DAB1537D02800E127F3 /* GamePlay.m */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
 		E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
@@ -68,6 +69,8 @@
 		E7864D9D1537886200E127F3 /* HighScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresViewController.h; sourceTree = "<group>"; };
 		E7864D9E1537886200E127F3 /* HighScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoresViewController.m; sourceTree = "<group>"; };
 		E7864D9F1537886300E127F3 /* HighScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoresViewController.xib; sourceTree = "<group>"; };
+		E7864DAA1537D02800E127F3 /* GamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlay.h; sourceTree = "<group>"; };
+		E7864DAB1537D02800E127F3 /* GamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlay.m; sourceTree = "<group>"; };
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
 		E7B01A5D15279B3100D861AF /* EvilGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvilGamePlay.m; sourceTree = "<group>"; };
 		E7B01AC51528F6DF00D861AF /* small.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = small.plist; sourceTree = "<group>"; };
@@ -141,6 +144,8 @@
 				E7B01AD5152B039200D861AF /* README */,
 				E7B01A5C15279B3100D861AF /* EvilGamePlay.h */,
 				E7B01A5D15279B3100D861AF /* EvilGamePlay.m */,
+				E7864DAA1537D02800E127F3 /* GamePlay.h */,
+				E7864DAB1537D02800E127F3 /* GamePlay.m */,
 				E70AE740151C437B00FB7BAE /* AppDelegate.h */,
 				E70AE741151C437B00FB7BAE /* AppDelegate.m */,
 				E70AE743151C437B00FB7BAE /* MainViewController.h */,
@@ -312,6 +317,7 @@
 				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
 				E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */,
 				E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */,
+				E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
