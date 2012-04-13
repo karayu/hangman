@@ -24,7 +24,6 @@ NSString *FileName = @"small";
         
         //determines max word length that user can specify
         [self setMaxWordLength];
-        
             
         //initializes the _usedLetters
         self.usedLetters = [[NSMutableArray alloc] init];
@@ -98,7 +97,7 @@ NSString *FileName = @"small";
 
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 //gets default word length from user    
-- (BOOL)tryWordLength: (int) length
+- (BOOL)tryWordLength: (int)length
 {
     //makes sure that user gave us ok input
     if (length > 0 && length <= self.maxWordLength ) 

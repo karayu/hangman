@@ -28,9 +28,8 @@ extern NSString *FileName;
 - (void)loadDictionary;
 - (BOOL)setMaxWordLength;
 - (BOOL)setMinWordLength;
-- (BOOL)setWordLength;
+- (BOOL)tryWordLength: (int)length;
 - (BOOL)letterValid: (NSString *) letter;
 - (NSString *)occurenceLocations: (NSString *) letter InWord: (NSString *) string;
-
 
 @end
