@@ -19,6 +19,20 @@
                ReferencedContainer = "container:project2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E71B7174153829F900519475"
+               BuildableName = "Project2LogicTests.octest"
+               BlueprintName = "Project2LogicTests"
+               ReferencedContainer = "container:project2.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -31,9 +45,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E70AE753151C437B00FB7BAE"
-               BuildableName = "project2Tests.octest"
-               BlueprintName = "project2Tests"
+               BlueprintIdentifier = "E71B7174153829F900519475"
+               BuildableName = "Project2LogicTests.octest"
+               BlueprintName = "Project2LogicTests"
                ReferencedContainer = "container:project2.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -49,8 +63,8 @@
       </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"

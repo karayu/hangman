@@ -7,7 +7,16 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "EvilGamePlay.h"
+#import "GoodGamePlay.h"
+#import "GamePlay.h"
+
+
 
 @interface Project2LogicTests : SenTestCase
+
+@property (nonatomic, strong) EvilGamePlay *evilLogic;
+@property (nonatomic, strong) GoodGamePlay *goodLogic;
+@property (nonatomic, strong) GamePlay *gameLogic;
 
 @end

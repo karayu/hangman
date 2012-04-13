@@ -7,11 +7,6 @@
 		<key>Project2LogicTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>Project2Tests.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
 		<key>project2.xcscheme</key>

@@ -57,11 +57,7 @@
 		E71B718615382A1A00519475 /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E71B719315382E6900519475 /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864DAB1537D02800E127F3 /* GamePlay.m */; };
 		E71B719415382E6E00519475 /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
-		E7864B241534F444009E0AF3 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE755151C437B00FB7BAE /* SenTestingKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
-		E7864B251534F444009E0AF3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE731151C437A00FB7BAE /* UIKit.framework */; };
-		E7864B261534F444009E0AF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70AE733151C437A00FB7BAE /* Foundation.framework */; };
-		E7864B2C1534F444009E0AF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7864B2A1534F444009E0AF3 /* InfoPlist.strings */; };
-		E7864B2F1534F444009E0AF3 /* Project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864B2E1534F444009E0AF3 /* Project2Tests.m */; };
+		E71B719A1538354A00519475 /* Project2LogicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E71B7180153829F900519475 /* Project2LogicTests.m */; };
 		E7864DA01537886300E127F3 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864D9E1537886200E127F3 /* HistoryViewController.m */; };
 		E7864DA11537886300E127F3 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864D9F1537886300E127F3 /* HistoryViewController.xib */; };
 		E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864DAB1537D02800E127F3 /* GamePlay.m */; };
@@ -129,12 +125,6 @@
 		E71B717F153829F900519475 /* Project2LogicTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2LogicTests.h; sourceTree = "<group>"; };
 		E71B7180153829F900519475 /* Project2LogicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project2LogicTests.m; sourceTree = "<group>"; };
 		E71B7182153829F900519475 /* Project2LogicTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project2LogicTests-Prefix.pch"; sourceTree = "<group>"; };
-		E7864B231534F444009E0AF3 /* Project2Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Project2Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7864B291534F444009E0AF3 /* Project2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Project2Tests-Info.plist"; sourceTree = "<group>"; };
-		E7864B2B1534F444009E0AF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E7864B2D1534F444009E0AF3 /* Project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2Tests.h; sourceTree = "<group>"; };
-		E7864B2E1534F444009E0AF3 /* Project2Tests.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = Project2Tests.m; sourceTree = "<group>"; };
-		E7864B301534F444009E0AF3 /* Project2Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project2Tests-Prefix.pch"; sourceTree = "<group>"; };
 		E7864D9D1537886200E127F3 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		E7864D9E1537886200E127F3 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		E7864D9F1537886300E127F3 /* HistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryViewController.xib; sourceTree = "<group>"; };
@@ -170,16 +160,6 @@
 				E71B7176153829F900519475 /* SenTestingKit.framework in Frameworks */,
 				E71B7177153829F900519475 /* UIKit.framework in Frameworks */,
 				E71B7178153829F900519475 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7864B1F1534F444009E0AF3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7864B241534F444009E0AF3 /* SenTestingKit.framework in Frameworks */,
-				E7864B251534F444009E0AF3 /* UIKit.framework in Frameworks */,
-				E7864B261534F444009E0AF3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,10 +203,9 @@
 		E70AE722151C437A00FB7BAE = {
 			isa = PBXGroup;
 			children = (
-				E7864B271534F444009E0AF3 /* Project2Tests */,
+				E71B7179153829F900519475 /* Project2LogicTests */,
 				018467EE1527E78E001D0234 /* jong.png */,
 				E70AE737151C437A00FB7BAE /* project2 */,
-				E71B7179153829F900519475 /* Project2LogicTests */,
 				E70AE730151C437A00FB7BAE /* Frameworks */,
 				E70AE72E151C437A00FB7BAE /* Products */,
 			);
@@ -236,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				E70AE72D151C437A00FB7BAE /* project2.app */,
-				E7864B231534F444009E0AF3 /* Project2Tests.octest */,
 				E71B7175153829F900519475 /* Project2LogicTests.octest */,
 			);
 			name = Products;
@@ -319,26 +297,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E7864B271534F444009E0AF3 /* Project2Tests */ = {
-			isa = PBXGroup;
-			children = (
-				E7864B2D1534F444009E0AF3 /* Project2Tests.h */,
-				E7864B2E1534F444009E0AF3 /* Project2Tests.m */,
-				E7864B281534F444009E0AF3 /* Supporting Files */,
-			);
-			path = Project2Tests;
-			sourceTree = "<group>";
-		};
-		E7864B281534F444009E0AF3 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E7864B291534F444009E0AF3 /* Project2Tests-Info.plist */,
-				E7864B2A1534F444009E0AF3 /* InfoPlist.strings */,
-				E7864B301534F444009E0AF3 /* Project2Tests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -377,24 +335,6 @@
 			productReference = E71B7175153829F900519475 /* Project2LogicTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		E7864B221534F444009E0AF3 /* Project2Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E7864B311534F444009E0AF3 /* Build configuration list for PBXNativeTarget "Project2Tests" */;
-			buildPhases = (
-				E7864B1E1534F444009E0AF3 /* Sources */,
-				E7864B1F1534F444009E0AF3 /* Frameworks */,
-				E7864B201534F444009E0AF3 /* Resources */,
-				E7864B211534F444009E0AF3 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Project2Tests;
-			productName = Project2Tests;
-			productReference = E7864B231534F444009E0AF3 /* Project2Tests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -416,7 +356,6 @@
 			projectRoot = "";
 			targets = (
 				E70AE72C151C437A00FB7BAE /* project2 */,
-				E7864B221534F444009E0AF3 /* Project2Tests */,
 				E71B7174153829F900519475 /* Project2LogicTests */,
 			);
 		};
@@ -476,31 +415,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7864B201534F444009E0AF3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7864B2C1534F444009E0AF3 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		E71B7173153829F900519475 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E7864B211534F444009E0AF3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -529,6 +447,7 @@
 				E7864DA01537886300E127F3 /* HistoryViewController.m in Sources */,
 				E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */,
 				E7E07E881538005200608852 /* History.m in Sources */,
+				E71B719A1538354A00519475 /* Project2LogicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,14 +459,6 @@
 				E71B718615382A1A00519475 /* EvilGamePlay.m in Sources */,
 				E71B719315382E6900519475 /* GamePlay.m in Sources */,
 				E71B719415382E6E00519475 /* GoodGamePlay.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7864B1E1534F444009E0AF3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7864B2F1534F444009E0AF3 /* Project2Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,14 +493,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				E71B717D153829F900519475 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E7864B2A1534F444009E0AF3 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7864B2B1534F444009E0AF3 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -696,36 +599,6 @@
 			};
 			name = Release;
 		};
-		E7864B321534F444009E0AF3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project2Tests/Project2Tests-Prefix.pch";
-				INFOPLIST_FILE = "Project2Tests/Project2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		E7864B331534F444009E0AF3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project2Tests/Project2Tests-Prefix.pch";
-				INFOPLIST_FILE = "Project2Tests/Project2Tests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -754,15 +627,6 @@
 				E71B7185153829F900519475 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		E7864B311534F444009E0AF3 /* Build configuration list for PBXNativeTarget "Project2Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E7864B321534F444009E0AF3 /* Debug */,
-				E7864B331534F444009E0AF3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
