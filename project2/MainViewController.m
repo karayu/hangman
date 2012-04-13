@@ -141,7 +141,6 @@
 }
 
 
-
 //handles guessing of each letter
 - (void)guessLetter
 {
@@ -286,15 +285,9 @@
         [self.imageArray addObject:[UIImage imageNamed:imageName]];
     }
     
-    NSLog(@"imageNumber: %d", self.imageNumber);
-    NSLog(@"numberOfGuesses: %d", self.numberOfGuesses);
-    
-    //initialize imageNumber to zero, get first image
+    //initialize imageNumber to zero, display first image (empty hangman)
     self.imageNumber = 0;
     self.imageIncrement = 26/self.numberOfGuesses;
-    
-    NSLog(@"imageIncrement: %d", self.imageIncrement);
-    
     self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
     
     //display number of guesses
