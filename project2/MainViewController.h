@@ -10,6 +10,7 @@
 #import "HistoryViewController.h"
 
 
+
 @class GoodGamePlay, EvilGamePlay;
 
 @interface MainViewController : UIViewController <FlipsideViewControllerDelegate, HistoryViewControllerDelegate> 
@@ -37,6 +38,7 @@
 @property (strong) NSMutableArray *imageArray;
 @property int imageNumber;
 @property int imageIncrement;
+@property (nonatomic, strong) History *history;
 
 //global constants
 extern int InitialNumberOfGuesses;

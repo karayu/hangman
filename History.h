@@ -15,7 +15,15 @@ extern int MaxHighScores;
 extern NSString *HighScoreFileName;
 
 @property (nonatomic, strong) NSMutableArray *highScoresArray;
+
+//methods
+- (void) saveScores;
+- (void) loadScores;
 - (BOOL) addHighScore: (int) score;
+
+
+
+
 
 
 @end

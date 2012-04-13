@@ -7,6 +7,8 @@
 //
 
 #import "HistoryViewController.h"
+#import "History.h"
+
 #import "MainViewController.h"
 
 
@@ -16,8 +18,7 @@
 
 @implementation HistoryViewController
 
-@synthesize maxHighScores = _maxHighScores;
-@synthesize highScoresArray = _highScoresArray;
+@synthesize history = _history;
 
 @synthesize delegate = _delegate;
 @synthesize tableView = _tableView;
@@ -26,19 +27,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        if (!self.maxHighScores) 
-        {
-            //self.maxHighScores = [MainViewController MaxHighScores] ;
-            //self.maxHighScores = [NSNumber numberWithInt: 2];
-        }
-        
-        //initializes the set of all high scores
-        if (!self.highScoresArray) 
-        {
-            self.highScoresArray = [[NSMutableArray alloc] init];
-        }
+    if (self) 
+    {
+
+
     }
     return self;
 }
@@ -47,7 +39,6 @@
 {
     [super viewDidLoad];
     
-
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,8 +72,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.highScoresArray count];
-    //return 2;
+    return [self.history.highScoresArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,7 +86,7 @@
     }
 
     // Text of cell is the score. Second element in indexPath is the row #, also index of where in highScoresArray we shold be looking
-    cell.textLabel.text = [[self.highScoresArray objectAtIndex: (int)[indexPath indexAtPosition:1]] description];
+    cell.textLabel.text = [[self.history.highScoresArray objectAtIndex: (int)[indexPath indexAtPosition:1]] description];
 
     return cell;
 }
@@ -126,6 +116,7 @@
 //when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender
 {
+    [self.history saveScores];
     [self.delegate historyViewControllerDidFinish:self];
 }
 

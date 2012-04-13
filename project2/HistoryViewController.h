@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class History, HistoryViewController;
 
-@class HistoryViewController;
 
 @protocol HistoryViewControllerDelegate
 - (void)historyViewControllerDidFinish:(HistoryViewController *)controller;
@@ -18,8 +18,7 @@
 @interface HistoryViewController : UITableViewController
 
 //variables
-@property int *maxHighScores;
-@property (nonatomic, strong) NSMutableArray *highScoresArray;
+@property (nonatomic, strong) History *history;
 
 //UI widgets
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
