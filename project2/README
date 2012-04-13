@@ -1,13 +1,11 @@
-For this alpha, we implemented Hangman in both evil and good forms. 
-We decided that in evil mode the hangman will evaluate each equivalence class and pick the one with the most words. 
 
-Here are some things we plan to do for the release:
-- Improve the algorithm for speed.  Right now, evil hangs a bit.  We can probably do more to free up memory
-- keep track of high scores
-- tell user that what the word was 
-- alert error if user has guessed a given letter already (and don't decrease number of guesses left)
-- multiple images to visually show hangman gameplay
+For the release, we have fully implemented Hangman in both Good & Evil forms (divided into two models that both extend from standard GamePlay).  We are also keeping track of the user's high score History.
 
+For the evil mode, hangman evaluates each equivalence class and picks the one with the most words.  When faced with equivalence classes of equal contents, Evil chooses randomly.
+
+Since the alpha, we have more greatly restricted user input to just alphabetical characters.  The user is not allowed to guess a letter they have already guessed.  Upon the end of a game (a lose), we now inform the user of the word they neglected to guess.  
+
+Twenty-six images show Hangman game play up to the greatest possible # of wrong guesses (26).  When a user plays with less than 26 guesses, the images are divided into larger increments (i.e. displaying image #1, then #4, then #7 rather than just numbers 1, 2, & 3).  That way, a user who plays with only two or three wrong guesses will still be able to see the man hanged.
 
 # clone repo into ~/vhosts/karay
 cd ~/vhosts

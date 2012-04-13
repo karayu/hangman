@@ -10,6 +10,8 @@
 
 @implementation GamePlay
 
+//dictionary file name
+NSString *FileName = @"small";
 @synthesize words, wordLength, minWordLength, maxWordLength, usedLetters;
 
 - (id) init

@@ -20,13 +20,7 @@
 
 @synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
 
-
-//depending on how high the score is, adds the high score to the high scores table, in the right position
-- (BOOL) addHighScore: (int) score
-{
-    //create a temp variable to save our new score
-    NSNumber *newScore = [[NSNumber alloc] init];
-    newScore = [NSNumber numberWithInt:score];
+//define constants
 
 //sets max # of high scores
 
@@ -36,20 +30,25 @@ int AlphabetLength = 26;
 char AlphabetStart = 'A';
 char AlphabetEnd = 'Z';
 
-    //sort the high scores array
-    //source for sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
-    NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
-    NSArray *sorted = [self.highScoresArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-    self.highScoresArray = [[NSMutableArray alloc] initWithArray:sorted];
-    
-    //if we have too many scores, delete the smallest one
-    if ((int)[self.highScoresArray count] > (int)[self.maxHighScores intValue]) 
-    {
-        [self.highScoresArray removeLastObject];
-    }
-    return YES;
-  }
 
+
+
+
+//turns on/off "hidden" value for high scores table
+- (IBAction)viewHighScores:(id)sender
+{    
+    
+    HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
+    
+    highScoresController.maxHighScores = &(MaxHighScores);
+    highScoresController.highScoresArray = self.highScoresArray;
+    
+    highScoresController.delegate = (id)self;
+    highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    [self presentModalViewController:highScoresController animated:YES];
+
+}
 
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
@@ -381,10 +380,11 @@ char AlphabetEnd = 'Z';
     return YES;
 }
 
+#pragma mark - History View
 
 #pragma mark - HighScores View
 
-- (void)historyViewControllerDidFinish:(HistoryViewController *)controller
+- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
 }
