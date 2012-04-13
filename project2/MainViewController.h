@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSNumber *maxHighScores;
 @property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
-@property NSMutableArray *highScoresArray;
+@property (nonatomic, strong) NSMutableArray *highScoresArray;
 @property (strong) NSMutableArray *imageArray;
 @property int imageNumber;
 @property int imageIncrement;
