@@ -10,6 +10,8 @@
 
 @interface GamePlay : NSObject
 
+extern NSString *FileName;
+
 //dictionary of words
 @property (strong, nonatomic) NSMutableArray *words;
 

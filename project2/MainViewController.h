@@ -7,7 +7,7 @@
 //
 
 #import "FlipsideViewController.h"
-#import "HighScoresViewController.h"
+#import "HistoryViewController.h"
 
 @class GoodGamePlay, EvilGamePlay;
 
@@ -31,13 +31,19 @@
 @property (assign, nonatomic) unsigned int numberOfLetters;
 @property unsigned char guessedLetter;
 @property BOOL isEvil;
-@property (nonatomic, strong) NSNumber *maxHighScores;
 @property NSMutableString *alphabetString;
 @property NSMutableArray *partialWord;
-@property (nonatomic, strong) NSMutableArray *highScoresArray;
 @property (strong) NSMutableArray *imageArray;
 @property int imageNumber;
 @property int imageIncrement;
+
+//global constants
+extern int InitialNumberOfGuesses;
+extern int ImageArrayCapacity;
+extern int AlphabetLength;
+extern char AlphabetStart;
+extern char AlphabetEnd;
+
 
 //UI methods
 - (IBAction)viewHighScores:(id)sender;

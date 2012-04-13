@@ -38,7 +38,7 @@
 {    
     // load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
+                  [[NSBundle mainBundle] pathForResource:FileName ofType:@"plist"]];
 }
 
 

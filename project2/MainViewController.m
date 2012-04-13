@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "HighScoresViewController.h"
+#import "HistoryViewController.h"
 
 #import "EvilGamePlay.h"
 #import "GoodGamePlay.h"
@@ -28,8 +28,13 @@
     NSNumber *newScore = [[NSNumber alloc] init];
     newScore = [NSNumber numberWithInt:score];
 
-    //add score to the high scores array
-    [self.highScoresArray addObject:newScore];
+//sets max # of high scores
+
+int InitialNumberOfGuesses = 7;
+int ImageArrayCapacity = 27;
+int AlphabetLength = 26;
+char AlphabetStart = 'A';
+char AlphabetEnd = 'Z';
 
     //sort the high scores array
     //source for sort descending - http://stackoverflow.com/questions/3749657/nsmutablearray-arraywitharray-vs-initwitharray
@@ -191,10 +196,10 @@
 //renders the full alphabet with the start of each new game
 - (void)createNewGameView
 {
-    alphabetString = [NSMutableString stringWithCapacity: 26];
+    alphabetString = [NSMutableString stringWithCapacity: AlphabetLength];
     
     //render alphabet to represent unguessed letters
-    for(char c = 'A'; c <= 'Z'; c++)
+    for(char c = AlphabetStart; c <= AlphabetEnd; c++)
     {
         [alphabetString appendFormat: @"%c", c];
     }
@@ -218,7 +223,7 @@
 {
     //check to see how many letters are left and what letter was just used  
     int length = [self.remainingLettersLabel.text length];
-    alphabetString = [NSMutableString stringWithCapacity: 26];
+    alphabetString = [NSMutableString stringWithCapacity: AlphabetLength];
     
     //iterate through alphabet and remove letter that was just used
     for(int index = 0; index < length; index++) 
@@ -251,12 +256,6 @@
 {
     //initialize model based on Evil or not
     
-    //sets the max number of high scores
-    if (!self.maxHighScores) 
-    {
-        self.maxHighScores = [NSNumber numberWithInt: 2];
-    }
-    
     //initializes the set of all high scores
     if (!self.highScoresArray) 
     {
@@ -284,13 +283,13 @@
     if (!(self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"]))
     {
         //set a default number of guesses for first time playing
-        self.numberOfGuesses = 7;
+        self.numberOfGuesses = InitialNumberOfGuesses;
         [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
     }
     
     //load images for hangman
-    self.imageArray = [NSMutableArray arrayWithCapacity:27];
-    for (int i=0; i<27; i++)
+    self.imageArray = [NSMutableArray arrayWithCapacity:ImageArrayCapacity];
+    for (int i=0; i<ImageArrayCapacity; i++)
     {
         NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
         [self.imageArray addObject:[UIImage imageNamed:imageName]];
@@ -298,7 +297,7 @@
     
     //initialize imageNumber to zero, display first image (empty hangman)
     self.imageNumber = 0;
-    self.imageIncrement = 26/self.numberOfGuesses;
+    self.imageIncrement = (ImageArrayCapacity-1)/self.numberOfGuesses;
     self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
     
     //display number of guesses
@@ -385,7 +384,7 @@
 
 #pragma mark - HighScores View
 
-- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller
+- (void)historyViewControllerDidFinish:(HistoryViewController *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
 }

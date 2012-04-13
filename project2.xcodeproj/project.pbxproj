@@ -55,13 +55,14 @@
 		E7864B2C1534F444009E0AF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E7864B2A1534F444009E0AF3 /* InfoPlist.strings */; };
 		E7864B2F1534F444009E0AF3 /* Project2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864B2E1534F444009E0AF3 /* Project2Tests.m */; };
 		E7864B3D153507F8009E0AF3 /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
-		E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864D9E1537886200E127F3 /* HighScoresViewController.m */; };
-		E7864DA11537886300E127F3 /* HighScoresViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864D9F1537886300E127F3 /* HighScoresViewController.xib */; };
+		E7864DA01537886300E127F3 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864D9E1537886200E127F3 /* HistoryViewController.m */; };
+		E7864DA11537886300E127F3 /* HistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7864D9F1537886300E127F3 /* HistoryViewController.xib */; };
 		E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7864DAB1537D02800E127F3 /* GamePlay.m */; };
 		E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01A5D15279B3100D861AF /* EvilGamePlay.m */; };
 		E7B01AC61528F6DF00D861AF /* small.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AC51528F6DF00D861AF /* small.plist */; };
 		E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B01ACF152AA07500D861AF /* GoodGamePlay.m */; };
 		E7B01AD6152B039200D861AF /* README in Resources */ = {isa = PBXBuildFile; fileRef = E7B01AD5152B039200D861AF /* README */; };
+		E7E07E881538005200608852 /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E07E871538005200608852 /* History.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,9 +121,9 @@
 		E7864B2D1534F444009E0AF3 /* Project2Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Project2Tests.h; sourceTree = "<group>"; };
 		E7864B2E1534F444009E0AF3 /* Project2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project2Tests.m; sourceTree = "<group>"; };
 		E7864B301534F444009E0AF3 /* Project2Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project2Tests-Prefix.pch"; sourceTree = "<group>"; };
-		E7864D9D1537886200E127F3 /* HighScoresViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighScoresViewController.h; sourceTree = "<group>"; };
-		E7864D9E1537886200E127F3 /* HighScoresViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighScoresViewController.m; sourceTree = "<group>"; };
-		E7864D9F1537886300E127F3 /* HighScoresViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HighScoresViewController.xib; sourceTree = "<group>"; };
+		E7864D9D1537886200E127F3 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		E7864D9E1537886200E127F3 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		E7864D9F1537886300E127F3 /* HistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryViewController.xib; sourceTree = "<group>"; };
 		E7864DAA1537D02800E127F3 /* GamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePlay.h; sourceTree = "<group>"; };
 		E7864DAB1537D02800E127F3 /* GamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePlay.m; sourceTree = "<group>"; };
 		E7B01A5C15279B3100D861AF /* EvilGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvilGamePlay.h; sourceTree = "<group>"; };
@@ -131,6 +132,8 @@
 		E7B01ACE152AA07500D861AF /* GoodGamePlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoodGamePlay.h; path = ../GoodGamePlay.h; sourceTree = "<group>"; };
 		E7B01ACF152AA07500D861AF /* GoodGamePlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoodGamePlay.m; path = ../GoodGamePlay.m; sourceTree = "<group>"; };
 		E7B01AD5152B039200D861AF /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		E7E07E861538005200608852 /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = History.h; path = ../History.h; sourceTree = "<group>"; };
+		E7E07E871538005200608852 /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = History.m; path = ../History.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,9 +245,11 @@
 				E70AE749151C437B00FB7BAE /* MainViewController.xib */,
 				E70AE746151C437B00FB7BAE /* FlipsideViewController.h */,
 				E70AE747151C437B00FB7BAE /* FlipsideViewController.m */,
-				E7864D9D1537886200E127F3 /* HighScoresViewController.h */,
-				E7864D9E1537886200E127F3 /* HighScoresViewController.m */,
-				E7864D9F1537886300E127F3 /* HighScoresViewController.xib */,
+				E7E07E861538005200608852 /* History.h */,
+				E7E07E871538005200608852 /* History.m */,
+				E7864D9D1537886200E127F3 /* HistoryViewController.h */,
+				E7864D9E1537886200E127F3 /* HistoryViewController.m */,
+				E7864D9F1537886300E127F3 /* HistoryViewController.xib */,
 				013EA96A15229301008BF76B /* hangman.jpg */,
 				E70AE74C151C437B00FB7BAE /* FlipsideViewController.xib */,
 				E70AE738151C437A00FB7BAE /* Supporting Files */,
@@ -364,7 +369,7 @@
 				018467EF1527E78E001D0234 /* jong.png in Resources */,
 				E7B01AC61528F6DF00D861AF /* small.plist in Resources */,
 				E7B01AD6152B039200D861AF /* README in Resources */,
-				E7864DA11537886300E127F3 /* HighScoresViewController.xib in Resources */,
+				E7864DA11537886300E127F3 /* HistoryViewController.xib in Resources */,
 				015B40DB1537E1F900BC2629 /* 0.jpg in Resources */,
 				015B40DC1537E1F900BC2629 /* 1.jpg in Resources */,
 				015B40DD1537E1F900BC2629 /* 10.jpg in Resources */,
@@ -432,8 +437,9 @@
 				E70AE748151C437B00FB7BAE /* FlipsideViewController.m in Sources */,
 				E7B01A5E15279B3100D861AF /* EvilGamePlay.m in Sources */,
 				E7B01AD0152AA07500D861AF /* GoodGamePlay.m in Sources */,
-				E7864DA01537886300E127F3 /* HighScoresViewController.m in Sources */,
+				E7864DA01537886300E127F3 /* HistoryViewController.m in Sources */,
 				E7864DAC1537D02800E127F3 /* GamePlay.m in Sources */,
+				E7E07E881538005200608852 /* History.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
