@@ -10,19 +10,19 @@
 
 @interface GamePlay : NSObject
 
-extern NSString *FileName;
-
 //dictionary of words
 @property (strong, nonatomic) NSMutableArray *words;
+
 //list of letters already guessed
 @property (nonatomic, strong) NSMutableArray *usedLetters;
-
 
 //variables
 @property (nonatomic) int maxWordLength;
 @property (nonatomic) int minWordLength;
 @property (nonatomic) int wordLength;
-@property (nonatomic, strong) NSMutableArray *usedLetters;
+
+//global var of filename
+extern NSString *FileName;
 
 //methods
 - (void)loadDictionary;
@@ -31,13 +31,6 @@ extern NSString *FileName;
 - (BOOL)setWordLength;
 - (BOOL)letterValid: (NSString *) letter;
 - (NSString *)occurenceLocations: (NSString *) letter InWord: (NSString *) string;
-
-
-
-
-
-
-
 
 
 @end
