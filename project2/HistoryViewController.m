@@ -18,7 +18,8 @@
 
 @implementation HistoryViewController
 
-@synthesize maxHighScores, highScoresArray, tableView, delegate;
+@synthesize history = _history;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

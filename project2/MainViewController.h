@@ -9,13 +9,14 @@
 #import "FlipsideViewController.h"
 #import "HistoryViewController.h"
 
-@class GoodGamePlay, EvilGamePlay;
+@class GoodGamePlay, EvilGamePlay, History;
 
-@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, HighScoresViewControllerDelegate> 
+@interface MainViewController : UIViewController <FlipsideViewControllerDelegate, HistoryViewControllerDelegate> 
 
 //models
 @property (nonatomic, retain) EvilGamePlay* Evil;
 @property (nonatomic, retain) GoodGamePlay* Good;
+@property (nonatomic, retain) History* history;
 
 //UI widgets
 @property (nonatomic, weak) IBOutlet UILabel *remainingLettersLabel;
@@ -36,7 +37,6 @@
 @property (strong) NSMutableArray *imageArray;
 @property int imageNumber;
 @property int imageIncrement;
-@property (nonatomic, strong) History *history;
 
 //global constants
 extern int InitialNumberOfGuesses;
@@ -44,7 +44,6 @@ extern int ImageArrayCapacity;
 extern int AlphabetLength;
 extern char AlphabetStart;
 extern char AlphabetEnd;
-
 
 //UI methods
 - (IBAction)viewHighScores:(id)sender;
@@ -62,7 +61,7 @@ extern char AlphabetEnd;
 - (void)viewDidLoad;
 
 //controller methods
-- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller;
+- (void)historyViewControllerDidFinish:(HistoryViewController *)controller;
 - (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller;
 
 @end

@@ -20,12 +20,9 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, partialWordLabel, highScoresTable, alphabetString, partialWord, backButton, Evil, Good, isEvil, imageArray, imageNumber, imageIncrement, imageView, history;
 
 //define constants
-
-//sets max # of high scores
-
 int InitialNumberOfGuesses = 7;
 int ImageArrayCapacity = 27;
 int AlphabetLength = 26;
@@ -33,15 +30,11 @@ char AlphabetStart = 'A';
 char AlphabetEnd = 'Z';
 
 
-
-
-
-//turns on/off "hidden" value for high scores table
+//allows user to view high scores via HistoryViewController
 - (IBAction)viewHighScores:(id)sender
 {    
     
     HistoryViewController *highScoresController = [[HistoryViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
-    
     
     highScoresController.history = history;
 
@@ -55,6 +48,7 @@ char AlphabetEnd = 'Z';
 
 }
 
+
 //feeds user an alert when she clicks "New Game"
 - (IBAction)startNewGame:(id)sender
 {
@@ -66,6 +60,7 @@ char AlphabetEnd = 'Z';
                                               otherButtonTitles:@"Yes I am sure", nil];
     [alertView show];
 }
+
 
 //if user clicks "Yes" on alert popup to start New Game, refresh the view (& thus start new game)
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -107,10 +102,8 @@ char AlphabetEnd = 'Z';
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
-        [self addHighScore:score];
-        
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
-        
+                
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"You win! Joseph Lives"
                                                             message:text
                                                            delegate:self 
@@ -387,27 +380,9 @@ char AlphabetEnd = 'Z';
 
 #pragma mark - History View
 
-#pragma mark - HighScores View
-
-- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller
+- (void)historyViewControllerDidFinish:(HistoryViewController *)controller
 {
     [self dismissModalViewControllerAnimated:YES];
-}
-
-
-//flips to the high score controller 
-- (IBAction)viewHighScores:(id)sender
-{    
-    HighScoresViewController *highScoresController = [[HighScoresViewController alloc] initWithNibName:@"HighScoresViewController" bundle:nil];
-    
-    //pass max high scores and the array of scores into the high scores controller
-    highScoresController.maxHighScores = self.maxHighScores;
-    highScoresController.highScoresArray = self.highScoresArray;
-    
-    //set delegate to self so we can get back to MainViewController
-    highScoresController.delegate = (id)self;
-    highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:highScoresController animated:YES];
 }
 
 
