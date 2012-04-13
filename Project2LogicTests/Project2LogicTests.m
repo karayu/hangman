@@ -16,7 +16,6 @@
 
 @property (nonatomic, readwrite, strong) EvilGamePlay *evilLogic;
 @property (nonatomic, readwrite, strong) GoodGamePlay *goodLogic;
-
 @property (nonatomic, readwrite, strong) GamePlay *gameLogic;
 
 
@@ -91,41 +90,25 @@
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"HARE", @"HAT",@"CAT",@"GAT",@"TAG", nil];
-    if (! [[hashtable objectForKey:@"1"] isEqualToArray:tmp])
-        return No;
-    STAssertTrue([[hashtable objectForKey:@"0-2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '0-2'");
-
+    STAssertTrue([[hashtable objectForKey:@"1"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '1'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"BEAR", @"BOAR",@"DEAR",@"BLACK",@"READ",@"BEAB", @"DEAD", nil];
-    if (! [[hashtable objectForKey:@"2"] isEqualToArray:tmp])
-        return No;    
+    STAssertTrue([[hashtable objectForKey:@"2"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '2'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"PORA", nil];
-    if (! [[hashtable objectForKey:@"3"] isEqualToArray:tmp])
-        return No;
+    STAssertTrue([[hashtable objectForKey:@"3"] isEqualToArray:tmp], @"Hashtable not correct at equiv class '3'");
     [tmp removeAllObjects];
     
     //for each eq class, manually creates the array of words and checks it against the hashtable
     tmp = [[NSMutableArray alloc] initWithObjects:@"DUCK",@"BECK", nil];
-    if (! [[hashtable objectForKey:@"nonexistent"] isEqualToArray:tmp])
-        return No;
-    [tmp removeAllObjects];
-    
-    return true;
-    
-}
+    STAssertTrue([[hashtable objectForKey:@"nonexistent"] isEqualToArray:tmp], @"Hashtable not correct at equiv class 'nonexistent'");
 
-- (void) testWordsWithLetterInPosition
-{
-    NSMutableArray *new_words = [self.evilLogic words:self.evilLogic.words WithLetter: @"A" InPosition: @"1"];
-    
-    //just tests one instance... 
-    return [new_words isEqualToArray: [[NSMutableArray alloc] initWithObjects: @"HARE", @"HAT",@"CAT",@"GAT",@"TAG", nil]];
-    
+    [tmp removeAllObjects];
+        
 }
 
 
