@@ -64,7 +64,7 @@
     
     //converts the input to uppercase because our dictionary is uppercase
     letter = [letter uppercaseString];
-    
+
     //create the dictionary
     NSMutableDictionary *equivHash=[self words:self.words ByPositionForLetter:letter];
     
