@@ -18,7 +18,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position
 - (BOOL) addHighScore: (int) score
@@ -62,45 +62,7 @@
     highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
     [self presentModalViewController:highScoresController animated:YES];
-    
-    /*
-    //ANIMATED WOOOO!
-    CATransition *animation = [CATransition animation];
-    
-    //if the high scores table is hidden, unhide it when "High Scores" button is clicked
-    if (highScoresTable.hidden == YES) 
-    {
-        animation.type = kCATransitionMoveIn;
-        [highScoresTable.layer addAnimation:animation forKey:nil];
-        
-        //show high scores table
-        highScoresTable.hidden = NO;
-        
-        
-        [self tableView:highScoresTable cellForRowAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
 
-        NSLog(@"high scores are: %@", self.highScoresArray);
-
-        
-        //show back button with SICK animation
-        animation.type = kCATransitionFade;
-        [backButton.layer addAnimation:animation forKey:nil];
-        backButton.hidden = NO;
-    }
-    //hide table & button when "Back" button is clicked
-    else 
-    {
-        animation.type = kCATransitionPush;
-        [highScoresTable.layer addAnimation:animation forKey:nil];
-        
-        //hide high scores table since user is done viewing
-        highScoresTable.hidden = YES;
-        
-        //hide back button with sick animation
-        animation.type = kCATransitionFade;
-        [backButton.layer addAnimation:animation forKey:nil];
-        backButton.hidden = YES;
-    }*/
 }
 
 //feeds user an alert when she clicks "New Game"
@@ -130,8 +92,19 @@
     //send user an alert if she is out of guesses
     if (self.numberOfGuesses == 0) 
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"OH NO!" 
-                                                            message:@"You lose!  Joseph is dead!" 
+        //declare the string word
+        NSString *losingWord;
+        
+        //get losing word from Evil or Good
+        if (isEvil)
+           losingWord = [self.Evil losingWord];
+        else
+            losingWord = [self.Good word];
+        
+        //create losing message that gives user the word they were not smart enough to guess
+        NSString *losingMessage = [NSString stringWithFormat:@"In case you were wondering, your word was %@", losingWord];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"YOU LOSE!" 
+                                                            message:losingMessage
                                                            delegate:self 
                                                   cancelButtonTitle:@"New Game" 
                                                   otherButtonTitles:nil];
@@ -144,7 +117,7 @@
     else if (isEvil && [self.Evil checkGameWon]) 
     {
         int score = [self.Evil calculateScore];
-        
+        NSLog(@"score: %d", score);
         [self addHighScore:score];
         
         NSString *text = [NSString stringWithFormat:@"Score: %d", score];
@@ -162,7 +135,7 @@
     //if won, calculate score based on dictionary, word length, and # of guesses
     else if (!isEvil && [self.Good checkGameWon])
     {        
-        float score = [self.Good calculateScore];
+        int score = [self.Good calculateScore];
         
         [self addHighScore:score];
 
@@ -180,6 +153,7 @@
     }
 }
 
+
 //handles guessing of each letter
 - (void)guessLetter
 {
@@ -187,33 +161,46 @@
     NSString *letter = [NSString stringWithFormat:@"%c", self.guessedLetter];
     NSArray *letterPositions;
     
-    //depending on whether isEvil or not, grabs the letter positions of this letter
-    if (isEvil)
-        letterPositions = [self.Evil guessLetter:letter];
-    else
-        letterPositions = [self.Good guessLetter:letter];
-    
-    //letterPositions returns "nonexistent" if the letter is not even in the word
-    if ([letterPositions objectAtIndex:0]==@"nonexistent")
+    if ((isEvil && ![self.Evil letterValid:letter]) || (!isEvil && ![self.Good letterValid:letter]))
     {
-        self.numberOfGuesses--;
-        [self updateGuesses];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"HEY"
+                                                            message:@"You already guessed that!"
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"OK" 
+                                                  otherButtonTitles:nil];
+        [alertView show];
     }
-    //otherwise, iterate through all places to print out the letter wherever it shows up
     else 
     {
-        int count = [letterPositions count];
-        for (int index=0; index < count; index++)
+        //depending on whether isEvil or not, grabs the letter positions of this letter
+        if (isEvil)
+            letterPositions = [self.Evil guessLetter:letter];
+        else
+            letterPositions = [self.Good guessLetter:letter];
+        
+        //letterPositions returns "nonexistent" if the letter is not even in the word
+        if ([letterPositions objectAtIndex:0]==@"nonexistent")
         {
-            int position = [[letterPositions objectAtIndex:index] intValue];
-            
-            //update "partialWord" by replacing underscores with the letter
-            [self.partialWord replaceObjectAtIndex:position withObject:letter];
+            self.numberOfGuesses--;
+            [self updateGuesses];
         }
+        //otherwise, iterate through all places to print out the letter wherever it shows up
+        else 
+        {
+            int count = [letterPositions count];
+            for (int index=0; index < count; index++)
+            {
+                int position = [[letterPositions objectAtIndex:index] intValue];
+                
+                //update "partialWord" by replacing underscores with the letter
+                [self.partialWord replaceObjectAtIndex:position withObject:letter];
+            }
+        }
+        
+        //update textfield with new partialWord
+        self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
     }
-
-    //update textfield with new partialWord
-    self.dummyResponse.text = [self.partialWord componentsJoinedByString:@"  "];
+    
 }
 
 //renders the full alphabet with the start of each new game
@@ -262,10 +249,15 @@
     self.remainingLettersLabel.text = alphabetString;
 }
 
-//updates the number of guesses label with the current # of guesses remaining
+
+//updates the number of guesses label with the current # of guesses remaining and change images
 - (void)updateGuesses
 {
     self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+    
+    //change hangman image with each wrong guess
+    self.imageNumber = self.imageNumber + self.imageIncrement;
+    self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
 }
 
 //actions to perform with each reloading of the view (i.e. for every new game)
@@ -302,15 +294,30 @@
     //clear any input in textbox
     submitLetter.text = @"";
     
-    //display number of guesses from user's settings
+    //set number of guesses from user's settings
     if (!(self.numberOfGuesses = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfGuesses"]))
     {
         //set a default number of guesses for first time playing
         self.numberOfGuesses = 7;
         [[NSUserDefaults standardUserDefaults] setInteger:self.numberOfGuesses forKey:@"numberOfGuesses"];
     }
-    [self updateGuesses];
     
+    //load images for hangman
+    self.imageArray = [NSMutableArray arrayWithCapacity:27];
+    for (int i=0; i<27; i++)
+    {
+        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
+        [self.imageArray addObject:[UIImage imageNamed:imageName]];
+    }
+    
+    //initialize imageNumber to zero, display first image (empty hangman)
+    self.imageNumber = 0;
+    self.imageIncrement = 26/self.numberOfGuesses;
+    self.imageView.image = [imageArray objectAtIndex:self.imageNumber];
+    
+    //display number of guesses
+    self.numberOfGuessesLabel.text = [NSString stringWithFormat:@" %d", self.numberOfGuesses];
+
     //set number of letters to default user's settings
     if (!(self.numberOfLetters = [[NSUserDefaults standardUserDefaults] integerForKey:@"numberOfLetters"]))
     {

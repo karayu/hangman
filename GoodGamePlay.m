@@ -96,6 +96,20 @@
     
 }
 
+
+//figures out whether this letter has already been guessed before
+- (BOOL) letterValid: (NSString *) letter 
+{
+    //if self.usedLetters doesn't contain letter
+    if ([self.usedLetters indexOfObject: letter] == NSNotFound) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+
 //when the user sets the word length, sets the wordLength variable and changes words to include only words of this length
 - (BOOL) setWordLength
 {
@@ -221,7 +235,7 @@
 - (int) calculateScore
 {
     float percentAccuracy =  (float)_wordLength /  (float)[_usedLetters count];
-    return percentAccuracy*_wordLength*10000;
+    return percentAccuracy*_wordLength*1500;
 }
 
 
