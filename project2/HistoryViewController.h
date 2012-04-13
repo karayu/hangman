@@ -1,5 +1,5 @@
 //
-//  HighScoresViewController.h
+//  HistoryViewController.h
 //  project2
 //
 //  Created by Kara Yu on 4/12/12.
@@ -9,23 +9,23 @@
 #import <UIKit/UIKit.h>
 
 
-@class HighScoresViewController;
+@class HistoryViewController;
 
-@protocol HighScoresViewControllerDelegate
-- (void)highScoresViewControllerDidFinish:(HighScoresViewController *)controller;
+@protocol HistoryViewControllerDelegate
+- (void)historyViewControllerDidFinish:(HistoryViewController *)controller;
 @end
 
-@interface HighScoresViewController : UITableViewController
+@interface HistoryViewController : UITableViewController
 
 //variables
-@property (nonatomic, strong) NSNumber *maxHighScores;
+@property int *maxHighScores;
 @property (nonatomic, strong) NSMutableArray *highScoresArray;
 
 //UI widgets
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 //delegate
-@property (weak, nonatomic) id <HighScoresViewControllerDelegate> delegate; 
+@property (weak, nonatomic) id <HistoryViewControllerDelegate> delegate; 
 
 
 //classes

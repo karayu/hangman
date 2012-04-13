@@ -1,18 +1,20 @@
 //
-//  HighScoresViewController.m
+//  HistoryViewController.m
 //  project2
 //
 //  Created by Kara Yu on 4/12/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "HighScoresViewController.h"
+#import "HistoryViewController.h"
+#import "MainViewController.h"
 
-@interface HighScoresViewController ()
+
+@interface HistoryViewController ()
 
 @end
 
-@implementation HighScoresViewController
+@implementation HistoryViewController
 
 @synthesize maxHighScores = _maxHighScores;
 @synthesize highScoresArray = _highScoresArray;
@@ -28,7 +30,7 @@
         
         if (!self.maxHighScores) 
         {
-            self.maxHighScores = [[NSNumber alloc] init];
+            //self.maxHighScores = [MainViewController MaxHighScores] ;
             //self.maxHighScores = [NSNumber numberWithInt: 2];
         }
         
@@ -124,7 +126,7 @@
 //when user is done editing settings, save final variables as defaults
 - (IBAction)done:(id)sender
 {
-    [self.delegate highScoresViewControllerDidFinish:self];
+    [self.delegate historyViewControllerDidFinish:self];
 }
 
 

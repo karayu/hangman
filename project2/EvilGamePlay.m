@@ -88,6 +88,13 @@
             //update the number of words to be the # of words with that key
             mostWords = [value count];
         }
+        else if ([value count] == mostWords) 
+        {
+            //randomly decides if we shd stick with current eq class or new one if they're equal
+            int r = arc4random() % 2;
+            if (r) 
+                bestPosition = key;
+        }
     }
     
     //adds the letter to used letters list
