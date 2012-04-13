@@ -19,11 +19,6 @@
 
 
 //word list given new letter from user
-@synthesize wordLength = _wordLength;
-@synthesize maxWordLength =_maxWordLength;
-@synthesize minWordLength =_minWordLength;
-@synthesize usedLetters = _usedLetters;
-
 @synthesize maxHighScores = _maxHighScores;
 @synthesize highScores = _highScores;
 
@@ -42,7 +37,6 @@
         //sets word length for this round of play
         [self setWordLength];
         
-    int maxLength = 0;
         self.usedLetters = [[NSMutableArray alloc] init];
         
         //sets max # of high scores we track
@@ -145,7 +139,7 @@
 {    
     // load plist file into dictionary
     self.words = [[NSMutableArray alloc] initWithContentsOfFile:
-                                  [[NSBundle mainBundle] pathForResource:@"words" ofType:@"plist"]];
+                                  [[NSBundle mainBundle] pathForResource:@"small" ofType:@"plist"]];
 }
 
 
@@ -198,13 +192,15 @@
 - (int) calculateScore
 {
     
-    //the positions where the letter should appear
-    NSString *bestPosition;
+    float percentAccuracy =  (float)self.wordLength /  (float)self.usedLetters.count;
+    int score =  percentAccuracy*(self.wordLength)*10000;
+    
+    return score;
         
 }
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position
-- (BOOL) addHighScore: (float) score
+- (BOOL) addHighScore: (int) score
 {
     NSNumber *newScore = [NSNumber numberWithFloat:score];
                           
@@ -221,7 +217,7 @@
                 [self.highScores addObject:newScore];
                 
                 //if high scores table is too big, kick off the last score
-                if (self.highScores.count > self.maxHighScores) 
+                if ([self.highScores count] > self.maxHighScores) 
                 {
                     [self.highScores removeLastObject];
                 }

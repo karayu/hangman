@@ -17,6 +17,7 @@
 @property (nonatomic, readwrite) int wordLength;
 @property (nonatomic, readwrite) int maxWordLength;
 @property (nonatomic, readwrite) int minWordLength;
+@property (nonatomic, readwrite) int maxHighScores;
 
 //leters that the users have guessed
 
@@ -35,7 +36,7 @@
 - (void)loadDictionary;
 - (NSString *) losingWord;
 - (BOOL) letterValid: (NSString *) letter;
-- (BOOL) addHighScore: (float) score;
+- (BOOL) addHighScore: (int) score;
 
 //the main brains behind everything
 - (NSArray *) guessLetter: (NSString *) letter;

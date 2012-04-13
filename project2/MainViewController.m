@@ -18,7 +18,7 @@
 
 @implementation MainViewController
 
-@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores;
+@synthesize remainingLettersLabel, numberOfLetters, numberOfGuesses, numberOfGuessesLabel, submitLetter, guessedLetter, dummyResponse, highScoresTable, alphabetString, partialWord, highScoresArray, backButton, Evil, Good, isEvil, maxHighScores, imageArray, imageNumber, imageIncrement, imageView;
 
 //Depending on how high the score is, adds the high score to the high scores table, in the right position
 - (BOOL) addHighScore: (int) score
@@ -62,45 +62,7 @@
     highScoresController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
     [self presentModalViewController:highScoresController animated:YES];
-    
-    /*
-    //ANIMATED WOOOO!
-    CATransition *animation = [CATransition animation];
-    
-    //if the high scores table is hidden, unhide it when "High Scores" button is clicked
-    if (highScoresTable.hidden == YES) 
-    {
-        animation.type = kCATransitionMoveIn;
-        [highScoresTable.layer addAnimation:animation forKey:nil];
-        
-        //show high scores table
-        highScoresTable.hidden = NO;
-        
-        
-        [self tableView:highScoresTable cellForRowAtIndexPath:[NSIndexPath indexPathWithIndex:0]];
 
-        NSLog(@"high scores are: %@", self.highScoresArray);
-
-        
-        //show back button with SICK animation
-        animation.type = kCATransitionFade;
-        [backButton.layer addAnimation:animation forKey:nil];
-        backButton.hidden = NO;
-    }
-    //hide table & button when "Back" button is clicked
-    else 
-    {
-        animation.type = kCATransitionPush;
-        [highScoresTable.layer addAnimation:animation forKey:nil];
-        
-        //hide high scores table since user is done viewing
-        highScoresTable.hidden = YES;
-        
-        //hide back button with sick animation
-        animation.type = kCATransitionFade;
-        [backButton.layer addAnimation:animation forKey:nil];
-        backButton.hidden = YES;
-    }*/
 }
 
 //feeds user an alert when she clicks "New Game"
